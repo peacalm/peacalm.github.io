@@ -23,7 +23,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="lishuangquan" />
-  <meta name="description" content="lib MyOStream on github 使用C&#43;&#43;编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印 输出，相比之下Python," />
+  <meta name="description" content="使用C&#43;&#43;编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印 输出，相比之下Python, Gola" />
 
   <meta name="keywords" content="lishuangquan, blog, software" />
 
@@ -60,19 +60,19 @@
 
 
 <meta property="og:title" content="C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器" />
-<meta property="og:description" content="lib MyOStream on github 使用C&#43;&#43;编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印 输出，相比之下Python," />
+<meta property="og:description" content="使用C&#43;&#43;编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印 输出，相比之下Python, Gola" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://peacalm.github.io/post/myostream/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-03-17T01:12:25+08:00" />
 <meta property="article:modified_time" content="2022-03-17T01:12:25+08:00" />
 
 <meta itemprop="name" content="C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器">
-<meta itemprop="description" content="lib MyOStream on github 使用C&#43;&#43;编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印 输出，相比之下Python,"><meta itemprop="datePublished" content="2022-03-17T01:12:25+08:00" />
+<meta itemprop="description" content="使用C&#43;&#43;编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印 输出，相比之下Python, Gola"><meta itemprop="datePublished" content="2022-03-17T01:12:25+08:00" />
 <meta itemprop="dateModified" content="2022-03-17T01:12:25+08:00" />
-<meta itemprop="wordCount" content="389">
+<meta itemprop="wordCount" content="425">
 <meta itemprop="keywords" content="C&#43;&#43;,库,输出库,debug tool,watch tool,ACMer助手," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器"/>
-<meta name="twitter:description" content="lib MyOStream on github 使用C&#43;&#43;编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印 输出，相比之下Python,"/>
+<meta name="twitter:description" content="使用C&#43;&#43;编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印 输出，相比之下Python, Gola"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -327,13 +327,15 @@
 
     
     <div class="post-content">
-      <ul>
-<li><a href="https://github.com/peacalm/myostream">lib MyOStream on github</a></li>
-</ul>
-<p>使用C++编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印
+      <p>使用C++编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印
 输出，相比之下Python, Golang等语言就可以直接对所有数据类型打印输出，这对于debug是很友好的特性。
-因此，我开发了一个简单的C++库，几乎能够对所有容器直接打印输出，说几乎是因为我们只能对成员可访问可
-迭代的容器支持这个特性。</p>
+因此，我开发了一个简单的C++库，几乎能够对所有容器直接打印输出，说几乎是因为我们只能对成员可访问
+可迭代的容器支持这个特性。</p>
+<p>支持的类型如下，以及他们的组合类型：</p>
+<p>std::pair, std::tuple, std::array, std::deque,
+std::forward_list, std::initializer_list, std::list, std::vector,
+std::set, std::multiset, std::unordered_set, std::unordered_multiset,
+std::map, std::multimap, std::unordered_map, std::unordered_multimap.</p>
 <p>特别的，我们在打ACM比赛或做类似的OJ题目的过程中，需要debug的时候，我们
 不仅想要打印容器里的值，而且还想要同时打印出变量名，以便我们在解题时，如果定义了多个容器变量，我们
 可以知道哪个变量的值使哪一个值，因此我设计了watch功能。</p>
@@ -357,6 +359,10 @@
 </code></pre></div><p>在本地编译运行，可以输出：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">v = [1, 2, 3]
 </code></pre></div><p>而在线提交，或定义了宏ONLINE_JUDGE后，则什么都不输出。</p>
+<h1 id="附录">附录</h1>
+<ul>
+<li><a href="https://github.com/peacalm/myostream">lib MyOStream on github</a></li>
+</ul>
 
     </div>
 
