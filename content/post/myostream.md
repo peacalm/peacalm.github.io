@@ -3,7 +3,7 @@ title: "C++轻量级输出库MyOStream：可打印输出所有成员可迭代的
 date: 2022-03-17T01:12:25+08:00
 draft: false
 tags: ["C++", "库", "输出库", "debug tool", "watch tool", "ACMer助手"]
-categories: ["C++"]
+categories: ["技术", "C++"]
 ---
 
 使用C++编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印
