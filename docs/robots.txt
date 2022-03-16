@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: http://peacalm.github.io/sitemap.xml
+Sitemap: https://peacalm.github.io/sitemap.xml

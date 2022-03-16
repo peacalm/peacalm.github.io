@@ -2,7 +2,7 @@
 # If you want to see the full configuration, please check `full-config.toml` .
 # And see https://gohugo.io/getting-started/configuration/ .
 
-baseURL = "http://peacalm.github.io/"
+baseURL = "https://peacalm.github.io/"
 title = "Peacalm - lishuangquan's website"
 enableRobotsTXT = true
 enableEmoji = true

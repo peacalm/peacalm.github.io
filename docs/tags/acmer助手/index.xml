@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ACMer助手 on Peacalm - lishuangquan&#39;s website</title>
-    <link>http://peacalm.github.io/tags/acmer%E5%8A%A9%E6%89%8B/</link>
+    <link>https://peacalm.github.io/tags/acmer%E5%8A%A9%E6%89%8B/</link>
     <description>Recent content in ACMer助手 on Peacalm - lishuangquan&#39;s website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 17 Mar 2022 01:12:25 +0800</lastBuildDate><atom:link href="http://peacalm.github.io/tags/acmer%E5%8A%A9%E6%89%8B/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 17 Mar 2022 01:12:25 +0800</lastBuildDate><atom:link href="https://peacalm.github.io/tags/acmer%E5%8A%A9%E6%89%8B/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器</title>
-      <link>http://peacalm.github.io/post/myostream/</link>
+      <link>https://peacalm.github.io/post/myostream/</link>
       <pubDate>Thu, 17 Mar 2022 01:12:25 +0800</pubDate>
       
-      <guid>http://peacalm.github.io/post/myostream/</guid>
+      <guid>https://peacalm.github.io/post/myostream/</guid>
       <description>使用C++编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印 输出，相比之下Python, Gola</description>
     </item>
     
