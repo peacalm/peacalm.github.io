@@ -3,7 +3,7 @@
 # And see https://gohugo.io/getting-started/configuration/ .
 
 baseURL = "http://peacalm.github.io/"
-title = "Peacalm - lishuangquan's blog"
+title = "Peacalm - lishuangquan's website"
 enableRobotsTXT = true
 enableEmoji = true
 theme = "hugo-theme-jane"
