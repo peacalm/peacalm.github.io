@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Peacalm Notes - lishuangquan&#39;s website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 17 Mar 2022 01:12:25 +0800</lastBuildDate><atom:link href="https://peacalm.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 17 Mar 2022 02:50:04 +0800</lastBuildDate><atom:link href="https://peacalm.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bytedance Growth</title>
+      <link>https://peacalm.github.io/post/bytedance-growth/</link>
+      <pubDate>Thu, 17 Mar 2022 02:50:04 +0800</pubDate>
+      
+      <guid>https://peacalm.github.io/post/bytedance-growth/</guid>
+      <description>2012年3月9日，字节跳动Bytedance成立于北京锦秋家园。天使轮，500万元，顺为资本、晨兴资本投资。 2012年7月，A轮融资，50</description>
+    </item>
+    
     <item>
       <title>C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器</title>
       <link>https://peacalm.github.io/post/myostream/</link>

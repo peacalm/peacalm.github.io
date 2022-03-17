@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://peacalm.github.io/post/bytedance-growth/</loc>
+    <lastmod>2022-03-17T02:50:04+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://peacalm.github.io/</loc>
+    <lastmod>2022-03-17T02:50:04+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://peacalm.github.io/post/</loc>
+    <lastmod>2022-03-17T02:50:04+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://peacalm.github.io/tags/acmer%E5%8A%A9%E6%89%8B/</loc>
     <lastmod>2022-03-17T01:12:25+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -38,20 +59,6 @@
   
   <url>
     <loc>https://peacalm.github.io/tags/debug-tool/</loc>
-    <lastmod>2022-03-17T01:12:25+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://peacalm.github.io/</loc>
-    <lastmod>2022-03-17T01:12:25+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://peacalm.github.io/post/</loc>
     <lastmod>2022-03-17T01:12:25+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
