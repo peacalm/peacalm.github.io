@@ -1,7 +1,10 @@
 ---
 title: "Parameters Management for Online Service"
-date: 2022-03-17T22:01:30+08:00
+date:    2022-03-17T22:01:30+08:00
+lastmod: 2022-03-17T22:01:30+08:00
 draft: true
+tags: []
+categories: ["技术"]
 ---
 
 * 默认配置参数：分为远程配置和本地配置。远程配置可动态修改、动态加载，而不需要升级或重启服务，使用方便，

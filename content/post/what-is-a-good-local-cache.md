@@ -1,7 +1,10 @@
 ---
 title: "What Is a Good Local Cache"
-date: 2022-03-17T21:15:21+08:00
+date:    2022-03-17T21:15:21+08:00
+lastmod: 2022-03-17T21:15:21+08:00
 draft: true
+tags: []
+categories: ["技术"]
 ---
 
 # 灵活好用

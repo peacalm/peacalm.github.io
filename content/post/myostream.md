@@ -1,6 +1,7 @@
 ---
 title: "C++轻量级输出库MyOStream：可打印输出所有成员可迭代的容器"
 date: 2022-03-17T01:12:25+08:00
+lastmod: 2022-03-18T00:54:42+08:00
 draft: false
 tags: ["C++", "库", "输出库", "debug tool", "watch tool", "ACMer助手"]
 categories: ["技术", "C++"]
