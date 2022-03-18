@@ -114,6 +114,10 @@ defaultContentLanguage = "en"           # Default language to use
   [params.counter.busuanzi]  # a Chinese visitor counter  # 不蒜子计数器
     enable = true
 
+  [params.utteranc]         # utteranc is a comment system based on GitHub issues. see https://utteranc.es
+    enable = true
+    repo = "peacalm/comments-for-peacalm.github.io"    # The repo to store comments
+    issueTerm = "pathname"
 
   # use public git repo url to link lastmod git commit, enableGitInfo should be true.
   # 指定 git 仓库地址，可以生成指向最近更新的 git commit 的链接，需要将 enableGitInfo 设置成 true.
