@@ -2,8 +2,8 @@
 title: "Bytedance Growth"
 date: 2022-03-17T02:50:04+08:00
 draft: false
-tags: []
-categories: []
+tags: ["字节跳动", "Bytedance", "企业发展", "融资"]
+categories: ["企业"]
 ---
 
 - 2012年3月9日，字节跳动Bytedance成立于北京海淀锦秋家园一个四居室内。天使轮，500万元，顺为资本、晨兴资本投资。
