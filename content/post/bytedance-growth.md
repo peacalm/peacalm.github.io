@@ -1,5 +1,5 @@
 ---
-title: "Bytedance Growth"
+title: "字节跳动发展史"
 date: 2022-03-17T02:50:04+08:00
 draft: false
 tags: ["字节跳动", "Bytedance", "企业发展", "融资"]
