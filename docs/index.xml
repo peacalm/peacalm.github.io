@@ -6,63 +6,15 @@
     <description>Recent content on Peacalm Notes - lishuangquan&#39;s website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 17 Mar 2022 01:12:25 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 17 Mar 2022 02:50:04 +0800</lastBuildDate>
     
         <atom:link href="https://peacalm.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器</title>
-      <link>https://peacalm.github.io/post/myostream/</link>
-      <pubDate>Thu, 17 Mar 2022 01:12:25 +0800</pubDate>
-      
-      <guid>https://peacalm.github.io/post/myostream/</guid>
-      
-        <description>&lt;h1 id=&#34;懒汉的烦恼&#34;&gt;懒汉的烦恼&lt;/h1&gt;
-&lt;p&gt;使用C++编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印输出。
-相比之下Python, Golang等语言就可以直接对所有数据类型打印输出，这对于debug是很友好的特性。
-因此，我开发了一个简单的C++库，几乎能够对所有容器直接打印输出，说几乎是因为我们只能对成员可访问可迭代的容器支持这个特性。&lt;/p&gt;
-&lt;p&gt;支持的类型如下，以及他们的组合类型：&lt;/p&gt;
-&lt;p&gt;std::pair, std::tuple, std::array, std::deque,
-std::forward_list, std::initializer_list, std::list, std::vector,
-std::set, std::multiset, std::unordered_set, std::unordered_multiset,
-std::map, std::multimap, std::unordered_map, std::unordered_multimap.&lt;/p&gt;
-&lt;h1 id=&#34;acmer助手&#34;&gt;ACMer助手&lt;/h1&gt;
-&lt;p&gt;特别的，我们在打ACM比赛或做类似的OJ题目的过程中，需要debug的时候，我们不仅想要打印容器里的值，
-而且还想要同时打印出变量名，以便我们在解题时，如果定义了多个容器变量，我们可以知道哪个变量的值使哪一个值，
-因此我设计了watch功能。&lt;/p&gt;
-&lt;p&gt;例如，如下debug代码：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;vector&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;#ifndef ONLINE_JUDGE
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;myostream.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;myostream&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;ostream mycout(std&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;cout.rdbuf());
-&lt;span style=&#34;color:#75715e&#34;&gt;#define watch(...) MYOSTREAM_WATCH(mycout, &amp;#34; = &amp;#34;, &amp;#34;\n&amp;#34;, &amp;#34;\n\n&amp;#34;, __VA_ARGS__)
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#else
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define watch(...)
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#endif
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;() {
-  std&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;vector&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; v{&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;};
-  watch(v);
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在本地编译运行，可以输出：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;v = [1, 2, 3]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;而在线提交，或定义了宏ONLINE_JUDGE后，则什么都不输出。&lt;/p&gt;
-&lt;h1 id=&#34;附录&#34;&gt;附录&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/peacalm/myostream&#34;&gt;lib MyOStream on github&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-      
-    </item>
-    
-    <item>
       <title>字节跳动发展史</title>
       <link>https://peacalm.github.io/post/bytedance-growth/</link>
-      <pubDate>Fri, 04 Mar 2022 02:50:04 +0800</pubDate>
+      <pubDate>Thu, 17 Mar 2022 02:50:04 +0800</pubDate>
       
       <guid>https://peacalm.github.io/post/bytedance-growth/</guid>
       
@@ -158,13 +110,13 @@ std::map, std::multimap, std::unordered_map, std::unordered_multimap.&lt;/p&gt;
 &lt;p&gt;2016年10月，今日头条激活用户数超过6亿，MAU超过1.4亿，DAU超过6600万，单用户日均使用时长超过76分钟。&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;2016年12月底，今日头条累计激活用户数超过7亿，DAU超过7800万。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
 &lt;p&gt;2016年12月，&lt;strong&gt;D轮融资&lt;/strong&gt;，10亿美元，建银国际、红杉资本投资。公司估值110亿美元。&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;2016年营收约60亿元。公司人数4千？&lt;/p&gt;
+&lt;p&gt;2016年底，今日头条累计激活用户数超过7亿，DAU超过7800万。公司人数4千？&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;2016年营收约60亿元。&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;2017年2月，5000万美元全资收购美国移动短视频创作者社区Flipagram。&lt;/p&gt;
@@ -180,7 +132,10 @@ std::map, std::multimap, std::unordered_map, std::unordered_multimap.&lt;/p&gt;
 Musical.ly MAU6000万，美国MAU2000万，49%的用户都在美国。&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;2017年营收约160亿元。公司人数1.3万？&lt;/p&gt;
+&lt;p&gt;2017年底，公司人数1.3万？&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;2017年营收约160亿元。&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;2018年1月，TikTok MAU5500万。&lt;/p&gt;
@@ -204,7 +159,10 @@ Musical.ly MAU6000万，美国MAU2000万，49%的用户都在美国。&lt;/p&gt;
 &lt;p&gt;2018年12月，TikTok MAU 2.7亿。&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;2018年营收约500亿元。公司人数3.5万？&lt;/p&gt;
+&lt;p&gt;2018年底，公司人数3.5万？&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;2018年营收约500亿元。&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;2019年4月，年终奖换期权价格为44美元/股，外部市场期权价格为60美元/股，73%折价。公司估值900亿美元？&lt;/p&gt;
@@ -234,10 +192,10 @@ Musical.ly MAU6000万，美国MAU2000万，49%的用户都在美国。&lt;/p&gt;
 &lt;p&gt;2020年10月，&lt;strong&gt;战略融资&lt;/strong&gt;，20亿美元，红杉资本、KKR等投资。公司估值1800亿美元。&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;2020年底，员工数超过十万人，其中正式员工近9万人。&lt;/p&gt;
+&lt;p&gt;2020年底，全球所有应用程序的月活用户数达19亿。员工数超过十万人，其中正式员工近9万人。&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;2020年营收约2400亿元。营收343亿美元，毛利润增长93%至190亿美元，经营亏损21亿美元。全球所有应用程序的月活用户数达19亿。&lt;/p&gt;
+&lt;p&gt;2020年营收约2400亿元。营收343亿美元，毛利润增长93%至190亿美元，经营亏损21亿美元。&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;2021年3月，40美元收购沐瞳科技（100亿人民币现金和价值150亿人民币的股权）。&lt;/p&gt;
@@ -254,6 +212,54 @@ Musical.ly MAU6000万，美国MAU2000万，49%的用户都在美国。&lt;/p&gt;
 &lt;li&gt;
 &lt;p&gt;2021年9月，TikTok MAU 10亿，DAU 6亿。&lt;/p&gt;
 &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器</title>
+      <link>https://peacalm.github.io/post/myostream/</link>
+      <pubDate>Thu, 17 Mar 2022 01:12:25 +0800</pubDate>
+      
+      <guid>https://peacalm.github.io/post/myostream/</guid>
+      
+        <description>&lt;h1 id=&#34;懒汉的烦恼&#34;&gt;懒汉的烦恼&lt;/h1&gt;
+&lt;p&gt;使用C++编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印输出。
+相比之下Python, Golang等语言就可以直接对所有数据类型打印输出，这对于debug是很友好的特性。
+因此，我开发了一个简单的C++库，几乎能够对所有容器直接打印输出，说几乎是因为我们只能对成员可访问可迭代的容器支持这个特性。&lt;/p&gt;
+&lt;p&gt;支持的类型如下，以及他们的组合类型：&lt;/p&gt;
+&lt;p&gt;std::pair, std::tuple, std::array, std::deque,
+std::forward_list, std::initializer_list, std::list, std::vector,
+std::set, std::multiset, std::unordered_set, std::unordered_multiset,
+std::map, std::multimap, std::unordered_map, std::unordered_multimap.&lt;/p&gt;
+&lt;h1 id=&#34;acmer助手&#34;&gt;ACMer助手&lt;/h1&gt;
+&lt;p&gt;特别的，我们在打ACM比赛或做类似的OJ题目的过程中，需要debug的时候，我们不仅想要打印容器里的值，
+而且还想要同时打印出变量名，以便我们在解题时，如果定义了多个容器变量，我们可以知道哪个变量的值使哪一个值，
+因此我设计了watch功能。&lt;/p&gt;
+&lt;p&gt;例如，如下debug代码：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;vector&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#ifndef ONLINE_JUDGE
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;myostream.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;myostream&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;ostream mycout(std&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;cout.rdbuf());
+&lt;span style=&#34;color:#75715e&#34;&gt;#define watch(...) MYOSTREAM_WATCH(mycout, &amp;#34; = &amp;#34;, &amp;#34;\n&amp;#34;, &amp;#34;\n\n&amp;#34;, __VA_ARGS__)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#else
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define watch(...)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#endif
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;() {
+  std&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;vector&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; v{&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;};
+  watch(v);
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在本地编译运行，可以输出：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;v = [1, 2, 3]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;而在线提交，或定义了宏ONLINE_JUDGE后，则什么都不输出。&lt;/p&gt;
+&lt;h1 id=&#34;附录&#34;&gt;附录&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/peacalm/myostream&#34;&gt;lib MyOStream on github&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
       
