@@ -49,7 +49,7 @@ App --> Cache --> DataSource
   * peek:        本次Query只读取Cache数据，即时Miss或Expired也不从数据源服务获取最新数据。
   * stale:       本次Query读取Cache数据时，可以接受过期的数据。
   * fast:        本次Query只返回Cache里的数据，如果Miss或Expired，则发送reload任务刷新缓存，不阻塞当前Query。
-  * preload:     本次Query如果在Cache中读取到合法数据，但是数据快过期了，比如已过了过期时间的80%，则发送一个eload任务来刷新缓存。
+  * preload:     本次Query如果在Cache中读取到合法数据，但是数据快过期了，比如已过了过期时间的80%，则发送一个Reload任务来刷新缓存。
 * 内置线程池可执行Reload任务，从数据源服务获取数据并填充Cache。
 * 可配置内置WatchDog线程，检查快要过期的数据并发送Reload任务，或清理过期数据等。
 * 可迭代操作Cache中的每一条数据，例如把Cache中的数据读出写入到其他设备。
