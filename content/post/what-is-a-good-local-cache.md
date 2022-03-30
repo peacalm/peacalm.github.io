@@ -38,6 +38,7 @@ App --> Cache --> DataSource
 
 * 具有单Key读写接口，也具有Batch读写接口。
 * 可以动态修改CacheSize，一般指缓存的数据条目数。
+* 可配置缓存策略，例如：LRU，LRU-k(lazy list adjustment)，FIFO等。
 * 可以设置一个数据的默认过期时间，也可以动态设置每一个Key的过期时间，特别的，在插入或读取时都可以设置和判断过期。
 * 可以配置读取数据源服务的CallbackOnFetching方法，以便应用Wrapper模式，当Key不存在或过期时，用来获取新数据。
 * 过期数据不自动删除，可配置一个CallbackOnExpiration方法来注入对过期数据的处理方式。比如可以删除数据，或把过期数据发送到某个消息队列、写入硬盘等，
@@ -51,7 +52,6 @@ App --> Cache --> DataSource
   * preload:     本次Query如果在Cache中读取到合法数据，但是数据快过期了，比如已过了过期时间的80%，则发送一个eload任务来刷新缓存。
 * 内置线程池可执行Reload任务，从数据源服务获取数据并填充Cache。
 * 可配置内置WatchDog线程，检查快要过期的数据并发送Reload任务，或清理过期数据等。
-* 可配置缓存策略，例如：LRU，LRU-k(lazy list adjustment)，FIFO等。
 * 可迭代操作Cache中的每一条数据，例如把Cache中的数据读出写入到其他设备。
 
 # 高性能
