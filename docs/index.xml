@@ -71,9 +71,57 @@ App  --&amp;gt;   DataSource
     </item>
     
     <item>
+      <title>C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器</title>
+      <link>https://peacalm.github.io/post/myostream/</link>
+      <pubDate>Thu, 17 Mar 2022 01:12:25 +0800</pubDate>
+      
+      <guid>https://peacalm.github.io/post/myostream/</guid>
+      
+        <description>&lt;h1 id=&#34;懒汉的烦恼&#34;&gt;懒汉的烦恼&lt;/h1&gt;
+&lt;p&gt;使用C++编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印输出。
+相比之下Python, Golang等语言就可以直接对所有数据类型打印输出，这对于debug是很友好的特性。
+因此，我开发了一个简单的C++库，几乎能够对所有容器直接打印输出，说几乎是因为我们只能对成员可访问可迭代的容器支持这个特性。&lt;/p&gt;
+&lt;p&gt;支持的类型如下，以及他们的组合类型：&lt;/p&gt;
+&lt;p&gt;std::pair, std::tuple, std::array, std::deque,
+std::forward_list, std::initializer_list, std::list, std::vector,
+std::set, std::multiset, std::unordered_set, std::unordered_multiset,
+std::map, std::multimap, std::unordered_map, std::unordered_multimap.&lt;/p&gt;
+&lt;h1 id=&#34;acmer助手&#34;&gt;ACMer助手&lt;/h1&gt;
+&lt;p&gt;特别的，我们在打ACM比赛或做类似的OJ题目的过程中，需要debug的时候，我们不仅想要打印容器里的值，
+而且还想要同时打印出变量名，以便我们在解题时，如果定义了多个容器变量，我们可以知道哪个变量的值使哪一个值，
+因此我设计了watch功能。&lt;/p&gt;
+&lt;p&gt;例如，如下debug代码：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;vector&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;#ifndef ONLINE_JUDGE
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;myostream.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;myostream&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;ostream mycout(std&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;cout.rdbuf());
+&lt;span style=&#34;color:#75715e&#34;&gt;#define watch(...) MYOSTREAM_WATCH(mycout, &amp;#34; = &amp;#34;, &amp;#34;\n&amp;#34;, &amp;#34;\n\n&amp;#34;, __VA_ARGS__)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#else
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define watch(...)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#endif
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;() {
+  std&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;vector&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; v{&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;};
+  watch(v);
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在本地编译运行，可以输出：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;v = [1, 2, 3]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;而在线提交，或定义了宏ONLINE_JUDGE后，则什么都不输出。&lt;/p&gt;
+&lt;h1 id=&#34;附录&#34;&gt;附录&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/peacalm/myostream&#34;&gt;lib MyOStream on github&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      
+    </item>
+    
+    <item>
       <title>字节跳动发展史</title>
       <link>https://peacalm.github.io/post/bytedance-growth/</link>
-      <pubDate>Thu, 17 Mar 2022 02:50:04 +0800</pubDate>
+      <pubDate>Fri, 04 Mar 2022 02:50:04 +0800</pubDate>
       
       <guid>https://peacalm.github.io/post/bytedance-growth/</guid>
       
@@ -284,54 +332,6 @@ Musical.ly MAU6000万，美国MAU2000万，49%的用户都在美国。&lt;/p&gt;
 &lt;li&gt;
 &lt;p&gt;2021年营收580亿美元，约3700亿人民币，同比增长70%。&lt;/p&gt;
 &lt;/li&gt;
-&lt;/ul&gt;
-</description>
-      
-    </item>
-    
-    <item>
-      <title>C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器</title>
-      <link>https://peacalm.github.io/post/myostream/</link>
-      <pubDate>Thu, 17 Mar 2022 01:12:25 +0800</pubDate>
-      
-      <guid>https://peacalm.github.io/post/myostream/</guid>
-      
-        <description>&lt;h1 id=&#34;懒汉的烦恼&#34;&gt;懒汉的烦恼&lt;/h1&gt;
-&lt;p&gt;使用C++编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印输出。
-相比之下Python, Golang等语言就可以直接对所有数据类型打印输出，这对于debug是很友好的特性。
-因此，我开发了一个简单的C++库，几乎能够对所有容器直接打印输出，说几乎是因为我们只能对成员可访问可迭代的容器支持这个特性。&lt;/p&gt;
-&lt;p&gt;支持的类型如下，以及他们的组合类型：&lt;/p&gt;
-&lt;p&gt;std::pair, std::tuple, std::array, std::deque,
-std::forward_list, std::initializer_list, std::list, std::vector,
-std::set, std::multiset, std::unordered_set, std::unordered_multiset,
-std::map, std::multimap, std::unordered_map, std::unordered_multimap.&lt;/p&gt;
-&lt;h1 id=&#34;acmer助手&#34;&gt;ACMer助手&lt;/h1&gt;
-&lt;p&gt;特别的，我们在打ACM比赛或做类似的OJ题目的过程中，需要debug的时候，我们不仅想要打印容器里的值，
-而且还想要同时打印出变量名，以便我们在解题时，如果定义了多个容器变量，我们可以知道哪个变量的值使哪一个值，
-因此我设计了watch功能。&lt;/p&gt;
-&lt;p&gt;例如，如下debug代码：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;vector&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;#ifndef ONLINE_JUDGE
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;myostream.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;myostream&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;ostream mycout(std&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;cout.rdbuf());
-&lt;span style=&#34;color:#75715e&#34;&gt;#define watch(...) MYOSTREAM_WATCH(mycout, &amp;#34; = &amp;#34;, &amp;#34;\n&amp;#34;, &amp;#34;\n\n&amp;#34;, __VA_ARGS__)
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#else
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define watch(...)
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#endif
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;() {
-  std&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;vector&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; v{&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;};
-  watch(v);
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在本地编译运行，可以输出：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;v = [1, 2, 3]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;而在线提交，或定义了宏ONLINE_JUDGE后，则什么都不输出。&lt;/p&gt;
-&lt;h1 id=&#34;附录&#34;&gt;附录&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/peacalm/myostream&#34;&gt;lib MyOStream on github&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
       

@@ -79,48 +79,6 @@
   </url>
   
   <url>
-    <loc>https://peacalm.github.io/tags/bytedance/</loc>
-    <lastmod>2022-03-18T22:10:58+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://peacalm.github.io/categories/%E4%BC%81%E4%B8%9A/</loc>
-    <lastmod>2022-03-18T22:10:58+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://peacalm.github.io/tags/%E4%BC%81%E4%B8%9A%E5%8F%91%E5%B1%95/</loc>
-    <lastmod>2022-03-18T22:10:58+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://peacalm.github.io/tags/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8/</loc>
-    <lastmod>2022-03-18T22:10:58+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://peacalm.github.io/post/bytedance-growth/</loc>
-    <lastmod>2022-03-18T22:10:58+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://peacalm.github.io/tags/%E8%9E%8D%E8%B5%84/</loc>
-    <lastmod>2022-03-18T22:10:58+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://peacalm.github.io/tags/acmer%E5%8A%A9%E6%89%8B/</loc>
     <lastmod>2022-03-18T00:54:42+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -172,6 +130,48 @@
   <url>
     <loc>https://peacalm.github.io/tags/%E8%BE%93%E5%87%BA%E5%BA%93/</loc>
     <lastmod>2022-03-18T00:54:42+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://peacalm.github.io/tags/bytedance/</loc>
+    <lastmod>2022-03-18T22:10:58+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://peacalm.github.io/categories/%E4%BC%81%E4%B8%9A/</loc>
+    <lastmod>2022-03-18T22:10:58+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://peacalm.github.io/tags/%E4%BC%81%E4%B8%9A%E5%8F%91%E5%B1%95/</loc>
+    <lastmod>2022-03-18T22:10:58+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://peacalm.github.io/tags/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8/</loc>
+    <lastmod>2022-03-18T22:10:58+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://peacalm.github.io/post/bytedance-growth/</loc>
+    <lastmod>2022-03-18T22:10:58+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://peacalm.github.io/tags/%E8%9E%8D%E8%B5%84/</loc>
+    <lastmod>2022-03-18T22:10:58+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
