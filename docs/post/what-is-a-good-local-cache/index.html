@@ -69,7 +69,7 @@
 <meta itemprop="name" content="What Is a Good Local Cache">
 <meta itemprop="description" content="缓存技术，Cache，特别是LocalCache，是软件开发中非常常用的组件，也是提高性能的最简单的方式。 Cache一般有个SideCar和"><meta itemprop="datePublished" content="2022-03-31T02:15:21+08:00" />
 <meta itemprop="dateModified" content="2022-03-31T02:15:21+08:00" />
-<meta itemprop="wordCount" content="1358">
+<meta itemprop="wordCount" content="1367">
 <meta itemprop="keywords" content="缓存,Cache,LocalCache,Wrapper,SideCar," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="What Is a Good Local Cache"/>
 <meta name="twitter:description" content="缓存技术，Cache，特别是LocalCache，是软件开发中非常常用的组件，也是提高性能的最简单的方式。 Cache一般有个SideCar和"/>
@@ -366,7 +366,7 @@ App  --&gt;   DataSource
 </ul>
 </li>
 <li>内置线程池可执行Reload任务，从数据源服务获取数据并填充Cache。</li>
-<li>可配置内置WatchDog现成，检查快过期的数据，并发送Reload任务。</li>
+<li>可配置内置WatchDog线程，检查快要过期的数据并发送Reload任务，或清理过期数据等。</li>
 <li>可配置缓存策略，例如：LRU，LRU-k(lazy list adjustment)，FIFO等。</li>
 <li>可迭代操作Cache中的每一条数据，例如把Cache中的数据读出写入到其他设备。</li>
 </ul>
