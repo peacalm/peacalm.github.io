@@ -49,12 +49,13 @@ App  --&amp;gt;   DataSource
 或不对过期数据做任何处理，只等缓存用满以后自动逐出。&lt;/li&gt;
 &lt;li&gt;支持多种QueryFlags:
 &lt;ul&gt;
-&lt;li&gt;uncacheable: 本次Query不读写Cache，只从数据源服务获取数据并返回，不写入Cache，相当于没有Cache。&lt;/li&gt;
-&lt;li&gt;refresh:     本次Query不读取Cache数据，重新从数据源服务获取最新数据，并写入Cache，相当于刷新缓存。&lt;/li&gt;
-&lt;li&gt;peek:        本次Query只读取Cache数据，即时Miss或Expired也不从数据源服务获取最新数据。&lt;/li&gt;
-&lt;li&gt;stale:       本次Query读取Cache数据时，可以接受过期的数据。&lt;/li&gt;
-&lt;li&gt;fast:        本次Query只返回Cache里的数据，如果Miss或Expired，则发送reload任务刷新缓存，不阻塞当前Query。&lt;/li&gt;
-&lt;li&gt;preload:     本次Query如果在Cache中读取到合法数据，但是数据快过期了，比如已过了过期时间的80%，则发送一个Reload任务来刷新缓存。&lt;/li&gt;
+&lt;li&gt;uncacheable:   本次Query不读写Cache，只从数据源服务获取数据并返回，不写入Cache，相当于没有Cache，只对Query做转发。&lt;/li&gt;
+&lt;li&gt;refresh:       本次Query不读取Cache数据，重新从数据源服务获取最新数据，并写入Cache，相当于刷新缓存。&lt;/li&gt;
+&lt;li&gt;peek:          本次Query只读取Cache数据，即使Miss或Expired也不从数据源服务获取最新数据，可用于窥测Cache状态，或保护后端数据源服务。&lt;/li&gt;
+&lt;li&gt;stale:         本次Query读取Cache数据时，可以接受过期的数据。&lt;/li&gt;
+&lt;li&gt;staleFailover: 本次Query如果从远程数据源服务读取数据失败，则可以接受Cache中的过期的数据。&lt;/li&gt;
+&lt;li&gt;fast:          本次Query只返回Cache里的数据，如果Miss或Expired，则发送reload任务刷新缓存，不阻塞当前Query。&lt;/li&gt;
+&lt;li&gt;preload:       本次Query如果在Cache中读取到合法数据，但是数据快过期了，比如已过了过期时间的80%，则发送一个Reload任务来刷新缓存。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;内置线程池可执行Reload任务，从数据源服务获取数据并填充Cache。&lt;/li&gt;

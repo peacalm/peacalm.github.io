@@ -69,7 +69,7 @@
 <meta itemprop="name" content="What Is a Good Local Cache">
 <meta itemprop="description" content="缓存技术，Cache，特别是LocalCache，是软件开发中非常常用的组件，也是提高性能的最简单的方式。 Cache一般有个SideCar和"><meta itemprop="datePublished" content="2022-03-31T02:15:21+08:00" />
 <meta itemprop="dateModified" content="2022-03-31T02:15:21+08:00" />
-<meta itemprop="wordCount" content="1359">
+<meta itemprop="wordCount" content="1437">
 <meta itemprop="keywords" content="缓存,Cache,LocalCache,Wrapper,SideCar," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="What Is a Good Local Cache"/>
 <meta name="twitter:description" content="缓存技术，Cache，特别是LocalCache，是软件开发中非常常用的组件，也是提高性能的最简单的方式。 Cache一般有个SideCar和"/>
@@ -358,12 +358,13 @@ App  --&gt;   DataSource
 或不对过期数据做任何处理，只等缓存用满以后自动逐出。</li>
 <li>支持多种QueryFlags:
 <ul>
-<li>uncacheable: 本次Query不读写Cache，只从数据源服务获取数据并返回，不写入Cache，相当于没有Cache。</li>
-<li>refresh:     本次Query不读取Cache数据，重新从数据源服务获取最新数据，并写入Cache，相当于刷新缓存。</li>
-<li>peek:        本次Query只读取Cache数据，即时Miss或Expired也不从数据源服务获取最新数据。</li>
-<li>stale:       本次Query读取Cache数据时，可以接受过期的数据。</li>
-<li>fast:        本次Query只返回Cache里的数据，如果Miss或Expired，则发送reload任务刷新缓存，不阻塞当前Query。</li>
-<li>preload:     本次Query如果在Cache中读取到合法数据，但是数据快过期了，比如已过了过期时间的80%，则发送一个Reload任务来刷新缓存。</li>
+<li>uncacheable:   本次Query不读写Cache，只从数据源服务获取数据并返回，不写入Cache，相当于没有Cache，只对Query做转发。</li>
+<li>refresh:       本次Query不读取Cache数据，重新从数据源服务获取最新数据，并写入Cache，相当于刷新缓存。</li>
+<li>peek:          本次Query只读取Cache数据，即使Miss或Expired也不从数据源服务获取最新数据，可用于窥测Cache状态，或保护后端数据源服务。</li>
+<li>stale:         本次Query读取Cache数据时，可以接受过期的数据。</li>
+<li>staleFailover: 本次Query如果从远程数据源服务读取数据失败，则可以接受Cache中的过期的数据。</li>
+<li>fast:          本次Query只返回Cache里的数据，如果Miss或Expired，则发送reload任务刷新缓存，不阻塞当前Query。</li>
+<li>preload:       本次Query如果在Cache中读取到合法数据，但是数据快过期了，比如已过了过期时间的80%，则发送一个Reload任务来刷新缓存。</li>
 </ul>
 </li>
 <li>内置线程池可执行Reload任务，从数据源服务获取数据并填充Cache。</li>
