@@ -5,13 +5,15 @@ draft: false
 ---
 
 # 关于我
+我是李双全，男生，可以叫我双全，河北唐山人，90后，天蝎座。  
 
-Hi, I'm Shuangquan Li, from China!
+## 工作经历
+2017-今，北京，字节跳动，后端开发工程师。
 
-TBD...   
-
+## 教育经历
+2010-2017，南京，东南大学，自动化学院，获工学学士和工学硕士学位。
 
 # 关于本站
 Peacalm寓意: peaceful & calm  
-建站工具：Hugo  
+建站工具：Hugo + GitHubPages  
 主题：Jane  
