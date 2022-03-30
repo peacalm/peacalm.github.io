@@ -69,7 +69,7 @@
 <meta itemprop="name" content="What Is a Good Local Cache">
 <meta itemprop="description" content="缓存技术，Cache，特别是LocalCache，是软件开发中非常常用的组件，也是提高性能的最简单的方式。 Cache的两种使用模式：Side"><meta itemprop="datePublished" content="2022-03-31T02:15:21+08:00" />
 <meta itemprop="dateModified" content="2022-03-31T02:15:21+08:00" />
-<meta itemprop="wordCount" content="1281">
+<meta itemprop="wordCount" content="1290">
 <meta itemprop="keywords" content="缓存,Cache,LocalCache,Wrapper,SideCar," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="What Is a Good Local Cache"/>
 <meta name="twitter:description" content="缓存技术，Cache，特别是LocalCache，是软件开发中非常常用的组件，也是提高性能的最简单的方式。 Cache的两种使用模式：Side"/>
@@ -330,9 +330,9 @@
       <p>缓存技术，Cache，特别是LocalCache，是软件开发中非常常用的组件，也是提高性能的最简单的方式。</p>
 <h1 id="cache的两种使用模式sidecar模式和wrapper模式">Cache的两种使用模式：SideCar模式和Wrapper模式</h1>
 <p>SideCar模式：需要应用程序自己主动访问数据源服务并读取缓存。</p>
-<p>这种模式可以是LocalCache，与应用程序集成部署，但是由于Cache功能与业务逻辑无耦合，非常独立，所以出现了很多独立出来的优秀的第三方缓存服务，
+<p>这种模式可以是LocalCache，与应用程序集成部署，但是由于Cache功能与业务逻辑无耦合，非常独立，所以出现了很多优秀的独立出来的非常通用的第三方独立缓存服务，
 比如Redis，Memcached，cachelib等。
-独立缓存服务与应用程序分开，独立部署，需要通过网络进行交互，数据量较大或对性能要求较高时，网络带宽消耗、延时、数据序列化反序列化的CPU消耗不能忽视。</p>
+独立缓存服务一般与应用程序分开，独立部署，需要通过网络进行交互，数据量较大或对性能要求较高时，网络带宽消耗、延时、数据序列化反序列化的CPU消耗不能忽视。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Cache
 ↑  
 |  
