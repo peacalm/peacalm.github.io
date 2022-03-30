@@ -3,7 +3,7 @@ title: "What Is a Good Local Cache"
 date:    2022-03-31T02:15:21+08:00
 lastmod: 2022-03-31T02:15:21+08:00
 draft: false
-tags: []
+tags: ["缓存", "Cache", "LocalCache", "Wrapper", "SideCar"]
 categories: ["技术"]
 ---
 
