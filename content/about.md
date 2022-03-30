@@ -13,6 +13,9 @@ draft: false
 ### 教育经历
 2010-2017，南京，东南大学，自动化学院，获工学学士和工学硕士学位。
 
+### 业余爱好
+读书，写字，诗歌[✍️](https://muyesq.cn)，民谣，健身，旅行，逛书店，看展，看音乐剧等等。
+
 # 关于本站
 Peacalm寓意: peaceful & calm  
 建站工具：Hugo + GitHubPages  
