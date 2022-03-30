@@ -44,13 +44,14 @@ App --> Cache --> DataSource
 * 过期数据不自动删除，可配置一个CallbackOnExpiration方法来注入对过期数据的处理方式。比如可以删除数据，或把过期数据发送到某个消息队列、写入硬盘等，
 或不对过期数据做任何处理，只等缓存用满以后自动逐出。
 * 支持多种QueryFlags:
-  * uncacheable:   本次Query不读写Cache，只从数据源服务获取数据并返回，不写入Cache，相当于没有Cache，只对Query做转发。
-  * refresh:       本次Query不读取Cache数据，重新从数据源服务获取最新数据，并写入Cache，相当于刷新缓存。
-  * peek:          本次Query只读取Cache数据，即使Miss或Expired也不从数据源服务获取最新数据，可用于窥测Cache状态，或保护后端数据源服务。
-  * stale:         本次Query读取Cache数据时，可以接受过期的数据。
-  * staleFailover: 本次Query如果从远程数据源服务读取数据失败，则可以接受Cache中的过期的数据。
-  * fast:          本次Query只返回Cache里的数据，如果Miss或Expired，则发送eload任务刷新缓存，不阻塞当前Query。
-  * preload:       本次Query如果在Cache中读取到合法数据，但是数据快过期了（比如已过了过期时间的80%，阈值可配置），则发送一个Reload任务来刷新缓存。
+  * Uncacheable:   本次Query不读写Cache，只从数据源服务获取数据并返回，不写入Cache，相当于没有Cache，只对Query做转发。
+  * Refresh:       本次Query不读取Cache数据，重新从数据源服务获取最新数据，并写入Cache，相当于刷新缓存。
+  * Peek:          本次Query只读取Cache数据，即使Miss或Expired也不从数据源服务获取最新数据，可用于窥测Cache状态，或保护后端数据源服务。
+  * Stale:         本次Query读取Cache数据时，可以接受过期的数据。
+  * StaleFailover: 本次Query如果从远程数据源服务读取数据失败，则可以接受Cache中的过期的数据。
+  * Fast:          本次Query只返回Cache里的数据，如果Miss或Expired，则发送eload任务刷新缓存，不阻塞当前Query。
+  * Preload:       本次Query如果在Cache中读取到合法数据，但是数据快过期了（比如已过了过期时间的80%，阈值可配置），则发送一个Reload任务来刷新缓存。
+  * ReturnExpired: 本次Query如果在Cache中读到了过期的数据，则把过期的数据也一起返回，供用户自主决定处理方式。
 * 内置线程池可执行Reload任务，从数据源服务获取数据并填充Cache。
 * 可配置内置WatchDog线程，检查快要过期的数据并发送Reload任务，或清理过期数据等。
 * 可迭代操作Cache中的每一条数据，例如把Cache中的数据读出写入到其他设备。
