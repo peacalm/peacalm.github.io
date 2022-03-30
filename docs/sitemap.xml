@@ -2,28 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://peacalm.github.io/tags/bytedance/</loc>
-    <lastmod>2022-03-18T22:10:58+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://peacalm.github.io/categories/</loc>
-    <lastmod>2022-03-18T22:10:58+08:00</lastmod>
+    <lastmod>2022-03-31T02:15:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://peacalm.github.io/</loc>
-    <lastmod>2022-03-18T22:10:58+08:00</lastmod>
+    <lastmod>2022-03-31T02:15:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://peacalm.github.io/post/</loc>
+    <lastmod>2022-03-31T02:15:21+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://peacalm.github.io/post/what-is-a-good-local-cache/</loc>
+    <lastmod>2022-03-31T02:15:21+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://peacalm.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2022-03-31T02:15:21+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://peacalm.github.io/tags/bytedance/</loc>
     <lastmod>2022-03-18T22:10:58+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -115,13 +129,6 @@
   
   <url>
     <loc>https://peacalm.github.io/tags/%E5%BA%93/</loc>
-    <lastmod>2022-03-18T00:54:42+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://peacalm.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2022-03-18T00:54:42+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

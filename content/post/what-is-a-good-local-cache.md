@@ -50,7 +50,8 @@ App --> Cache --> DataSource
   * preload:     本次Query如果在Cache中读取到合法数据，但是数据快过期了，比如已过了过期时间的80%，则发送一个eload任务来刷新缓存。
 * 内置线程池可执行Reload任务，从数据源服务获取数据并填充Cache。
 * 可配置内置WatchDog现成，检查快过期的数据，并发送Reload任务。
-* 可配置缓存策略，例如：LRU，K-LRU，FIFO等。
+* 可配置缓存策略，例如：LRU，LRU-k(lazy list adjustment)，FIFO等。
+* 可迭代操作Cache中的每一条数据，例如把Cache中的数据读出写入到其他设备。
 
 # 高性能
 * 并发性好。例如采用分桶机制、采用TBB的高性能并发容器库等。
