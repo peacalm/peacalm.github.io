@@ -22,7 +22,7 @@
       <pubDate>Thu, 17 Mar 2022 22:01:30 +0800</pubDate>
       
       <guid>https://peacalm.github.io/post/parameters-management-for-online-service/</guid>
-      <description>参数分类 默认配置参数：分为远程配置和本地配置。远程配置可动态修改、动态加载，而不需要升级或重启服务，使用方便， 但是有稳定性和可靠性风险，比如</description>
+      <description>互联网公司业务发展快，策略复杂，软件迭代变更非常频繁。因此有必要有一套良好的参数管理思想控制在线服务的表现，以支持业务的频繁变更和AB实验等</description>
     </item>
     
     <item>
