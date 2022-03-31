@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>参数管理 on Peacalm Notes - 双全的网站</title>
+    <link>https://peacalm.github.io/tags/%E5%8F%82%E6%95%B0%E7%AE%A1%E7%90%86/</link>
+    <description>Recent content in 参数管理 on Peacalm Notes - 双全的网站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 17 Mar 2022 22:01:30 +0800</lastBuildDate><atom:link href="https://peacalm.github.io/tags/%E5%8F%82%E6%95%B0%E7%AE%A1%E7%90%86/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Parameters Management for Online Service</title>
+      <link>https://peacalm.github.io/post/parameters-management-for-online-service/</link>
+      <pubDate>Thu, 17 Mar 2022 22:01:30 +0800</pubDate>
+      
+      <guid>https://peacalm.github.io/post/parameters-management-for-online-service/</guid>
+      <description>互联网公司业务发展快，策略复杂，软件迭代变更非常频繁。因此有必要有一套良好的参数管理思想控制在线服务的表现，以支持业务的频繁变更和AB实验等</description>
+    </item>
+    
+  </channel>
+</rss>

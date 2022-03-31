@@ -3,7 +3,7 @@ title: "Parameters Management for Online Service"
 date:    2022-03-17T22:01:30+08:00
 lastmod: 2022-03-18T22:01:30+08:00
 draft: false
-tags: []
+tags: ["参数管理"]
 categories: ["技术"]
 ---
 
