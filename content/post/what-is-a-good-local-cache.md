@@ -8,7 +8,7 @@ categories: ["技术"]
 ---
 
 缓存技术，Cache，特别是LocalCache，是软件开发中非常常用的组件，也是提高性能的最简单的方式。
-Cache一般有个SideCar和Wrapper两种使用模式。
+Cache一般有SideCar和Wrapper两种使用模式。
 
 ## Cache的使用模式
 
