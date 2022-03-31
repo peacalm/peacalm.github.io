@@ -17,6 +17,15 @@
     </item>
     
     <item>
+      <title>Parameters Management for Online Service</title>
+      <link>https://peacalm.github.io/post/parameters-management-for-online-service/</link>
+      <pubDate>Thu, 17 Mar 2022 22:01:30 +0800</pubDate>
+      
+      <guid>https://peacalm.github.io/post/parameters-management-for-online-service/</guid>
+      <description>参数分类 默认配置参数：分为远程配置和本地配置。远程配置可动态修改、动态加载，而不需要升级或重启服务，使用方便， 但是有稳定性和可靠性风险，比如</description>
+    </item>
+    
+    <item>
       <title>C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器</title>
       <link>https://peacalm.github.io/post/myostream/</link>
       <pubDate>Thu, 17 Mar 2022 01:12:25 +0800</pubDate>

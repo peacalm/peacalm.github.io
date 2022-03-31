@@ -73,6 +73,38 @@ App  --&amp;gt;   DataSource
     </item>
     
     <item>
+      <title>Parameters Management for Online Service</title>
+      <link>https://peacalm.github.io/post/parameters-management-for-online-service/</link>
+      <pubDate>Thu, 17 Mar 2022 22:01:30 +0800</pubDate>
+      
+      <guid>https://peacalm.github.io/post/parameters-management-for-online-service/</guid>
+      
+        <description>&lt;h2 id=&#34;参数分类&#34;&gt;参数分类&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;默认配置参数：分为远程配置和本地配置。远程配置可动态修改、动态加载，而不需要升级或重启服务，使用方便，
+但是有稳定性和可靠性风险，比如由于网络中断、提供远程配置的载体服务异常等原因而导致取不到配置信息。
+因此，还需要一套本地配置，随服务一起发布，理论上配置信息应该与远程配置是一模一样的，
+但由于本地配置发布频率低，可能会比远程配置版本低，不过问题不大，本地配置主要是对远程配置不可用时做兜底的，
+生效时机较少。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;实验参数：一般指AB实验的策略配置参数。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;降级参数：服务故障时，临时注入的策略参数，用于降低策略复杂度、降低服务消耗、提高服务可用性，可能会对实验指标、效果指标有损。
+由于AB实验指标可能对业务发展比较重要，因此降级参数还可以再细分一下优先级，分为优先级高于AB实验参数的高优降级参数和优先级低于AB实验参数的低优降级参数。
+发生轻微故障时，使用低优降级参数则不会对实验指标有影响。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;优先级&#34;&gt;优先级&lt;/h2&gt;
+&lt;p&gt;服务初始化时，按照一定优先级合并多种参数用于后续处理。综上描述，按优先级从高到低，这一套在线服务参数的排列顺序是：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;高优降级参数 -&amp;gt; 实验参数 -&amp;gt; 低优降级参数 -&amp;gt; 默认配置参数(远程配置参数 或 本地配置参数)
+&lt;/code&gt;&lt;/pre&gt;</description>
+      
+    </item>
+    
+    <item>
       <title>C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器</title>
       <link>https://peacalm.github.io/post/myostream/</link>
       <pubDate>Thu, 17 Mar 2022 01:12:25 +0800</pubDate>
