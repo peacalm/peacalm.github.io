@@ -7,7 +7,7 @@ tags: ["C++", "库", "输出库", "debug tool", "watch tool", "ACMer助手"]
 categories: ["技术", "C++"]
 ---
 
-# 懒汉的烦恼
+## 懒汉的烦恼
 
 使用C++编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印输出。
 相比之下Python, Golang等语言就可以直接对所有数据类型打印输出，这对于debug是很友好的特性。
@@ -20,7 +20,7 @@ std::forward_list, std::initializer_list, std::list, std::vector,
 std::set, std::multiset, std::unordered_set, std::unordered_multiset,
 std::map, std::multimap, std::unordered_map, std::unordered_multimap.
 
-# ACMer助手
+## ACMer助手
 
 特别的，我们在打ACM比赛或做类似的OJ题目的过程中，需要debug的时候，我们不仅想要打印容器里的值，
 而且还想要同时打印出变量名，以便我们在解题时，如果定义了多个容器变量，我们可以知道哪个变量的值使哪一个值，
@@ -53,6 +53,6 @@ v = [1, 2, 3]
 ```
 而在线提交，或定义了宏ONLINE_JUDGE后，则什么都不输出。
 
-# 附录
+## 附录
 
 * [lib MyOStream on github](https://github.com/peacalm/myostream)

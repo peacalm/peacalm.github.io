@@ -20,7 +20,7 @@
       
         <description>&lt;p&gt;缓存技术，Cache，特别是LocalCache，是软件开发中非常常用的组件，也是提高性能的最简单的方式。
 Cache一般有个SideCar和Wrapper两种使用模式。&lt;/p&gt;
-&lt;h1 id=&#34;cache的两种使用模式sidecar模式和wrapper模式&#34;&gt;Cache的两种使用模式：SideCar模式和Wrapper模式&lt;/h1&gt;
+&lt;h2 id=&#34;cache的两种使用模式sidecar模式和wrapper模式&#34;&gt;Cache的两种使用模式：SideCar模式和Wrapper模式&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;SideCar模式：需要应用程序自己主动访问数据源服务并读写缓存。&lt;/li&gt;
 &lt;/ol&gt;
@@ -38,7 +38,7 @@ App  --&amp;gt;   DataSource
 可以提高组件可复用性。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;App --&amp;gt; Cache --&amp;gt; DataSource
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;那么怎么才算是一个好的LocalCache呢？从业务应用上要灵活好用，满足多种多样的业务需求，同时也要具有基本的高性能。&lt;/p&gt;
-&lt;h1 id=&#34;灵活好用&#34;&gt;灵活好用&lt;/h1&gt;
+&lt;h2 id=&#34;灵活好用&#34;&gt;灵活好用&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;具有单Key读写接口，也具有Batch读写接口。&lt;/li&gt;
 &lt;li&gt;可以动态修改CacheSize，一般指缓存的数据条目数。&lt;/li&gt;
@@ -63,7 +63,7 @@ App  --&amp;gt;   DataSource
 &lt;li&gt;可配置内置WatchDog线程，检查快要过期的数据并发送Reload任务，或清理过期数据等。&lt;/li&gt;
 &lt;li&gt;可迭代操作Cache中的每一条数据，例如把Cache中的数据读出写入到其他设备。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h1 id=&#34;高性能&#34;&gt;高性能&lt;/h1&gt;
+&lt;h2 id=&#34;高性能&#34;&gt;高性能&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;并发性好。例如采用分桶机制、采用TBB的高性能并发容器库等。&lt;/li&gt;
 &lt;li&gt;内存使用效率高。&lt;/li&gt;
@@ -79,7 +79,7 @@ App  --&amp;gt;   DataSource
       
       <guid>https://peacalm.github.io/post/myostream/</guid>
       
-        <description>&lt;h1 id=&#34;懒汉的烦恼&#34;&gt;懒汉的烦恼&lt;/h1&gt;
+        <description>&lt;h2 id=&#34;懒汉的烦恼&#34;&gt;懒汉的烦恼&lt;/h2&gt;
 &lt;p&gt;使用C++编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印输出。
 相比之下Python, Golang等语言就可以直接对所有数据类型打印输出，这对于debug是很友好的特性。
 因此，我开发了一个简单的C++库，几乎能够对所有容器直接打印输出，说几乎是因为我们只能对成员可访问可迭代的容器支持这个特性。&lt;/p&gt;
@@ -88,7 +88,7 @@ App  --&amp;gt;   DataSource
 std::forward_list, std::initializer_list, std::list, std::vector,
 std::set, std::multiset, std::unordered_set, std::unordered_multiset,
 std::map, std::multimap, std::unordered_map, std::unordered_multimap.&lt;/p&gt;
-&lt;h1 id=&#34;acmer助手&#34;&gt;ACMer助手&lt;/h1&gt;
+&lt;h2 id=&#34;acmer助手&#34;&gt;ACMer助手&lt;/h2&gt;
 &lt;p&gt;特别的，我们在打ACM比赛或做类似的OJ题目的过程中，需要debug的时候，我们不仅想要打印容器里的值，
 而且还想要同时打印出变量名，以便我们在解题时，如果定义了多个容器变量，我们可以知道哪个变量的值使哪一个值，
 因此我设计了watch功能。&lt;/p&gt;
@@ -112,7 +112,7 @@ std::map, std::multimap, std::unordered_map, std::unordered_multimap.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在本地编译运行，可以输出：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;v = [1, 2, 3]
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;而在线提交，或定义了宏ONLINE_JUDGE后，则什么都不输出。&lt;/p&gt;
-&lt;h1 id=&#34;附录&#34;&gt;附录&lt;/h1&gt;
+&lt;h2 id=&#34;附录&#34;&gt;附录&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/peacalm/myostream&#34;&gt;lib MyOStream on github&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;

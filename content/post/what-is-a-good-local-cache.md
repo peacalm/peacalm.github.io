@@ -10,7 +10,7 @@ categories: ["技术"]
 缓存技术，Cache，特别是LocalCache，是软件开发中非常常用的组件，也是提高性能的最简单的方式。
 Cache一般有个SideCar和Wrapper两种使用模式。
 
-# Cache的两种使用模式：SideCar模式和Wrapper模式
+## Cache的两种使用模式：SideCar模式和Wrapper模式
 
 1. SideCar模式：需要应用程序自己主动访问数据源服务并读写缓存。  
 
@@ -34,7 +34,7 @@ App --> Cache --> DataSource
 
 那么怎么才算是一个好的LocalCache呢？从业务应用上要灵活好用，满足多种多样的业务需求，同时也要具有基本的高性能。  
 
-# 灵活好用
+## 灵活好用
 
 * 具有单Key读写接口，也具有Batch读写接口。
 * 可以动态修改CacheSize，一般指缓存的数据条目数。
@@ -56,7 +56,7 @@ App --> Cache --> DataSource
 * 可配置内置WatchDog线程，检查快要过期的数据并发送Reload任务，或清理过期数据等。
 * 可迭代操作Cache中的每一条数据，例如把Cache中的数据读出写入到其他设备。
 
-# 高性能
+## 高性能
 * 并发性好。例如采用分桶机制、采用TBB的高性能并发容器库等。
 * 内存使用效率高。
 
