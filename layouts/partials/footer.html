@@ -11,12 +11,6 @@
       {{ .Site.Params.since }} -
     {{ end }}
     {{- $current }}
-    <span class="heart">
-      {{/* icon heart */}}
-      <i class="iconfont">
-        {{ partial "svg/heart.svg" }}
-      </i>
-    </span>
     {{- if or .Site.Copyright .Site.Author.name -}}
       <span class="author">
         {{if .Site.Copyright }}{{ .Site.Copyright | safeHTML }}
