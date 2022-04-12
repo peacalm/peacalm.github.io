@@ -43,6 +43,14 @@ myostream::ostream mycout(std::cout.rdbuf());
 int main() {
   std::vector<int> v{1, 2, 3};
   watch(v);
+
+  std::tuple<std::vector<int>, std::map<int, std::set<std::string>>,
+      std::pair<std::string, double>> complex({1, 2, 3},
+                                              {{1, {"a", "aa"}},
+                                               {2, {"b", "bb"}}},
+                                              {"Aya", 88.5});
+  watch(complex);
+
   return 0;
 }
 ```
@@ -50,6 +58,8 @@ int main() {
 在本地编译运行，可以输出：
 ```text
 v = [1, 2, 3]
+
+complex = <[1, 2, 3], {1: {a, aa}, 2: {b, bb}}, (Aya, 88.5)>
 ```
 而在线提交，或定义了宏ONLINE_JUDGE后，则什么都不输出。
 
