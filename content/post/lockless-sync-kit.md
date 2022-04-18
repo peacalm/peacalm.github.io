@@ -70,3 +70,187 @@ io线程池的调度耗时、控制异步io超时的定时器的准确性等因�
 这些就涉及到线程间同步问题。
 
 ### 异步任务无锁同步组件，C++为例
+
+以下C++实现代码中 SyncKit类 就是一个简单的异步任务无锁同步组件，
+它是主线程和异步任务线程共享的数据结构，分别为其定义了可调用成员方法。
+主线程调用master_开头的方法，异步任务线程调用slave_开头的方法。
+
+主线程使用方式很简单，发出异步任务后等待一段时间，然后调用master_check_ret()检查结果即可。
+任务线程使用方式稍微复杂，主要要保证任务完成后将结果数据写入主线程提供的承载任务结果的数据结构时，
+要保证主线程尚在等待，还没有标记超时。否则，如果主线程已经标记了超时，代表主线程可能已经开始使用
+承载任务结果的数据结构了，如果此时任务线程还对这个数据结构进行修改，那么就会造成并发安全问题。
+slave样例伪代码见下代码注释中。
+
+```
+
+// 用于保存异步任务执行结果的整型状态码。
+// 正数为任务成功，负数为任务失败，0代表尚未完成，可被判成超时。
+class TaskResultCode {
+public:
+  TaskResultCode() : ival_(0) {}
+
+  int value() const { return ival_; }
+
+  bool unready() const { return ival_ == 0; }
+  bool succeeded() const { return ival_ > 0; }
+  bool failed() const { return ival_ < 0; }
+
+  template <int i = 1>
+  void set_succeeded() {
+    static_assert(i > 0, "success code should be positive");
+    ival_ = i;
+  }
+
+  template <int i = -1>
+  void set_failed() {
+    static_assert(i < 0, "failure code should be negative");
+    ival_ = i;
+  }
+
+private:
+  std::atomic<int> ival_;
+};
+
+
+// 异步任务同步工具。主线程为master，任务线程为slave。
+// 主线程发送异步任务时，打包一个SyncKit用作同步，同时还可以传入一个共享数据结构，
+// 用于让slave把任务执行结果数据保存在此。
+class SyncKit {
+public:
+  SyncKit() = default;
+
+  // 主线程master检查异步任务执行结果，如果尚未完成则标记已经超时。
+  const TaskResultCode& master_check_ret() {
+    if (task_done_) {
+      return ret_;
+    }
+    is_timeout_ = true;
+    if (slave_checking_timeout_) {
+      while (!task_done_) {}  // waiting
+      return ret_;
+    }
+    return ret_;
+  }
+
+  // 主线程检master查任务结果，但不标记超时。
+  const TaskResultCode& master_peek_ret() { return ret_; }
+
+  /**
+   * slave code example:
+   *
+   * if slave_test_timeout():
+   *   return
+   * if invalid parameters or conditions:
+   *   slave_set_failed_unsafe<some failure code>
+   *
+   * slave starts to run a task。 e.g. do some RPC.
+   * 
+   * // 异步任务已经完成，准备将任务结果写回到与master共享的数据结构中。
+   * // 写之前先判断master是否已经标记超时。
+   * if slave_check_whether_timeout():
+   *     return
+   * 
+   * // 尚未超时，master还在等待。此后的代码逻辑必须保证slave一定会调用
+   * // slave_set_failed<failure code>()或slave_set_succeeded<success code>()
+   * // 并最终对 task_done_ 赋值为true，否则可能阻塞主线程。
+   * 
+   * if task failed:
+   *     slave writes failed result to shared data or does nothing.
+   *     slave_set_failed<some failure code>()
+   * else:
+   *     slave writes succeeded result to shared data.
+   *     slave_set_succeeded<some success code>()
+   *
+   */
+
+  // 任务线程slave检查主线程master是否已经标记超时。如果已经标记为超时，
+  // 则slave不能再对与master共享的数据结构做任何修改，因为此时master可能正在读取这些数据。
+  // 任务线程slave在修改与master共享的数据结构之前，必须调用此方法确保尚未超时。
+  bool slave_check_whether_timeout() {
+    slave_checking_timeout_ = true;
+    if (is_timeout_) {
+      task_done_ = true;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool slave_test_timeout() const { return is_timeout_; }
+
+  template <int failure_code = -1>
+  void slave_set_failed() {
+    ret_.set_failed<failure_code>();
+    task_done_ = true;
+  }
+
+  template <int success_code = 1>
+  void slave_set_succeeded() {
+    ret_.set_succeeded<success_code>();
+    task_done_ = true;
+  }
+
+  /// use default code 1 for succeeded and -1 for failed.
+  void slave_set_ret(bool succeeded) {
+    if (succeeded) {
+      slave_set_succeeded();
+    } else {
+      slave_set_failed();
+    }
+  }
+
+  /// unsafe, could call this without calling slave_check_whether_timeout first.
+  template <int failure_code = -1>
+  void slave_set_failed_unsafe() {
+    if (!is_timeout_) {
+      ret_.set_failed<failure_code>();
+    }
+    task_done_ = true;
+  }
+
+private:
+  std::atomic<bool> is_timeout_{false};
+  std::atomic<bool> slave_checking_timeout_{false};
+  std::atomic<bool> task_done_{false};
+  TaskResultCode ret_;
+};
+
+
+
+// 以下是一些配套工具代码
+
+typedef std::shared_ptr<SyncKit> SyncKitPtr;
+
+inline SyncKitPtr new_sk() { return std::make_shared<SyncKit>(); }
+
+struct SyncKitGuard {
+  SyncKitPtr sk;
+  std::string name;
+
+  SyncKitGuard() : sk(new_sk()) {}
+
+  SyncKitGuard(std::string n) : sk(new_sk()), name(std::move(n)) {}
+
+  SyncKitGuard(std::string n, SyncKitPtr orther_sk) : sk(orther_sk), name(
+      std::move(n)) { assert(sk != nullptr); }
+
+  SyncKitGuard(SyncKitGuard&& r) : sk(std::move(r.sk)),
+                                   name(std::move(r.name)) { r.sk = nullptr; }
+
+  SyncKitGuard(const SyncKitGuard& r) = delete;
+
+  ~SyncKitGuard() {
+    if (sk) sk->master_check_ret();
+  }
+};
+
+struct SyncKitGuardList : public std::list<SyncKitGuard> {
+  SyncKitGuard& new_back(std::string name = "") {
+    push_back(SyncKitGuard(std::move(name)));
+    return back();
+  }
+};
+
+struct SyncKitGuardMap : public std::map<std::string, SyncKitGuard> {};
+
+```
