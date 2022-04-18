@@ -9,13 +9,6 @@
   </url>
   
   <url>
-    <loc>https://peacalm.github.io/post/lockless-sync-kit/</loc>
-    <lastmod>2022-04-18T19:04:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://peacalm.github.io/</loc>
     <lastmod>2022-04-18T19:04:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -30,6 +23,13 @@
   </url>
   
   <url>
+    <loc>https://peacalm.github.io/tags/rpc/</loc>
+    <lastmod>2022-04-18T19:04:20+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://peacalm.github.io/tags/</loc>
     <lastmod>2022-04-18T19:04:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -37,7 +37,21 @@
   </url>
   
   <url>
+    <loc>https://peacalm.github.io/post/lockless-sync-kit/</loc>
+    <lastmod>2022-04-18T19:04:20+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://peacalm.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5/</loc>
+    <lastmod>2022-04-18T19:04:20+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://peacalm.github.io/tags/%E5%BB%B6%E6%97%B6%E6%8E%A7%E5%88%B6/</loc>
     <lastmod>2022-04-18T19:04:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

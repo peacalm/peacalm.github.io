@@ -1,9 +1,9 @@
 ---
-title: "Lockless Sync Kit"
+title: "在线服务的异步RPC延时控制和无锁异步任务同步组件"
 date: 2022-04-18T19:04:20+08:00
 lastmod: 2022-04-18T19:04:20+08:00
 draft: false
-tags: ["多线程同步", "异步"]
+tags: ["多线程同步", "异步", "延时控制", "RPC"]
 categories: ["技术"]
 ---
 
@@ -190,7 +190,7 @@ public:
     task_done_ = true;
   }
 
-  /// use default code 1 for succeeded and -1 for failed.
+  // use default code 1 for succeeded and -1 for failed.
   void slave_set_ret(bool succeeded) {
     if (succeeded) {
       slave_set_succeeded();
@@ -199,7 +199,8 @@ public:
     }
   }
 
-  /// unsafe, could call this without calling slave_check_whether_timeout first.
+  // unsafe, could call this without calling slave_check_whether_timeout first.
+  // 但是可能导致master观测到的TaskResultCode变化一次，从0变为负数。
   template <int failure_code = -1>
   void slave_set_failed_unsafe() {
     if (!is_timeout_) {

@@ -12,7 +12,7 @@
     
     
     <item>
-      <title>Lockless Sync Kit</title>
+      <title>在线服务的异步RPC延时控制和无锁异步任务同步组件</title>
       <link>https://peacalm.github.io/post/lockless-sync-kit/</link>
       <pubDate>Mon, 18 Apr 2022 19:04:20 +0800</pubDate>
       
@@ -178,7 +178,7 @@ public:
     task_done_ = true;
   }
 
-  /// use default code 1 for succeeded and -1 for failed.
+  // use default code 1 for succeeded and -1 for failed.
   void slave_set_ret(bool succeeded) {
     if (succeeded) {
       slave_set_succeeded();
@@ -187,7 +187,8 @@ public:
     }
   }
 
-  /// unsafe, could call this without calling slave_check_whether_timeout first.
+  // unsafe, could call this without calling slave_check_whether_timeout first.
+  // 但是可能导致master观测到的TaskResultCode变化一次，从0变为负数。
   template &amp;lt;int failure_code = -1&amp;gt;
   void slave_set_failed_unsafe() {
     if (!is_timeout_) {
