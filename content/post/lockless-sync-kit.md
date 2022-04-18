@@ -255,3 +255,6 @@ struct SyncKitGuardList : public std::list<SyncKitGuard> {
 struct SyncKitGuardMap : public std::map<std::string, SyncKitGuard> {};
 
 ```
+
+留一个思考题，SyncKit类中的这些原子bool类型，最低需要使用什么MemoryOrder呢？
+sec_cst? release-acquire? relaxed?

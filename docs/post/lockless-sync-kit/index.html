@@ -69,7 +69,7 @@
 <meta itemprop="name" content="在线服务的异步RPC延时控制和无锁异步任务同步组件">
 <meta itemprop="description" content="一、关于延时 控制延时是保证在线服务可用性的必要手段 在线服务对延时敏感。一般对在线服务发起远程调用时，都会配有一个超时限制，一旦请求超时， 则认"><meta itemprop="datePublished" content="2022-04-18T19:04:20+08:00" />
 <meta itemprop="dateModified" content="2022-04-18T19:04:20+08:00" />
-<meta itemprop="wordCount" content="2679">
+<meta itemprop="wordCount" content="2731">
 <meta itemprop="keywords" content="多线程同步,异步,延时控制,RPC,C&#43;&#43;实现," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="在线服务的异步RPC延时控制和无锁异步任务同步组件"/>
 <meta name="twitter:description" content="一、关于延时 控制延时是保证在线服务可用性的必要手段 在线服务对延时敏感。一般对在线服务发起远程调用时，都会配有一个超时限制，一旦请求超时， 则认"/>
@@ -568,7 +568,9 @@ struct SyncKitGuardList : public std::list&lt;SyncKitGuard&gt; {
 
 struct SyncKitGuardMap : public std::map&lt;std::string, SyncKitGuard&gt; {};
 
-</code></pre>
+</code></pre><p>留一个思考题，SyncKit类中的这些原子bool类型，最低需要使用什么MemoryOrder呢？
+sec_cst? release-acquire? relaxed?</p>
+
     </div>
 
     
