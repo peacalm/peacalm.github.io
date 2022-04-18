@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>多线程同步 on Peacalm Notes - 双全的网站</title>
+    <link>https://peacalm.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5/</link>
+    <description>Recent content in 多线程同步 on Peacalm Notes - 双全的网站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 18 Apr 2022 19:04:20 +0800</lastBuildDate><atom:link href="https://peacalm.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Lockless Sync Kit</title>
+      <link>https://peacalm.github.io/post/lockless-sync-kit/</link>
+      <pubDate>Mon, 18 Apr 2022 19:04:20 +0800</pubDate>
+      
+      <guid>https://peacalm.github.io/post/lockless-sync-kit/</guid>
+      <description>一、关于延时 控制延时是保证在线服务可用性的必要手段 在线服务对延时敏感。一般对在线服务发起远程调用时，都会配有一个超时限制，一旦请求超时， 则认</description>
+    </item>
+    
+  </channel>
+</rss>
