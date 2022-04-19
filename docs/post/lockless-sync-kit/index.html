@@ -69,7 +69,7 @@
 <meta itemprop="name" content="在线服务的异步RPC延时控制和无锁异步任务同步组件">
 <meta itemprop="description" content="一、关于延时 控制延时是保证在线服务可用性的必要手段 在线服务对延时敏感。一般对在线服务发起远程调用时，都会配有一个超时限制，一旦请求超时， 则认"><meta itemprop="datePublished" content="2022-04-18T19:04:20+08:00" />
 <meta itemprop="dateModified" content="2022-04-18T19:04:20+08:00" />
-<meta itemprop="wordCount" content="2731">
+<meta itemprop="wordCount" content="2902">
 <meta itemprop="keywords" content="多线程同步,异步,延时控制,RPC,C&#43;&#43;实现," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="在线服务的异步RPC延时控制和无锁异步任务同步组件"/>
 <meta name="twitter:description" content="一、关于延时 控制延时是保证在线服务可用性的必要手段 在线服务对延时敏感。一般对在线服务发起远程调用时，都会配有一个超时限制，一旦请求超时， 则认"/>
@@ -396,179 +396,355 @@ io线程池的调度耗时、控制异步io超时的定时器的准确性等因�
 要保证主线程尚在等待，还没有标记超时。否则，如果主线程已经标记了超时，代表主线程可能已经开始使用
 承载任务结果的数据结构了，如果此时任务线程还对这个数据结构进行修改，那么就会造成并发安全问题。
 slave样例伪代码见下代码注释中。</p>
-<pre tabindex="0"><code>
-// 用于保存异步任务执行结果的整型状态码。
-// 正数为任务成功，负数为任务失败，0代表尚未完成，可被判成超时。
-class TaskResultCode {
-public:
-  TaskResultCode() : ival_(0) {}
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="c1">// 用于保存异步任务执行结果的整型状态码。
+</span><span class="c1">// 正数为任务成功，负数为任务失败，0代表尚未完成，可被判成超时。
+</span><span class="c1"></span><span class="k">class</span> <span class="nc">TaskResultCode</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="n">TaskResultCode</span><span class="p">()</span> <span class="o">:</span> <span class="n">ival_</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">{}</span>
 
-  int value() const { return ival_; }
+  <span class="kt">int</span> <span class="nf">value</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">ival_</span><span class="p">;</span> <span class="p">}</span>
 
-  bool unready() const { return ival_ == 0; }
-  bool succeeded() const { return ival_ &gt; 0; }
-  bool failed() const { return ival_ &lt; 0; }
+  <span class="kt">bool</span> <span class="nf">unready</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">ival_</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span>
+  <span class="kt">bool</span> <span class="nf">succeeded</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">ival_</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span>
+  <span class="kt">bool</span> <span class="nf">failed</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">ival_</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span>
 
-  template &lt;int i = 1&gt;
-  void set_succeeded() {
-    static_assert(i &gt; 0, &quot;success code should be positive&quot;);
-    ival_ = i;
-  }
+  <span class="k">template</span> <span class="o">&lt;</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">&gt;</span>
+  <span class="kt">void</span> <span class="n">set_succeeded</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">static_assert</span><span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#34;success code should be positive&#34;</span><span class="p">);</span>
+    <span class="n">ival_</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  template &lt;int i = -1&gt;
-  void set_failed() {
-    static_assert(i &lt; 0, &quot;failure code should be negative&quot;);
-    ival_ = i;
-  }
+  <span class="k">template</span> <span class="o">&lt;</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">&gt;</span>
+  <span class="kt">void</span> <span class="n">set_failed</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">static_assert</span><span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#34;failure code should be negative&#34;</span><span class="p">);</span>
+    <span class="n">ival_</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+  <span class="p">}</span>
 
-private:
-  std::atomic&lt;int&gt; ival_;
-};
-
-
-// 异步任务同步工具。主线程为master，任务线程为slave。
-// 主线程发送异步任务时，打包一个SyncKit用作同步，同时还可以传入一个共享数据结构，
-// 用于让slave把任务执行结果数据保存在此。
-class SyncKit {
-public:
-  SyncKit() = default;
-
-  // 主线程master检查异步任务执行结果，如果尚未完成则标记已经超时。
-  const TaskResultCode&amp; master_check_ret() {
-    if (task_done_) {
-      return ret_;
-    }
-    is_timeout_ = true;
-    if (slave_checking_timeout_) {
-      while (!task_done_) {}  // waiting
-      return ret_;
-    }
-    return ret_;
-  }
-
-  // 主线程检master查任务结果，但不标记超时。
-  const TaskResultCode&amp; master_peek_ret() { return ret_; }
-
-  /**
-   * slave code example:
-   *
-   * if slave_test_timeout():
-   *   return
-   * if invalid parameters or conditions:
-   *   slave_set_failed_unsafe&lt;some failure code&gt;
-   *
-   * slave starts to run a task。 e.g. do some RPC.
-   * 
-   * // 异步任务已经完成，准备将任务结果写回到与master共享的数据结构中。
-   * // 写之前先判断master是否已经标记超时。
-   * if slave_check_whether_timeout():
-   *     return
-   * 
-   * // 尚未超时，master还在等待。此后的代码逻辑必须保证slave一定会调用
-   * // slave_set_failed&lt;failure code&gt;()或slave_set_succeeded&lt;success code&gt;()
-   * // 并最终对 task_done_ 赋值为true，否则可能阻塞主线程。
-   * 
-   * if task failed:
-   *     slave writes failed result to shared data or does nothing.
-   *     slave_set_failed&lt;some failure code&gt;()
-   * else:
-   *     slave writes succeeded result to shared data.
-   *     slave_set_succeeded&lt;some success code&gt;()
-   *
-   */
-
-  // 任务线程slave检查主线程master是否已经标记超时。如果已经标记为超时，
-  // 则slave不能再对与master共享的数据结构做任何修改，因为此时master可能正在读取这些数据。
-  // 任务线程slave在修改与master共享的数据结构之前，必须调用此方法确保尚未超时。
-  bool slave_check_whether_timeout() {
-    slave_checking_timeout_ = true;
-    if (is_timeout_) {
-      task_done_ = true;
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  bool slave_test_timeout() const { return is_timeout_; }
-
-  template &lt;int failure_code = -1&gt;
-  void slave_set_failed() {
-    ret_.set_failed&lt;failure_code&gt;();
-    task_done_ = true;
-  }
-
-  template &lt;int success_code = 1&gt;
-  void slave_set_succeeded() {
-    ret_.set_succeeded&lt;success_code&gt;();
-    task_done_ = true;
-  }
-
-  // use default code 1 for succeeded and -1 for failed.
-  void slave_set_ret(bool succeeded) {
-    if (succeeded) {
-      slave_set_succeeded();
-    } else {
-      slave_set_failed();
-    }
-  }
-
-  // unsafe, could call this without calling slave_check_whether_timeout first.
-  // 但是可能导致master观测到的TaskResultCode变化一次，从0变为负数。
-  template &lt;int failure_code = -1&gt;
-  void slave_set_failed_unsafe() {
-    if (!is_timeout_) {
-      ret_.set_failed&lt;failure_code&gt;();
-    }
-    task_done_ = true;
-  }
-
-private:
-  std::atomic&lt;bool&gt; is_timeout_{false};
-  std::atomic&lt;bool&gt; slave_checking_timeout_{false};
-  std::atomic&lt;bool&gt; task_done_{false};
-  TaskResultCode ret_;
-};
+<span class="k">private</span><span class="o">:</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">atomic</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">ival_</span><span class="p">;</span>
+<span class="p">};</span>
 
 
+<span class="c1">// 异步任务同步工具。主线程为master，任务线程为slave。
+</span><span class="c1">// 主线程发送异步任务时，打包一个SyncKit用作同步，同时还可以传入一个共享数据结构，
+</span><span class="c1">// 用于让slave把任务执行结果数据保存在此。
+</span><span class="c1"></span><span class="k">class</span> <span class="nc">SyncKit</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="n">SyncKit</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
 
-// 以下是一些配套工具代码
+  <span class="c1">// 主线程master检查异步任务执行结果，如果尚未完成则标记已经超时。
+</span><span class="c1"></span>  <span class="k">const</span> <span class="n">TaskResultCode</span><span class="o">&amp;</span> <span class="n">master_check_ret</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">task_done_</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="n">ret_</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">is_timeout_</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">slave_checking_timeout_</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">task_done_</span><span class="p">)</span> <span class="p">{}</span>  <span class="c1">// waiting
+</span><span class="c1"></span>      <span class="k">return</span> <span class="n">ret_</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">ret_</span><span class="p">;</span>
+  <span class="p">}</span>
 
-typedef std::shared_ptr&lt;SyncKit&gt; SyncKitPtr;
+  <span class="c1">// 主线程检master查任务结果，但不标记超时。
+</span><span class="c1"></span>  <span class="k">const</span> <span class="n">TaskResultCode</span><span class="o">&amp;</span> <span class="n">master_peek_ret</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">ret_</span><span class="p">;</span> <span class="p">}</span>
 
-inline SyncKitPtr new_sk() { return std::make_shared&lt;SyncKit&gt;(); }
+  <span class="cm">/**
+</span><span class="cm">   * slave code example:
+</span><span class="cm">   *
+</span><span class="cm">   * if slave_test_timeout():
+</span><span class="cm">   *   return
+</span><span class="cm">   * if invalid parameters or conditions:
+</span><span class="cm">   *   slave_set_failed_unsafe&lt;some failure code&gt;
+</span><span class="cm">   *
+</span><span class="cm">   * slave starts to run a task。 e.g. do some RPC.
+</span><span class="cm">   * 
+</span><span class="cm">   * // 异步任务已经完成，准备将任务结果写回到与master共享的数据结构中。
+</span><span class="cm">   * // 写之前先判断master是否已经标记超时。
+</span><span class="cm">   * if slave_check_whether_timeout():
+</span><span class="cm">   *     return
+</span><span class="cm">   * 
+</span><span class="cm">   * // 尚未超时，master还在等待。此后的代码逻辑必须保证slave一定会调用
+</span><span class="cm">   * // slave_set_failed&lt;failure code&gt;()或slave_set_succeeded&lt;success code&gt;()
+</span><span class="cm">   * // 并最终对 task_done_ 赋值为true，否则可能阻塞主线程。
+</span><span class="cm">   * 
+</span><span class="cm">   * if task failed:
+</span><span class="cm">   *     slave writes failed result to shared data or does nothing.
+</span><span class="cm">   *     slave_set_failed&lt;some failure code&gt;()
+</span><span class="cm">   * else:
+</span><span class="cm">   *     slave writes succeeded result to shared data.
+</span><span class="cm">   *     slave_set_succeeded&lt;some success code&gt;()
+</span><span class="cm">   *
+</span><span class="cm">   */</span>
 
-struct SyncKitGuard {
-  SyncKitPtr sk;
-  std::string name;
+  <span class="c1">// 任务线程slave检查主线程master是否已经标记超时。如果已经标记为超时，
+</span><span class="c1"></span>  <span class="c1">// 则slave不能再对与master共享的数据结构做任何修改，因为此时master可能正在读取这些数据。
+</span><span class="c1"></span>  <span class="c1">// 任务线程slave在修改与master共享的数据结构之前，必须调用此方法确保尚未超时。
+</span><span class="c1"></span>  <span class="kt">bool</span> <span class="nf">slave_check_whether_timeout</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">slave_checking_timeout_</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">is_timeout_</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">task_done_</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+      <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  SyncKitGuard() : sk(new_sk()) {}
+  <span class="kt">bool</span> <span class="nf">slave_test_timeout</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">is_timeout_</span><span class="p">;</span> <span class="p">}</span>
 
-  SyncKitGuard(std::string n) : sk(new_sk()), name(std::move(n)) {}
+  <span class="k">template</span> <span class="o">&lt;</span><span class="kt">int</span> <span class="n">failure_code</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">&gt;</span>
+  <span class="kt">void</span> <span class="n">slave_set_failed</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">ret_</span><span class="p">.</span><span class="n">set_failed</span><span class="o">&lt;</span><span class="n">failure_code</span><span class="o">&gt;</span><span class="p">();</span>
+    <span class="n">task_done_</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  SyncKitGuard(std::string n, SyncKitPtr orther_sk) : sk(orther_sk), name(
-      std::move(n)) { assert(sk != nullptr); }
+  <span class="k">template</span> <span class="o">&lt;</span><span class="kt">int</span> <span class="n">success_code</span> <span class="o">=</span> <span class="mi">1</span><span class="o">&gt;</span>
+  <span class="kt">void</span> <span class="n">slave_set_succeeded</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">ret_</span><span class="p">.</span><span class="n">set_succeeded</span><span class="o">&lt;</span><span class="n">success_code</span><span class="o">&gt;</span><span class="p">();</span>
+    <span class="n">task_done_</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  SyncKitGuard(SyncKitGuard&amp;&amp; r) : sk(std::move(r.sk)),
-                                   name(std::move(r.name)) { r.sk = nullptr; }
+  <span class="c1">// use default code 1 for succeeded and -1 for failed.
+</span><span class="c1"></span>  <span class="kt">void</span> <span class="nf">slave_set_ret</span><span class="p">(</span><span class="kt">bool</span> <span class="n">succeeded</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">succeeded</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">slave_set_succeeded</span><span class="p">();</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="n">slave_set_failed</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  SyncKitGuard(const SyncKitGuard&amp; r) = delete;
+  <span class="c1">// unsafe, could call this without calling slave_check_whether_timeout first.
+</span><span class="c1"></span>  <span class="c1">// 但是可能导致master观测到的TaskResultCode变化一次，从0变为负数。
+</span><span class="c1"></span>  <span class="k">template</span> <span class="o">&lt;</span><span class="kt">int</span> <span class="n">failure_code</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">&gt;</span>
+  <span class="kt">void</span> <span class="n">slave_set_failed_unsafe</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">is_timeout_</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">ret_</span><span class="p">.</span><span class="n">set_failed</span><span class="o">&lt;</span><span class="n">failure_code</span><span class="o">&gt;</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="n">task_done_</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
 
-  ~SyncKitGuard() {
-    if (sk) sk-&gt;master_check_ret();
-  }
-};
+<span class="k">private</span><span class="o">:</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">atomic</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">is_timeout_</span><span class="p">{</span><span class="nb">false</span><span class="p">};</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">atomic</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">slave_checking_timeout_</span><span class="p">{</span><span class="nb">false</span><span class="p">};</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">atomic</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">task_done_</span><span class="p">{</span><span class="nb">false</span><span class="p">};</span>
+  <span class="n">TaskResultCode</span> <span class="n">ret_</span><span class="p">;</span>
+<span class="p">};</span>
 
-struct SyncKitGuardList : public std::list&lt;SyncKitGuard&gt; {
-  SyncKitGuard&amp; new_back(std::string name = &quot;&quot;) {
-    push_back(SyncKitGuard(std::move(name)));
-    return back();
-  }
-};
 
-struct SyncKitGuardMap : public std::map&lt;std::string, SyncKitGuard&gt; {};
 
-</code></pre><p>留一个思考题，SyncKit类中的这些原子bool类型，最低需要使用什么MemoryOrder呢？
+<span class="c1">// 以下是一些配套工具代码
+</span><span class="c1"></span>
+<span class="k">typedef</span> <span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">SyncKit</span><span class="o">&gt;</span> <span class="n">SyncKitPtr</span><span class="p">;</span>
+
+<span class="kr">inline</span> <span class="n">SyncKitPtr</span> <span class="nf">new_sk</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">SyncKit</span><span class="o">&gt;</span><span class="p">();</span> <span class="p">}</span>
+
+<span class="k">struct</span> <span class="nc">SyncKitGuard</span> <span class="p">{</span>
+  <span class="n">SyncKitPtr</span> <span class="n">sk</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name</span><span class="p">;</span>
+
+  <span class="n">SyncKitGuard</span><span class="p">()</span> <span class="o">:</span> <span class="n">sk</span><span class="p">(</span><span class="n">new_sk</span><span class="p">())</span> <span class="p">{}</span>
+
+  <span class="n">SyncKitGuard</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">n</span><span class="p">)</span> <span class="o">:</span> <span class="n">sk</span><span class="p">(</span><span class="n">new_sk</span><span class="p">()),</span> <span class="n">name</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">n</span><span class="p">))</span> <span class="p">{}</span>
+
+  <span class="n">SyncKitGuard</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">n</span><span class="p">,</span> <span class="n">SyncKitPtr</span> <span class="n">orther_sk</span><span class="p">)</span> <span class="o">:</span> <span class="n">sk</span><span class="p">(</span><span class="n">orther_sk</span><span class="p">),</span> <span class="n">name</span><span class="p">(</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">n</span><span class="p">))</span> <span class="p">{</span> <span class="n">assert</span><span class="p">(</span><span class="n">sk</span> <span class="o">!=</span> <span class="k">nullptr</span><span class="p">);</span> <span class="p">}</span>
+
+  <span class="n">SyncKitGuard</span><span class="p">(</span><span class="n">SyncKitGuard</span><span class="o">&amp;&amp;</span> <span class="n">r</span><span class="p">)</span> <span class="o">:</span> <span class="n">sk</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">sk</span><span class="p">)),</span>
+                                   <span class="n">name</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">name</span><span class="p">))</span> <span class="p">{</span> <span class="n">r</span><span class="p">.</span><span class="n">sk</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span> <span class="p">}</span>
+
+  <span class="n">SyncKitGuard</span><span class="p">(</span><span class="k">const</span> <span class="n">SyncKitGuard</span><span class="o">&amp;</span> <span class="n">r</span><span class="p">)</span> <span class="o">=</span> <span class="k">delete</span><span class="p">;</span>
+
+  <span class="o">~</span><span class="n">SyncKitGuard</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">sk</span><span class="p">)</span> <span class="n">sk</span><span class="o">-&gt;</span><span class="n">master_check_ret</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">struct</span> <span class="nc">SyncKitGuardList</span> <span class="o">:</span> <span class="k">public</span> <span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="n">SyncKitGuard</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="n">SyncKitGuard</span><span class="o">&amp;</span> <span class="n">new_back</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&#34;&#34;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">push_back</span><span class="p">(</span><span class="n">SyncKitGuard</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">name</span><span class="p">)));</span>
+    <span class="k">return</span> <span class="nf">back</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">struct</span> <span class="nc">SyncKitGuardMap</span> <span class="o">:</span> <span class="k">public</span> <span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="n">SyncKitGuard</span><span class="o">&gt;</span> <span class="p">{};</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>留一个思考题，SyncKit类中的这些原子bool类型，最低需要使用什么MemoryOrder呢？
 sec_cst? release-acquire? relaxed?</p>
 
     </div>

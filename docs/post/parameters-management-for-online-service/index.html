@@ -69,7 +69,7 @@
 <meta itemprop="name" content="Parameters Management for Online Service">
 <meta itemprop="description" content="互联网公司业务发展快，策略复杂，软件迭代变更非常频繁。因此有必要有一套良好的参数管理思想控制在线服务的表现，以支持业务的频繁变更和AB实验等"><meta itemprop="datePublished" content="2022-03-17T22:01:30+08:00" />
 <meta itemprop="dateModified" content="2022-03-18T22:01:30+08:00" />
-<meta itemprop="wordCount" content="565">
+<meta itemprop="wordCount" content="566">
 <meta itemprop="keywords" content="参数管理," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Parameters Management for Online Service"/>
 <meta name="twitter:description" content="互联网公司业务发展快，策略复杂，软件迭代变更非常频繁。因此有必要有一套良好的参数管理思想控制在线服务的表现，以支持业务的频繁变更和AB实验等"/>
@@ -353,8 +353,15 @@
 </ul>
 <h2 id="优先级">优先级</h2>
 <p>服务初始化时，按照一定优先级合并多种参数用于后续处理。综上描述，按优先级从高到低，这一套在线服务参数的排列顺序是：</p>
-<pre tabindex="0"><code>高优降级参数 -&gt; 实验参数 -&gt; 低优降级参数 -&gt; 默认配置参数(远程配置参数 或 本地配置参数)
-</code></pre>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">高优降级参数 -&gt; 实验参数 -&gt; 低优降级参数 -&gt; 默认配置参数(远程配置参数 或 本地配置参数)
+</code></pre></td></tr></table>
+</div>
+</div>
     </div>
 
     

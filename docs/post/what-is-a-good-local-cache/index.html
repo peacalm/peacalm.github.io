@@ -69,7 +69,7 @@
 <meta itemprop="name" content="What Is a Good Local Cache">
 <meta itemprop="description" content="缓存技术，Cache，特别是LocalCache，是软件开发中非常常用的组件，也是提高性能的最简单的方式。 Cache一般有SideCar和W"><meta itemprop="datePublished" content="2022-03-31T02:15:21+08:00" />
 <meta itemprop="dateModified" content="2022-03-31T02:15:21+08:00" />
-<meta itemprop="wordCount" content="1471">
+<meta itemprop="wordCount" content="1476">
 <meta itemprop="keywords" content="缓存,Cache,LocalCache,Wrapper,SideCar," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="What Is a Good Local Cache"/>
 <meta name="twitter:description" content="缓存技术，Cache，特别是LocalCache，是软件开发中非常常用的组件，也是提高性能的最简单的方式。 Cache一般有SideCar和W"/>
@@ -342,17 +342,34 @@ Cache一般有SideCar和Wrapper两种使用模式。</p>
 <p>这种模式可以是LocalCache，与应用程序集成部署，但是由于Cache功能与业务逻辑无耦合，非常独立，所以出现了很多优秀的独立出来的非常通用的第三方独立缓存服务，
 比如Redis，Memcached等。
 独立缓存服务一般与应用程序分开，独立部署，需要通过网络进行交互，数据量较大或对性能要求较高时，网络带宽消耗、延时、数据序列化反序列化的CPU消耗不能忽视。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Cache
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">Cache
 ↑  
 |  
 App  --&gt;   DataSource
-</code></pre></div><ol start="2">
+</code></pre></td></tr></table>
+</div>
+</div><ol start="2">
 <li>Wrapper模式：应用程序只需要访问缓存，缓存具有代理能力可以帮助应用程序去访问数据源服务。</li>
 </ol>
 <p>这种模式需要对Cache做特殊化定制，一般是LocalCache，与应用程序集成部署，只需在内存中进行交互，性能较高。如果Cache设计的好，可以极大简化业务代码，
 可以提高组件可复用性。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">App --&gt; Cache --&gt; DataSource
-</code></pre></div><p>那么怎么才算是一个好的LocalCache呢？从业务应用上要灵活好用，满足多种多样的业务需求，同时也要具有基本的高性能。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">App --&gt; Cache --&gt; DataSource
+</code></pre></td></tr></table>
+</div>
+</div><p>那么怎么才算是一个好的LocalCache呢？从业务应用上要灵活好用，满足多种多样的业务需求，同时也要具有基本的高性能。</p>
 <h2 id="灵活好用">灵活好用</h2>
 <ul>
 <li>具有单Key读写接口，也具有Batch读写接口。</li>
