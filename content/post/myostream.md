@@ -28,7 +28,7 @@ std::map, std::multimap, std::unordered_map, std::unordered_multimap.
 
 
 例如，如下debug代码：
-```C++
+```
 #include <iostream>
 #include <vector>
 

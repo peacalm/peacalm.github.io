@@ -363,31 +363,31 @@ std::map, std::multimap, std::unordered_map, std::unordered_multimap.&lt;/p&gt;
 而且还想要同时打印出变量名，以便我们在解题时，如果定义了多个容器变量，我们可以知道哪个变量的值使哪一个值，
 因此我设计了watch功能。&lt;/p&gt;
 &lt;p&gt;例如，如下debug代码：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C++&#34; data-lang=&#34;C++&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;vector&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;#ifndef ONLINE_JUDGE
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#include&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;&amp;lt;myostream.h&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;myostream&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;ostream mycout(std&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;cout.rdbuf());
-&lt;span style=&#34;color:#75715e&#34;&gt;#define watch(...) MYOSTREAM_WATCH(mycout, &amp;#34; = &amp;#34;, &amp;#34;\n&amp;#34;, &amp;#34;\n\n&amp;#34;, __VA_ARGS__)
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#else
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#define watch(...)
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#endif
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;() {
-  std&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;vector&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; v{&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;};
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;vector&amp;gt;
+
+#ifndef ONLINE_JUDGE
+#include &amp;lt;myostream.h&amp;gt;
+myostream::ostream mycout(std::cout.rdbuf());
+#define watch(...) MYOSTREAM_WATCH(mycout, &amp;quot; = &amp;quot;, &amp;quot;\n&amp;quot;, &amp;quot;\n\n&amp;quot;, __VA_ARGS__)
+#else
+#define watch(...)
+#endif
+
+int main() {
+  std::vector&amp;lt;int&amp;gt; v{1, 2, 3};
   watch(v);
 
-  std&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;tuple&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;std&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;vector&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt;, std&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;map&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;, std&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;set&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;std&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;string&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;,
-      std&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;pair&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;std&lt;span style=&#34;color:#f92672&#34;&gt;::&lt;/span&gt;string, &lt;span style=&#34;color:#66d9ef&#34;&gt;double&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; complex({&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;},
-                                              {{&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;a&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;aa&amp;#34;&lt;/span&gt;}},
-                                               {&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;b&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bb&amp;#34;&lt;/span&gt;}}},
-                                              {&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Aya&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;88.5&lt;/span&gt;});
+  std::tuple&amp;lt;std::vector&amp;lt;int&amp;gt;, std::map&amp;lt;int, std::set&amp;lt;std::string&amp;gt;&amp;gt;,
+      std::pair&amp;lt;std::string, double&amp;gt;&amp;gt; complex({1, 2, 3},
+                                              {{1, {&amp;quot;a&amp;quot;, &amp;quot;aa&amp;quot;}},
+                                               {2, {&amp;quot;b&amp;quot;, &amp;quot;bb&amp;quot;}}},
+                                              {&amp;quot;Aya&amp;quot;, 88.5});
   watch(complex);
 
-  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+  return 0;
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在本地编译运行，可以输出：&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;在本地编译运行，可以输出：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;v = [1, 2, 3]
 
 complex = &amp;lt;[1, 2, 3], {1: {a, aa}, 2: {b, bb}}, (Aya, 88.5)&amp;gt;
