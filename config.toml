@@ -130,3 +130,4 @@ defaultContentLanguage = "en"           # Default language to use
   [params.gitInfo]
     gitRepo = "https://github.com/peacalm/peacalm.github.io"
     showCommitMessage = true
+
