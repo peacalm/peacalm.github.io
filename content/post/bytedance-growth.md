@@ -1,5 +1,5 @@
 ---
-title: "字节跳动发展史"
+title: "字节跳动发展史 | History of Bytedance"
 date: 2022-03-04T02:50:04+08:00
 lastmod: 2022-03-18T22:10:58+08:00
 draft: false
