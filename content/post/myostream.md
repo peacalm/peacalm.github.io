@@ -26,6 +26,18 @@ std::map, std::multimap, std::unordered_map, std::unordered_multimap.
 而且还想要同时打印出变量名，以便我们在解题时，如果定义了多个容器变量，我们可以知道哪个变量的值使哪一个值，
 因此我设计了watch功能。
 
+宏定义watch可以用一下两种方式：
+一，用std::cout输出MYOSTREAM_WATCH_TO_STRING生成的字符串：
+```C++
+#include <myostream.h>
+#define watch(...) std::cout << MYOSTREAM_WATCH_TO_STRING(std::string, " = ", "\n", "\n\n", __VA_ARGS__)
+```
+二，直接使用MYOSTREAM_WATCH，坏处是这里定义了一个变量`mycout`，这段代码不能在头文件中被多个源文件include:
+```C++
+#include <myostream.h>
+myostream::ostream mycout(std::cout.rdbuf());
+#define watch(...) MYOSTREAM_WATCH(mycout, " = ", "\n", "\n\n", __VA_ARGS__)
+```
 
 例如，如下debug代码：
 ```C++

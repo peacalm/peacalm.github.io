@@ -69,7 +69,7 @@
 <meta itemprop="name" content="C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器">
 <meta itemprop="description" content="懒汉的烦恼 使用C&#43;&#43;编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印输出。 相比之下Python"><meta itemprop="datePublished" content="2022-03-17T01:12:25+08:00" />
 <meta itemprop="dateModified" content="2022-03-18T00:54:42+08:00" />
-<meta itemprop="wordCount" content="494">
+<meta itemprop="wordCount" content="653">
 <meta itemprop="keywords" content="C&#43;&#43;,库,输出库,debug tool,watch tool,ACMer助手," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器"/>
 <meta name="twitter:description" content="懒汉的烦恼 使用C&#43;&#43;编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印输出。 相比之下Python"/>
@@ -347,7 +347,32 @@ std::map, std::multimap, std::unordered_map, std::unordered_multimap.</p>
 <p>特别的，我们在打ACM比赛或做类似的OJ题目的过程中，需要debug的时候，我们不仅想要打印容器里的值，
 而且还想要同时打印出变量名，以便我们在解题时，如果定义了多个容器变量，我们可以知道哪个变量的值使哪一个值，
 因此我设计了watch功能。</p>
-<p>例如，如下debug代码：</p>
+<p>宏定义watch可以用一下两种方式：
+一，用std::cout输出MYOSTREAM_WATCH_TO_STRING生成的字符串：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="cp">#include</span> <span class="cpf">&lt;myostream.h&gt;</span><span class="cp">
+</span><span class="cp">#define watch(...) std::cout &lt;&lt; MYOSTREAM_WATCH_TO_STRING(std::string, &#34; = &#34;, &#34;\n&#34;, &#34;\n\n&#34;, __VA_ARGS__)
+</span></code></pre></td></tr></table>
+</div>
+</div><p>二，直接使用MYOSTREAM_WATCH，坏处是这里定义了一个变量<code>mycout</code>，这段代码不能在头文件中被多个源文件include:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="cp">#include</span> <span class="cpf">&lt;myostream.h&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="n">myostream</span><span class="o">::</span><span class="n">ostream</span> <span class="n">mycout</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">.</span><span class="n">rdbuf</span><span class="p">());</span>
+<span class="cp">#define watch(...) MYOSTREAM_WATCH(mycout, &#34; = &#34;, &#34;\n&#34;, &#34;\n\n&#34;, __VA_ARGS__)
+</span></code></pre></td></tr></table>
+</div>
+</div><p>例如，如下debug代码：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
