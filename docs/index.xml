@@ -52,12 +52,21 @@
 &lt;li&gt;&lt;a href=&#34;https://www.cppstories.com/&#34;&gt;https://www.cppstories.com/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;open-source-libraries&#34;&gt;Open Source Libraries&lt;/h2&gt;
+&lt;h3 id=&#34;general-lib&#34;&gt;General lib&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;LLVM STL&lt;/li&gt;
 &lt;li&gt;Boost&lt;/li&gt;
 &lt;li&gt;Folly, Wangle&lt;/li&gt;
 &lt;li&gt;Abseil&lt;/li&gt;
-&lt;li&gt;TBB&lt;/li&gt;
+&lt;li&gt;TBB concurrent containers&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;tool-lib&#34;&gt;Tool lib&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;rapidJSON&lt;/li&gt;
+&lt;li&gt;Log4j&lt;/li&gt;
+&lt;li&gt;thrift, fbthrift, gRPC&lt;/li&gt;
+&lt;li&gt;LevelDB, RocksDB, TerarkDB
+&amp;hellip;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
       

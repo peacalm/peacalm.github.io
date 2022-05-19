@@ -41,8 +41,16 @@ categories: ["技术", "C++"]
 
 
 ## Open Source Libraries
+### General lib
 * LLVM STL
 * Boost
 * Folly, Wangle
 * Abseil
-* TBB
+* TBB concurrent containers
+### Tool lib
+* rapidJSON
+* Log4j
+* thrift, fbthrift, gRPC
+* LevelDB, RocksDB, TerarkDB
+...
+
