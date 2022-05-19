@@ -8,7 +8,7 @@ categories: ["技术", "C++"]
 ---
 
 ## Books
-* C++ primer
+* C++ Primer
 * Effective C++
 * More Effective C++
 * Effective STL
