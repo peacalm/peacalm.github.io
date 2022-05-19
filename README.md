@@ -1,2 +1,2 @@
 # peacalm.github.io
-my blog
+My blog: https://peacalm.github.io or https://lishuangquan.cn
