@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Peacalm Notes - 双全的网站</title>
+  <title>Maglev Consistent Hash - Peacalm Notes - 双全的网站</title>
   
 
 <meta name="renderer" content="webkit" />
@@ -23,7 +23,8 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="李双全" />
-  <meta name="description" content="lishuangquan&#39;s site." />
+  <meta name="description" content="Maglev一致性哈希算法描述 选取哈希槽长度，素数M，生成空哈希槽； 将server列表排序； 对每一个server哈希得到两个随机数A、B(模" />
+
   <meta name="keywords" content="lishuangquan, blog, software" />
 
 
@@ -34,8 +35,8 @@
 <meta name="generator" content="Hugo 0.92.1" />
 
 
-<link rel="canonical" href="https://peacalm.github.io/" />
-<link href="/index.xml" rel="alternate" type="application/rss+xml" title="Peacalm Notes - 双全的网站" />
+<link rel="canonical" href="https://peacalm.github.io/post/maglev-consistent-hash/" />
+
 
 
 
@@ -58,15 +59,20 @@
 
 
 
-<meta property="og:title" content="Peacalm Notes - 双全的网站" />
-<meta property="og:description" content="lishuangquan&#39;s site." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://peacalm.github.io/" />
+<meta property="og:title" content="Maglev Consistent Hash" />
+<meta property="og:description" content="Maglev一致性哈希算法描述 选取哈希槽长度，素数M，生成空哈希槽； 将server列表排序； 对每一个server哈希得到两个随机数A、B(模" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://peacalm.github.io/post/maglev-consistent-hash/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-03-31T18:33:57+08:00" />
+<meta property="article:modified_time" content="2022-03-31T18:33:57+08:00" />
 
-<meta itemprop="name" content="Peacalm Notes - 双全的网站">
-<meta itemprop="description" content="lishuangquan&#39;s site."><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Peacalm Notes - 双全的网站"/>
-<meta name="twitter:description" content="lishuangquan&#39;s site."/>
+<meta itemprop="name" content="Maglev Consistent Hash">
+<meta itemprop="description" content="Maglev一致性哈希算法描述 选取哈希槽长度，素数M，生成空哈希槽； 将server列表排序； 对每一个server哈希得到两个随机数A、B(模"><meta itemprop="datePublished" content="2022-03-31T18:33:57+08:00" />
+<meta itemprop="dateModified" content="2022-03-31T18:33:57+08:00" />
+<meta itemprop="wordCount" content="269">
+<meta itemprop="keywords" content="maglev,一致性哈希," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Maglev Consistent Hash"/>
+<meta name="twitter:description" content="Maglev一致性哈希算法描述 选取哈希槽长度，素数M，生成空哈希槽； 将server列表排序； 对每一个server哈希得到两个随机数A、B(模"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -283,246 +289,178 @@
     <main id="main" class="main bg-llight">
       <div class="content-wrapper">
         <div id="content" class="content container">
-          
-<section id="posts" class="posts">
-  
-  
+          <article class="post bg-white">
     
-  
-  
-  
-    <article class="post bg-white">
-  <header class="post-header">
-    <h1 class="post-title">
+    <header class="post-header">
+      <h1 class="post-title">Maglev Consistent Hash</h1>
       
-      <a class="post-link" href="/post/learning-cpp/">Learning C&#43;&#43;</a>
-    </h1>
+      <div class="post-meta">
+        <time datetime="2022-03-31" class="post-time">
+          2022-03-31
+        </time>
+        <div class="post-category">
+            <a href="https://peacalm.github.io/categories/%E6%8A%80%E6%9C%AF/"> 技术 </a>
+            
+          </div>
+        
+
+        
+        
+          <span id="busuanzi_container_page_pv">
+            | 阅读 <span id="busuanzi_value_page_pv"></span>
+          </span>
+        
+
+        
+        
+      </div>
+    </header>
+
     
-    <div class="post-meta">
-      <time datetime="2022-05-20" class="post-time">
-        2022-05-20
-      </time>
-      <div class="post-category">
-          <a href="https://peacalm.github.io/categories/%E6%8A%80%E6%9C%AF/"> 技术 </a>
-          <a href="https://peacalm.github.io/categories/c&#43;&#43;/"> C&#43;&#43; </a>
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Table of Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#maglev一致性哈希算法描述">Maglev一致性哈希算法描述</a></li>
+    <li><a href="#算法优缺点">算法优缺点</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      <h2 id="maglev一致性哈希算法描述">Maglev一致性哈希算法描述</h2>
+<ol>
+<li>选取哈希槽长度，素数M，生成空哈希槽；</li>
+<li>将server列表排序；</li>
+<li>对每一个server哈希得到两个随机数A、B(模M-1再加1保证非0或M的倍数)，然后得到server对应的0到M-1的排列：Xk = (A + kB)%M, k=0,1,&hellip;,M-1；</li>
+<li>排列中每一个数字代表一个槽位，轮询每一个server的排列，从左到右选择排列中的第一个空槽位填充进去，直到哈希槽填充完整为止；</li>
+<li>对一个query_id，query_id%M 映射到哈希槽中对应的server。</li>
+</ol>
+<h2 id="算法优缺点">算法优缺点</h2>
+<ul>
+<li>优点：分片均匀，查询速度快O(1)</li>
+<li>缺点：更新较慢O(n)</li>
+</ul>
+
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">李双全</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+      2022-03-31
+      
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+
+    
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="/reward/wechatpay-qr-code.png">
+        <span>Wechat</span>
+      </label>
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="/reward/alipay-qr-code.png">
+        <span>Alipay</span>
+      </label>
+  </div>
+</div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          <a href="https://peacalm.github.io/tags/maglev/">maglev</a>
+          <a href="https://peacalm.github.io/tags/%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C/">一致性哈希</a>
           
         </div>
+
       
-      
-      
-    </div>
-  </header>
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/lockless-sync-kit/">
+            
+            <i class="iconfont">
+              <svg  class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M691.908486 949.511495l75.369571-89.491197c10.963703-12.998035 10.285251-32.864502-1.499144-44.378743L479.499795 515.267417 757.434875 204.940602c11.338233-12.190647 11.035334-32.285311-0.638543-44.850487l-80.46666-86.564541c-11.680017-12.583596-30.356378-12.893658-41.662889-0.716314L257.233596 494.235404c-11.332093 12.183484-11.041474 32.266891 0.657986 44.844348l80.46666 86.564541c1.772366 1.910513 3.706415 3.533476 5.750981 4.877077l306.620399 321.703933C662.505829 963.726242 680.945807 962.528973 691.908486 949.511495z"></path>
+</svg>
+
+            </i>
+            <span class="prev-text nav-default">在线服务的异步RPC延时控制和无锁异步任务同步组件</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        
+          <a class="next" href="/post/what-is-a-good-local-cache/">
+            <span class="next-text nav-default">What Is a Good Local Cache</span>
+            <span class="prev-text nav-mobile">Next</span>
+            
+            <i class="iconfont">
+              <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M332.091514 74.487481l-75.369571 89.491197c-10.963703 12.998035-10.285251 32.864502 1.499144 44.378743l286.278095 300.375162L266.565125 819.058374c-11.338233 12.190647-11.035334 32.285311 0.638543 44.850487l80.46666 86.564541c11.680017 12.583596 30.356378 12.893658 41.662889 0.716314l377.434212-421.426145c11.332093-12.183484 11.041474-32.266891-0.657986-44.844348l-80.46666-86.564541c-1.772366-1.910513-3.706415-3.533476-5.750981-4.877077L373.270379 71.774697C361.493148 60.273758 343.054193 61.470003 332.091514 74.487481z"></path>
+</svg>
+
+            </i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+
   
-  <div class="post-content">
+  
+
+  
+  
+
+  
+
+  
+  
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "peacalm/comments-for-peacalm.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+  
+
+  
+
+  
+
+  
+
     
-    <div class="post-summary">
-      Books C++ primer Effective C++ More Effective C++ Effective STL STL源码剖析 深度探索C++对象模型 | Inside the C++ Object Model Effective Modern C++ 大规模C++程序设计 | Large-Scale C++ Software Design Modern C++ Design Online Doc C++ 核心指导方针 Online manual https://cppreference.com Online Tools C++
-    </div>
-    <div class="read-more">
-      <a href="/post/learning-cpp/" class="read-more-link">Read more</a>
-    </div>
-    
-  </div>
-</article>
 
   
-    <article class="post bg-white">
-  <header class="post-header">
-    <h1 class="post-title">
-      
-      <a class="post-link" href="/post/lockless-sync-kit/">在线服务的异步RPC延时控制和无锁异步任务同步组件</a>
-    </h1>
-    
-    <div class="post-meta">
-      <time datetime="2022-04-18" class="post-time">
-        2022-04-18
-      </time>
-      <div class="post-category">
-          <a href="https://peacalm.github.io/categories/%E6%8A%80%E6%9C%AF/"> 技术 </a>
-          
-        </div>
-      
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    
-    <div class="post-summary">
-      一、关于延时 控制延时是保证在线服务可用性的必要手段 在线服务对延时敏感。一般对在线服务发起远程调用时，都会配有一个超时限制，一旦请求超时， 则认
-    </div>
-    <div class="read-more">
-      <a href="/post/lockless-sync-kit/" class="read-more-link">Read more</a>
-    </div>
-    
-  </div>
-</article>
-
-  
-    <article class="post bg-white">
-  <header class="post-header">
-    <h1 class="post-title">
-      
-      <a class="post-link" href="/post/what-is-a-good-local-cache/">What Is a Good Local Cache</a>
-    </h1>
-    
-    <div class="post-meta">
-      <time datetime="2022-03-31" class="post-time">
-        2022-03-31
-      </time>
-      <div class="post-category">
-          <a href="https://peacalm.github.io/categories/%E6%8A%80%E6%9C%AF/"> 技术 </a>
-          
-        </div>
-      
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    
-    <div class="post-summary">
-      缓存技术，Cache，特别是LocalCache，是软件开发中非常常用的组件，也是提高性能的最简单的方式。 Cache一般有SideCar和W
-    </div>
-    <div class="read-more">
-      <a href="/post/what-is-a-good-local-cache/" class="read-more-link">Read more</a>
-    </div>
-    
-  </div>
-</article>
-
-  
-    <article class="post bg-white">
-  <header class="post-header">
-    <h1 class="post-title">
-      
-      <a class="post-link" href="/post/parameters-management-for-online-service/">Parameters Management for Online Service</a>
-    </h1>
-    
-    <div class="post-meta">
-      <time datetime="2022-03-17" class="post-time">
-        2022-03-17
-      </time>
-      <div class="post-category">
-          <a href="https://peacalm.github.io/categories/%E6%8A%80%E6%9C%AF/"> 技术 </a>
-          
-        </div>
-      
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    
-    <div class="post-summary">
-      互联网公司业务发展快，策略复杂，软件迭代变更非常频繁。因此有必要有一套良好的参数管理思想控制在线服务的表现，以支持业务的频繁变更和AB实验等
-    </div>
-    <div class="read-more">
-      <a href="/post/parameters-management-for-online-service/" class="read-more-link">Read more</a>
-    </div>
-    
-  </div>
-</article>
-
-  
-    <article class="post bg-white">
-  <header class="post-header">
-    <h1 class="post-title">
-      
-      <a class="post-link" href="/post/myostream/">C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器</a>
-    </h1>
-    
-    <div class="post-meta">
-      <time datetime="2022-03-17" class="post-time">
-        2022-03-17
-      </time>
-      <div class="post-category">
-          <a href="https://peacalm.github.io/categories/%E6%8A%80%E6%9C%AF/"> 技术 </a>
-          <a href="https://peacalm.github.io/categories/c&#43;&#43;/"> C&#43;&#43; </a>
-          
-        </div>
-      
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    
-    <div class="post-summary">
-      懒汉的烦恼 使用C++编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印输出。 相比之下Python
-    </div>
-    <div class="read-more">
-      <a href="/post/myostream/" class="read-more-link">Read more</a>
-    </div>
-    
-  </div>
-</article>
-
-  
-    <article class="post bg-white">
-  <header class="post-header">
-    <h1 class="post-title">
-      
-      <a class="post-link" href="/post/bytedance-growth/">字节跳动发展史 | History of Bytedance</a>
-    </h1>
-    
-    <div class="post-meta">
-      <time datetime="2022-03-04" class="post-time">
-        2022-03-04
-      </time>
-      <div class="post-category">
-          <a href="https://peacalm.github.io/categories/%E4%BC%81%E4%B8%9A/"> 企业 </a>
-          
-        </div>
-      
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    
-    <div class="post-summary">
-      2012年3月9日，字节跳动Bytedance成立于北京海淀锦秋家园一个四居室内。天使轮融资，500万元，顺为资本、晨兴资本投资。 2012年
-    </div>
-    <div class="read-more">
-      <a href="/post/bytedance-growth/" class="read-more-link">Read more</a>
-    </div>
-    
-  </div>
-</article>
-
-  
-</section>
-
-
-
-
-
-
-  
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-
-
-
 
         </div>
       </div>

@@ -6,10 +6,62 @@
     <description>Recent content on Peacalm Notes - 双全的网站</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 18 Apr 2022 19:04:20 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 20 May 2022 01:39:54 +0800</lastBuildDate>
     
         <atom:link href="https://peacalm.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Learning C&#43;&#43;</title>
+      <link>https://peacalm.github.io/post/learning-cpp/</link>
+      <pubDate>Fri, 20 May 2022 01:39:54 +0800</pubDate>
+      
+      <guid>https://peacalm.github.io/post/learning-cpp/</guid>
+      
+        <description>&lt;h2 id=&#34;books&#34;&gt;Books&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;C++ primer&lt;/li&gt;
+&lt;li&gt;Effective C++&lt;/li&gt;
+&lt;li&gt;More Effective C++&lt;/li&gt;
+&lt;li&gt;Effective STL&lt;/li&gt;
+&lt;li&gt;STL源码剖析&lt;/li&gt;
+&lt;li&gt;深度探索C++对象模型 | Inside the C++ Object Model&lt;/li&gt;
+&lt;li&gt;Effective Modern C++&lt;/li&gt;
+&lt;li&gt;大规模C++程序设计 | Large-Scale C++ Software Design&lt;/li&gt;
+&lt;li&gt;Modern C++ Design&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;online-doc&#34;&gt;Online Doc&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/lynnboy/CppCoreGuidelines-zh-CN/blob/master/CppCoreGuidelines-zh-CN.md#SScp-coro&#34;&gt;C++ 核心指导方针&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;online-manual&#34;&gt;Online manual&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://cppreference.com&#34;&gt;https://cppreference.com&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;online-tools&#34;&gt;Online Tools&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;C++ Insights: &lt;a href=&#34;https://cppinsights.io&#34;&gt;https://cppinsights.io&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Compiler Explorer: &lt;a href=&#34;https://godbolt.org&#34;&gt;https://godbolt.org&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;blogs&#34;&gt;Blogs&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.modernescpp.com&#34;&gt;https://www.modernescpp.com&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.fluentcpp.com/&#34;&gt;https://www.fluentcpp.com/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://devblogs.microsoft.com/cppblog/&#34;&gt;https://devblogs.microsoft.com/cppblog/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://abseil.io/&#34;&gt;https://abseil.io/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.cppstories.com/&#34;&gt;https://www.cppstories.com/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;open-source-libraries&#34;&gt;Open Source Libraries&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;LLVM STL&lt;/li&gt;
+&lt;li&gt;Boost&lt;/li&gt;
+&lt;li&gt;Folly, Wangle&lt;/li&gt;
+&lt;li&gt;Abseil&lt;/li&gt;
+&lt;li&gt;TBB&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      
+    </item>
     
     <item>
       <title>在线服务的异步RPC延时控制和无锁异步任务同步组件</title>
