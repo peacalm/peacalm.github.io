@@ -524,7 +524,7 @@ sec_cst? release-acquire? relaxed?&lt;/p&gt;
 &lt;/ol&gt;
 &lt;p&gt;优缺点：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;优点：分片均匀，查询速度快O(1)&lt;/li&gt;
+&lt;li&gt;优点：分片均匀，均衡性好，查询速度快O(1)&lt;/li&gt;
 &lt;li&gt;缺点：增删节点后更新较慢O(n)，并且没有完全实现最小扰动。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;一致性哈希支持带权重候选节点&#34;&gt;一致性哈希支持带权重候选节点&lt;/h2&gt;
