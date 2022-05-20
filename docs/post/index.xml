@@ -26,6 +26,15 @@
     </item>
     
     <item>
+      <title>Maglev Consistent Hasher and Load Balancer</title>
+      <link>https://peacalm.github.io/post/2022/maglev-consistent-hash/</link>
+      <pubDate>Thu, 31 Mar 2022 18:33:57 +0800</pubDate>
+      
+      <guid>https://peacalm.github.io/post/2022/maglev-consistent-hash/</guid>
+      <description>本文重点描述Maglev一致性哈希算法，并原创性提出让Maglev一致性哈希算法支持带权重候选节点的做法， 以及描述了一致性哈希下的动态负载均</description>
+    </item>
+    
+    <item>
       <title>What Is a Good Local Cache</title>
       <link>https://peacalm.github.io/post/2022/what-is-a-good-local-cache/</link>
       <pubDate>Thu, 31 Mar 2022 02:15:21 +0800</pubDate>
