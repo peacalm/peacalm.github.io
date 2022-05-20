@@ -13,10 +13,10 @@
     
     <item>
       <title>Learning C&#43;&#43;</title>
-      <link>https://peacalm.github.io/post/learning-cpp/</link>
+      <link>https://peacalm.github.io/post/2022/learning-cpp/</link>
       <pubDate>Fri, 20 May 2022 01:39:54 +0800</pubDate>
       
-      <guid>https://peacalm.github.io/post/learning-cpp/</guid>
+      <guid>https://peacalm.github.io/post/2022/learning-cpp/</guid>
       
         <description>&lt;h2 id=&#34;books&#34;&gt;Books&lt;/h2&gt;
 &lt;ul&gt;
@@ -74,10 +74,10 @@
     
     <item>
       <title>在线服务的异步RPC延时控制和无锁异步任务同步组件</title>
-      <link>https://peacalm.github.io/post/lockless-sync-kit/</link>
+      <link>https://peacalm.github.io/post/2022/lockless-sync-kit/</link>
       <pubDate>Mon, 18 Apr 2022 19:04:20 +0800</pubDate>
       
-      <guid>https://peacalm.github.io/post/lockless-sync-kit/</guid>
+      <guid>https://peacalm.github.io/post/2022/lockless-sync-kit/</guid>
       
         <description>&lt;h2 id=&#34;一关于延时&#34;&gt;一、关于延时&lt;/h2&gt;
 &lt;h3 id=&#34;控制延时是保证在线服务可用性的必要手段&#34;&gt;控制延时是保证在线服务可用性的必要手段&lt;/h3&gt;
@@ -487,10 +487,10 @@ sec_cst? release-acquire? relaxed?&lt;/p&gt;
     
     <item>
       <title>What Is a Good Local Cache</title>
-      <link>https://peacalm.github.io/post/what-is-a-good-local-cache/</link>
+      <link>https://peacalm.github.io/post/2022/what-is-a-good-local-cache/</link>
       <pubDate>Thu, 31 Mar 2022 02:15:21 +0800</pubDate>
       
-      <guid>https://peacalm.github.io/post/what-is-a-good-local-cache/</guid>
+      <guid>https://peacalm.github.io/post/2022/what-is-a-good-local-cache/</guid>
       
         <description>&lt;p&gt;缓存技术，Cache，特别是LocalCache，是软件开发中非常常用的组件，也是提高性能的最简单的方式。
 Cache一般有SideCar和Wrapper两种使用模式。&lt;/p&gt;
@@ -565,10 +565,10 @@ App  --&amp;gt;   DataSource
     
     <item>
       <title>Parameters Management for Online Service</title>
-      <link>https://peacalm.github.io/post/parameters-management-for-online-service/</link>
+      <link>https://peacalm.github.io/post/2022/parameters-management-for-online-service/</link>
       <pubDate>Thu, 17 Mar 2022 22:01:30 +0800</pubDate>
       
-      <guid>https://peacalm.github.io/post/parameters-management-for-online-service/</guid>
+      <guid>https://peacalm.github.io/post/2022/parameters-management-for-online-service/</guid>
       
         <description>&lt;p&gt;互联网公司业务发展快，策略复杂，软件迭代变更非常频繁。因此有必要有一套良好的参数管理思想控制在线服务的表现，以支持业务的频繁变更和AB实验等。&lt;/p&gt;
 &lt;h2 id=&#34;参数分类&#34;&gt;参数分类&lt;/h2&gt;
@@ -604,11 +604,11 @@ App  --&amp;gt;   DataSource
     </item>
     
     <item>
-      <title>C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器</title>
-      <link>https://peacalm.github.io/post/myostream/</link>
+      <title>[库]C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器</title>
+      <link>https://peacalm.github.io/post/2022/myostream/</link>
       <pubDate>Thu, 17 Mar 2022 01:12:25 +0800</pubDate>
       
-      <guid>https://peacalm.github.io/post/myostream/</guid>
+      <guid>https://peacalm.github.io/post/2022/myostream/</guid>
       
         <description>&lt;h2 id=&#34;懒汉的烦恼&#34;&gt;懒汉的烦恼&lt;/h2&gt;
 &lt;p&gt;使用C++编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印输出。
@@ -727,10 +727,10 @@ complex = &amp;lt;[1, 2, 3], {1: {a, aa}, 2: {b, bb}}, (Aya, 88.5)&amp;gt;
     
     <item>
       <title>字节跳动发展史 | History of Bytedance</title>
-      <link>https://peacalm.github.io/post/bytedance-growth/</link>
+      <link>https://peacalm.github.io/post/2022/bytedance-growth/</link>
       <pubDate>Fri, 04 Mar 2022 02:50:04 +0800</pubDate>
       
-      <guid>https://peacalm.github.io/post/bytedance-growth/</guid>
+      <guid>https://peacalm.github.io/post/2022/bytedance-growth/</guid>
       
         <description>&lt;ul&gt;
 &lt;li&gt;

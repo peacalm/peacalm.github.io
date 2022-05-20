@@ -9,19 +9,19 @@
     <lastBuildDate>Fri, 20 May 2022 01:39:54 +0800</lastBuildDate><atom:link href="https://peacalm.github.io/categories/c++/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Learning C&#43;&#43;</title>
-      <link>https://peacalm.github.io/post/learning-cpp/</link>
+      <link>https://peacalm.github.io/post/2022/learning-cpp/</link>
       <pubDate>Fri, 20 May 2022 01:39:54 +0800</pubDate>
       
-      <guid>https://peacalm.github.io/post/learning-cpp/</guid>
+      <guid>https://peacalm.github.io/post/2022/learning-cpp/</guid>
       <description>Books C++ Primer Effective C++ More Effective C++ Effective STL STL源码剖析 深度探索C++对象模型 | Inside the C++ Object Model Effective Modern C++ 大规模C++程序设计 | Large-Scale C++ Software Design Modern C++ Design Online Doc C++ 核心指导方针 Online manual https://cppreference.com Online Tools C++</description>
     </item>
     
     <item>
-      <title>C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器</title>
-      <link>https://peacalm.github.io/post/myostream/</link>
+      <title>[库]C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器</title>
+      <link>https://peacalm.github.io/post/2022/myostream/</link>
       <pubDate>Thu, 17 Mar 2022 01:12:25 +0800</pubDate>
       
-      <guid>https://peacalm.github.io/post/myostream/</guid>
+      <guid>https://peacalm.github.io/post/2022/myostream/</guid>
       <description>懒汉的烦恼 使用C++编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印输出。 相比之下Python</description>
     </item>
     

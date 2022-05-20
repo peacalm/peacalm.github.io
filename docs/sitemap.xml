@@ -16,7 +16,7 @@
   </url>
   
   <url>
-    <loc>https://peacalm.github.io/post/learning-cpp/</loc>
+    <loc>https://peacalm.github.io/post/2022/learning-cpp/</loc>
     <lastmod>2022-05-20T01:39:54+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -72,7 +72,7 @@
   </url>
   
   <url>
-    <loc>https://peacalm.github.io/post/lockless-sync-kit/</loc>
+    <loc>https://peacalm.github.io/post/2022/lockless-sync-kit/</loc>
     <lastmod>2022-04-18T19:04:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -121,7 +121,7 @@
   </url>
   
   <url>
-    <loc>https://peacalm.github.io/post/what-is-a-good-local-cache/</loc>
+    <loc>https://peacalm.github.io/post/2022/what-is-a-good-local-cache/</loc>
     <lastmod>2022-03-31T02:15:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -142,7 +142,7 @@
   </url>
   
   <url>
-    <loc>https://peacalm.github.io/post/parameters-management-for-online-service/</loc>
+    <loc>https://peacalm.github.io/post/2022/parameters-management-for-online-service/</loc>
     <lastmod>2022-03-18T22:01:30+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -156,6 +156,13 @@
   </url>
   
   <url>
+    <loc>https://peacalm.github.io/post/2022/myostream/</loc>
+    <lastmod>2022-03-18T00:54:42+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://peacalm.github.io/tags/acmer%E5%8A%A9%E6%89%8B/</loc>
     <lastmod>2022-03-18T00:54:42+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -164,13 +171,6 @@
   
   <url>
     <loc>https://peacalm.github.io/tags/c&#43;&#43;/</loc>
-    <lastmod>2022-03-18T00:54:42+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://peacalm.github.io/post/myostream/</loc>
     <lastmod>2022-03-18T00:54:42+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -233,7 +233,7 @@
   </url>
   
   <url>
-    <loc>https://peacalm.github.io/post/bytedance-growth/</loc>
+    <loc>https://peacalm.github.io/post/2022/bytedance-growth/</loc>
     <lastmod>2022-03-18T22:10:58+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

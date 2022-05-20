@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Parameters Management for Online Service - Peacalm Notes - 双全的网站</title>
+  <title>[库]C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器 - Peacalm Notes - 双全的网站</title>
   
 
 <meta name="renderer" content="webkit" />
@@ -23,7 +23,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="李双全" />
-  <meta name="description" content="互联网公司业务发展快，策略复杂，软件迭代变更非常频繁。因此有必要有一套良好的参数管理思想控制在线服务的表现，以支持业务的频繁变更和AB实验等" />
+  <meta name="description" content="懒汉的烦恼 使用C&#43;&#43;编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印输出。 相比之下Python" />
 
   <meta name="keywords" content="lishuangquan, blog, software" />
 
@@ -35,7 +35,7 @@
 <meta name="generator" content="Hugo 0.92.1" />
 
 
-<link rel="canonical" href="https://peacalm.github.io/post/parameters-management-for-online-service/" />
+<link rel="canonical" href="https://peacalm.github.io/post/2022/myostream/" />
 
 
 
@@ -59,20 +59,20 @@
 
 
 
-<meta property="og:title" content="Parameters Management for Online Service" />
-<meta property="og:description" content="互联网公司业务发展快，策略复杂，软件迭代变更非常频繁。因此有必要有一套良好的参数管理思想控制在线服务的表现，以支持业务的频繁变更和AB实验等" />
+<meta property="og:title" content="[库]C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器" />
+<meta property="og:description" content="懒汉的烦恼 使用C&#43;&#43;编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印输出。 相比之下Python" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://peacalm.github.io/post/parameters-management-for-online-service/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2022-03-17T22:01:30+08:00" />
-<meta property="article:modified_time" content="2022-03-18T22:01:30+08:00" />
+<meta property="og:url" content="https://peacalm.github.io/post/2022/myostream/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-03-17T01:12:25+08:00" />
+<meta property="article:modified_time" content="2022-03-18T00:54:42+08:00" />
 
-<meta itemprop="name" content="Parameters Management for Online Service">
-<meta itemprop="description" content="互联网公司业务发展快，策略复杂，软件迭代变更非常频繁。因此有必要有一套良好的参数管理思想控制在线服务的表现，以支持业务的频繁变更和AB实验等"><meta itemprop="datePublished" content="2022-03-17T22:01:30+08:00" />
-<meta itemprop="dateModified" content="2022-03-18T22:01:30+08:00" />
-<meta itemprop="wordCount" content="566">
-<meta itemprop="keywords" content="参数管理," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Parameters Management for Online Service"/>
-<meta name="twitter:description" content="互联网公司业务发展快，策略复杂，软件迭代变更非常频繁。因此有必要有一套良好的参数管理思想控制在线服务的表现，以支持业务的频繁变更和AB实验等"/>
+<meta itemprop="name" content="[库]C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器">
+<meta itemprop="description" content="懒汉的烦恼 使用C&#43;&#43;编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印输出。 相比之下Python"><meta itemprop="datePublished" content="2022-03-17T01:12:25+08:00" />
+<meta itemprop="dateModified" content="2022-03-18T00:54:42+08:00" />
+<meta itemprop="wordCount" content="653">
+<meta itemprop="keywords" content="C&#43;&#43;,库,输出库,debug tool,watch tool,ACMer助手," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[库]C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器"/>
+<meta name="twitter:description" content="懒汉的烦恼 使用C&#43;&#43;编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印输出。 相比之下Python"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -292,7 +292,7 @@
           <article class="post bg-white">
     
     <header class="post-header">
-      <h1 class="post-title">Parameters Management for Online Service</h1>
+      <h1 class="post-title">[库]C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器</h1>
       
       <div class="post-meta">
         <time datetime="2022-03-17" class="post-time">
@@ -300,6 +300,7 @@
         </time>
         <div class="post-category">
             <a href="https://peacalm.github.io/categories/%E6%8A%80%E6%9C%AF/"> 技术 </a>
+            <a href="https://peacalm.github.io/categories/c&#43;&#43;/"> C&#43;&#43; </a>
             
           </div>
         
@@ -323,8 +324,9 @@
   <div class="post-toc-content">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#参数分类">参数分类</a></li>
-    <li><a href="#优先级">优先级</a></li>
+    <li><a href="#懒汉的烦恼">懒汉的烦恼</a></li>
+    <li><a href="#acmer助手">ACMer助手</a></li>
+    <li><a href="#附录">附录</a></li>
   </ul>
 </nav>
   </div>
@@ -332,36 +334,118 @@
 
     
     <div class="post-content">
-      <p>互联网公司业务发展快，策略复杂，软件迭代变更非常频繁。因此有必要有一套良好的参数管理思想控制在线服务的表现，以支持业务的频繁变更和AB实验等。</p>
-<h2 id="参数分类">参数分类</h2>
-<ul>
-<li>
-<p>默认配置参数：分为远程配置和本地配置。远程配置可动态修改、动态加载，而不需要升级或重启服务，使用方便，
-但是有稳定性和可靠性风险，比如由于网络中断、提供远程配置的载体服务异常等原因而导致取不到配置信息。
-因此，还需要一套本地配置，随服务一起发布，理论上配置信息应该与远程配置是一模一样的，
-但由于本地配置发布频率低，可能会比远程配置版本低，不过问题不大，本地配置主要是对远程配置不可用时做兜底的，
-生效时机较少。</p>
-</li>
-<li>
-<p>实验参数：一般指AB实验的策略配置参数。</p>
-</li>
-<li>
-<p>降级参数：服务故障时，临时注入的策略参数，用于降低策略复杂度、降低服务消耗、提高服务可用性，可能会对实验指标、效果指标有损。
-由于AB实验指标可能对业务发展比较重要，因此降级参数还可以再细分一下优先级，分为优先级高于AB实验参数的高优降级参数和优先级低于AB实验参数的低优降级参数。
-发生轻微故障时，使用低优降级参数则不会对实验指标有影响。</p>
-</li>
-</ul>
-<h2 id="优先级">优先级</h2>
-<p>服务初始化时，按照一定优先级合并多种参数用于后续处理。综上描述，按优先级从高到低，这一套在线服务参数的排列顺序是：</p>
+      <h2 id="懒汉的烦恼">懒汉的烦恼</h2>
+<p>使用C++编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印输出。
+相比之下Python, Golang等语言就可以直接对所有数据类型打印输出，这对于debug是很友好的特性。
+因此，我开发了一个简单的C++库，几乎能够对所有容器直接打印输出，说几乎是因为我们只能对成员可访问可迭代的容器支持这个特性。</p>
+<p>支持的类型如下，以及他们的组合类型：</p>
+<p>std::pair, std::tuple, std::array, std::deque,
+std::forward_list, std::initializer_list, std::list, std::vector,
+std::set, std::multiset, std::unordered_set, std::unordered_multiset,
+std::map, std::multimap, std::unordered_map, std::unordered_multimap.</p>
+<h2 id="acmer助手">ACMer助手</h2>
+<p>特别的，我们在打ACM比赛或做类似的OJ题目的过程中，需要debug的时候，我们不仅想要打印容器里的值，
+而且还想要同时打印出变量名，以便我们在解题时，如果定义了多个容器变量，我们可以知道哪个变量的值使哪一个值，
+因此我设计了watch功能。</p>
+<p>宏定义watch可以用一下两种方式：
+一，用std::cout输出MYOSTREAM_WATCH_TO_STRING生成的字符串：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">高优降级参数 -&gt; 实验参数 -&gt; 低优降级参数 -&gt; 默认配置参数(远程配置参数 或 本地配置参数)
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="cp">#include</span> <span class="cpf">&lt;myostream.h&gt;</span><span class="cp">
+</span><span class="cp">#define watch(...) std::cout &lt;&lt; MYOSTREAM_WATCH_TO_STRING(std::string, &#34; = &#34;, &#34;\n&#34;, &#34;\n\n&#34;, __VA_ARGS__)
+</span></code></pre></td></tr></table>
+</div>
+</div><p>二，直接使用MYOSTREAM_WATCH，坏处是这里定义了一个变量<code>mycout</code>，这段代码不能在头文件中被多个源文件include:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="cp">#include</span> <span class="cpf">&lt;myostream.h&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="n">myostream</span><span class="o">::</span><span class="n">ostream</span> <span class="n">mycout</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">.</span><span class="n">rdbuf</span><span class="p">());</span>
+<span class="cp">#define watch(...) MYOSTREAM_WATCH(mycout, &#34; = &#34;, &#34;\n&#34;, &#34;\n\n&#34;, __VA_ARGS__)
+</span></code></pre></td></tr></table>
+</div>
+</div><p>例如，如下debug代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span><span class="cp"></span>
+<span class="cp">#ifndef ONLINE_JUDGE
+</span><span class="cp">#include</span> <span class="cpf">&lt;myostream.h&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="n">myostream</span><span class="o">::</span><span class="n">ostream</span> <span class="n">mycout</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">.</span><span class="n">rdbuf</span><span class="p">());</span>
+<span class="cp">#define watch(...) MYOSTREAM_WATCH(mycout, &#34; = &#34;, &#34;\n&#34;, &#34;\n\n&#34;, __VA_ARGS__)
+</span><span class="cp">#else
+</span><span class="cp">#define watch(...)
+</span><span class="cp">#endif
+</span><span class="cp"></span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span>
+  <span class="n">watch</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+
+  <span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;&gt;</span><span class="p">,</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;&gt;</span> <span class="n">complex</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">},</span>
+                                              <span class="p">{{</span><span class="mi">1</span><span class="p">,</span> <span class="p">{</span><span class="s">&#34;a&#34;</span><span class="p">,</span> <span class="s">&#34;aa&#34;</span><span class="p">}},</span>
+                                               <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="p">{</span><span class="s">&#34;b&#34;</span><span class="p">,</span> <span class="s">&#34;bb&#34;</span><span class="p">}}},</span>
+                                              <span class="p">{</span><span class="s">&#34;Aya&#34;</span><span class="p">,</span> <span class="mf">88.5</span><span class="p">});</span>
+  <span class="n">watch</span><span class="p">(</span><span class="n">complex</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
+</div><p>在本地编译运行，可以输出：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">v = [1, 2, 3]
+
+complex = &lt;[1, 2, 3], {1: {a, aa}, 2: {b, bb}}, (Aya, 88.5)&gt;
+</code></pre></td></tr></table>
 </div>
+</div><p>而在线提交，或定义了宏ONLINE_JUDGE后，则什么都不输出。</p>
+<h2 id="附录">附录</h2>
+<ul>
+<li><a href="https://github.com/peacalm/myostream">lib MyOStream on github</a></li>
+</ul>
+
     </div>
 
     
@@ -408,14 +492,19 @@
 
     <footer class="post-footer">
       <div class="post-tags">
-          <a href="https://peacalm.github.io/tags/%E5%8F%82%E6%95%B0%E7%AE%A1%E7%90%86/">参数管理</a>
+          <a href="https://peacalm.github.io/tags/c&#43;&#43;/">C&#43;&#43;</a>
+          <a href="https://peacalm.github.io/tags/%E5%BA%93/">库</a>
+          <a href="https://peacalm.github.io/tags/%E8%BE%93%E5%87%BA%E5%BA%93/">输出库</a>
+          <a href="https://peacalm.github.io/tags/debug-tool/">debug tool</a>
+          <a href="https://peacalm.github.io/tags/watch-tool/">watch tool</a>
+          <a href="https://peacalm.github.io/tags/acmer%E5%8A%A9%E6%89%8B/">ACMer助手</a>
           
         </div>
 
       
       <nav class="post-nav">
         
-          <a class="prev" href="/post/what-is-a-good-local-cache/">
+          <a class="prev" href="/post/2022/parameters-management-for-online-service/">
             
             <i class="iconfont">
               <svg  class="icon" viewBox="0 0 1024 1024" version="1.1"
@@ -425,12 +514,12 @@
 </svg>
 
             </i>
-            <span class="prev-text nav-default">What Is a Good Local Cache</span>
+            <span class="prev-text nav-default">Parameters Management for Online Service</span>
             <span class="prev-text nav-mobile">Prev</span>
           </a>
         
-          <a class="next" href="/post/myostream/">
-            <span class="next-text nav-default">C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器</span>
+          <a class="next" href="/post/2022/bytedance-growth/">
+            <span class="next-text nav-default">字节跳动发展史 | History of Bytedance</span>
             <span class="prev-text nav-mobile">Next</span>
             
             <i class="iconfont">
