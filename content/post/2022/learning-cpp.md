@@ -3,7 +3,7 @@ title: "Learning C++"
 date: 2022-05-20T01:39:54+08:00
 lastmod: 2022-05-20T01:39:54+08:00
 draft: false
-tags: ["笔记"]
+tags: ["C++"]
 categories: ["技术", "C++"]
 ---
 
