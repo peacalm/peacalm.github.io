@@ -100,6 +100,13 @@
   </url>
   
   <url>
+    <loc>https://peacalm.github.io/tags/c&#43;&#43;/</loc>
+    <lastmod>2022-05-21T06:15:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://peacalm.github.io/tags/maglev/</loc>
     <lastmod>2022-05-21T06:15:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -115,6 +122,13 @@
   
   <url>
     <loc>https://peacalm.github.io/tags/%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C/</loc>
+    <lastmod>2022-05-21T06:15:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://peacalm.github.io/tags/%E5%BA%93/</loc>
     <lastmod>2022-05-21T06:15:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -184,13 +198,6 @@
   </url>
   
   <url>
-    <loc>https://peacalm.github.io/tags/c&#43;&#43;/</loc>
-    <lastmod>2022-03-18T00:54:42+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://peacalm.github.io/post/2022/myostream/</loc>
     <lastmod>2022-03-18T00:54:42+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -206,13 +213,6 @@
   
   <url>
     <loc>https://peacalm.github.io/tags/watch-tool/</loc>
-    <lastmod>2022-03-18T00:54:42+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://peacalm.github.io/tags/%E5%BA%93/</loc>
     <lastmod>2022-03-18T00:54:42+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
