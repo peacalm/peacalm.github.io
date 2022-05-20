@@ -69,7 +69,7 @@
 <meta itemprop="name" content="Maglev Consistent Hasher and Load Balancer">
 <meta itemprop="description" content="本文重点描述Maglev一致性哈希算法，并原创性地提出使Maglev一致性哈希算法支持带权重候选节点的改进方式， 以及描述了一致性哈希下的动态"><meta itemprop="datePublished" content="2022-03-31T18:33:57+08:00" />
 <meta itemprop="dateModified" content="2022-05-21T06:15:00+08:00" />
-<meta itemprop="wordCount" content="2762">
+<meta itemprop="wordCount" content="2781">
 <meta itemprop="keywords" content="maglev,一致性哈希,负载均衡,库,C&#43;&#43;实现," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Maglev Consistent Hasher and Load Balancer"/>
 <meta name="twitter:description" content="本文重点描述Maglev一致性哈希算法，并原创性地提出使Maglev一致性哈希算法支持带权重候选节点的改进方式， 以及描述了一致性哈希下的动态"/>
@@ -374,7 +374,7 @@
 <p>优缺点：</p>
 <ul>
 <li>优点：分片均匀，查询速度快O(1)</li>
-<li>缺点：更新较慢O(n)</li>
+<li>缺点：增删节点后更新较慢O(n)，并且没有完全实现最小扰动。</li>
 </ul>
 <h2 id="一致性哈希支持带权重候选节点">一致性哈希支持带权重候选节点</h2>
 <h3 id="通用做法增加虚拟节点">通用做法：增加虚拟节点</h3>
