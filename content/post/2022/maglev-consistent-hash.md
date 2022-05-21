@@ -6,7 +6,7 @@ draft: false
 tags: ["maglev", "一致性哈希", "负载均衡", "库", "C++实现"]
 categories: ["技术"]
 ---
->本文重点描述Maglev一致性哈希算法，并原创性地提出使Maglev一致性哈希算法支持带权重候选节点的改进方式，
+>本文重点描述Maglev一致性哈希算法，并提出使Maglev一致性哈希算法支持带权重候选节点的改进方式，
 >以及描述了一致性哈希下的动态负载均衡策略，并给出开源[C++实现代码库](https://github.com/peacalm/cpp-maglev)。
 
 
