@@ -69,7 +69,7 @@
 <meta itemprop="name" content="Maglev一致性哈希和动态负载均衡 | Maglev Consistent Hasher and Dynamic Load Balancer">
 <meta itemprop="description" content="本文重点描述Maglev一致性哈希算法，并原创性地提出使Maglev一致性哈希算法支持带权重候选节点的改进方式， 以及描述了一致性哈希下的动态"><meta itemprop="datePublished" content="2022-03-31T18:33:57+08:00" />
 <meta itemprop="dateModified" content="2022-05-21T07:07:00+08:00" />
-<meta itemprop="wordCount" content="2789">
+<meta itemprop="wordCount" content="2793">
 <meta itemprop="keywords" content="maglev,一致性哈希,负载均衡,库,C&#43;&#43;实现," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Maglev一致性哈希和动态负载均衡 | Maglev Consistent Hasher and Dynamic Load Balancer"/>
 <meta name="twitter:description" content="本文重点描述Maglev一致性哈希算法，并原创性地提出使Maglev一致性哈希算法支持带权重候选节点的改进方式， 以及描述了一致性哈希下的动态"/>
@@ -400,7 +400,7 @@
 <p>因此，为了在未知的不确定的任意的输入集上都保持良好的均衡性，需要动态的调整映射策略，需要统计感知每一个候选节点当前的负载情况，
 如果负载过高，则应该将当前key用某种算法重新映射到另外一个节点上，而这个重新映射的算法最好也是稳定的。</p>
 <p>对于Maglev算法来说，笔者提出一个简单的重新映射算法：<code>(key + (key % C + 1) * retry_cnt) % M</code>。
-其中C是某一个常数，而retry_cnt是重新映射次数，可见当retry为0时，即首次映射时，该算法就退化到了Maglev算法描述第5步描述的
+其中C是某一个常数，而retry_cnt是重新映射次数，可见当retry_cnt为0时，即首次映射时，该算法就退化到了Maglev算法描述第5步描述的
 <code>key % M</code>的算法。</p>
 <p>除了重新映射即重新选取候选节点外，对于动态负载均衡来说，另一个重点是，如何描述节点负载以及如何判断是否负载过高。</p>
 <p>对于候选节点无权重的情况来说，任意一个候选节点每接收一个key，就增加这个key对应的负载值，如果所有的key对应的负载值都一样，即可记为1。
