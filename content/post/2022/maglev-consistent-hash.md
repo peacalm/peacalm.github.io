@@ -1,6 +1,6 @@
 ---
 title: "Maglev一致性哈希和动态负载均衡 | Maglev Consistent Hasher and Dynamic Load Balancer"
-date: 2022-03-31T18:33:57+08:00
+date: 2022-05-21T07:07:00+08:00
 lastmod: 2022-05-21T07:07:00+08:00
 draft: false
 tags: ["maglev", "一致性哈希", "负载均衡", "库", "C++实现"]

@@ -2,15 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://peacalm.github.io/tags/c&#43;&#43;/</loc>
-    <lastmod>2022-05-20T01:39:54+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://peacalm.github.io/categories/c&#43;&#43;/</loc>
-    <lastmod>2022-05-20T01:39:54+08:00</lastmod>
+    <loc>https://peacalm.github.io/tags/c&#43;&#43;%E5%AE%9E%E7%8E%B0/</loc>
+    <lastmod>2022-05-21T07:07:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -23,8 +16,15 @@
   </url>
   
   <url>
-    <loc>https://peacalm.github.io/post/2022/learning-cpp/</loc>
-    <lastmod>2022-05-20T01:39:54+08:00</lastmod>
+    <loc>https://peacalm.github.io/tags/maglev/</loc>
+    <lastmod>2022-05-21T07:07:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://peacalm.github.io/post/2022/maglev-consistent-hash/</loc>
+    <lastmod>2022-05-21T07:07:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -51,6 +51,20 @@
   </url>
   
   <url>
+    <loc>https://peacalm.github.io/tags/%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C/</loc>
+    <lastmod>2022-05-21T07:07:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://peacalm.github.io/tags/%E5%BA%93/</loc>
+    <lastmod>2022-05-21T07:07:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://peacalm.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2022-05-21T07:07:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -58,8 +72,29 @@
   </url>
   
   <url>
-    <loc>https://peacalm.github.io/tags/c&#43;&#43;%E5%AE%9E%E7%8E%B0/</loc>
+    <loc>https://peacalm.github.io/tags/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/</loc>
     <lastmod>2022-05-21T07:07:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://peacalm.github.io/tags/c&#43;&#43;/</loc>
+    <lastmod>2022-05-20T01:39:54+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://peacalm.github.io/categories/c&#43;&#43;/</loc>
+    <lastmod>2022-05-20T01:39:54+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://peacalm.github.io/post/2022/learning-cpp/</loc>
+    <lastmod>2022-05-20T01:39:54+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -95,41 +130,6 @@
   <url>
     <loc>https://peacalm.github.io/tags/%E5%BC%82%E6%AD%A5/</loc>
     <lastmod>2022-04-18T19:04:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://peacalm.github.io/tags/maglev/</loc>
-    <lastmod>2022-05-21T07:07:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://peacalm.github.io/post/2022/maglev-consistent-hash/</loc>
-    <lastmod>2022-05-21T07:07:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://peacalm.github.io/tags/%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C/</loc>
-    <lastmod>2022-05-21T07:07:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://peacalm.github.io/tags/%E5%BA%93/</loc>
-    <lastmod>2022-05-21T07:07:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://peacalm.github.io/tags/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/</loc>
-    <lastmod>2022-05-21T07:07:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
