@@ -6,16 +6,7 @@
     <description>Recent content in C&#43;&#43; on Peacalm Notes - 双全的网站</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 20 May 2022 01:39:54 +0800</lastBuildDate><atom:link href="https://peacalm.github.io/tags/c++/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Learning C&#43;&#43;</title>
-      <link>https://peacalm.github.io/post/2022/learning-cpp/</link>
-      <pubDate>Fri, 20 May 2022 01:39:54 +0800</pubDate>
-      
-      <guid>https://peacalm.github.io/post/2022/learning-cpp/</guid>
-      <description>Books C++ Primer Effective C++ More Effective C++ Effective STL STL源码剖析 深度探索C++对象模型 | Inside the C++ Object Model Effective Modern C++ 大规模C++程序设计 | Large-Scale C++ Software Design Modern C++ Design Online Doc C++ 核心指导方针 Online manual https://cppreference.com Online Tools C++</description>
-    </item>
-    
+    <lastBuildDate>Thu, 17 Mar 2022 01:12:25 +0800</lastBuildDate><atom:link href="https://peacalm.github.io/tags/c++/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器</title>
       <link>https://peacalm.github.io/post/2022/myostream/</link>

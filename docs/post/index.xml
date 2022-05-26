@@ -17,15 +17,6 @@
     </item>
     
     <item>
-      <title>Learning C&#43;&#43;</title>
-      <link>https://peacalm.github.io/post/2022/learning-cpp/</link>
-      <pubDate>Fri, 20 May 2022 01:39:54 +0800</pubDate>
-      
-      <guid>https://peacalm.github.io/post/2022/learning-cpp/</guid>
-      <description>Books C++ Primer Effective C++ More Effective C++ Effective STL STL源码剖析 深度探索C++对象模型 | Inside the C++ Object Model Effective Modern C++ 大规模C++程序设计 | Large-Scale C++ Software Design Modern C++ Design Online Doc C++ 核心指导方针 Online manual https://cppreference.com Online Tools C++</description>
-    </item>
-    
-    <item>
       <title>在线服务的异步RPC延时控制和无锁异步任务同步组件</title>
       <link>https://peacalm.github.io/post/2022/lockless-sync-kit/</link>
       <pubDate>Mon, 18 Apr 2022 19:04:20 +0800</pubDate>
