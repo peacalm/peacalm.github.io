@@ -12,6 +12,21 @@
     
     
     <item>
+      <title>Resume</title>
+      <link>https://peacalm.github.io/resume/</link>
+      <pubDate>Sat, 11 Jun 2022 04:30:00 +0800</pubDate>
+      
+      <guid>https://peacalm.github.io/resume/</guid>
+      
+        <description>&lt;h3 id=&#34;工作经历&#34;&gt;工作经历&lt;/h3&gt;
+&lt;p&gt;2017-2022，北京，字节跳动，后端开发工程师。评论排序系统架构和策略，推荐系统架构和策略。&lt;/p&gt;
+&lt;h3 id=&#34;教育经历&#34;&gt;教育经历&lt;/h3&gt;
+&lt;p&gt;2010-2017，南京，东南大学，自动化学院，获工学学士和工学硕士学位。&lt;/p&gt;
+</description>
+      
+    </item>
+    
+    <item>
       <title>Maglev一致性哈希和动态负载均衡 | Maglev Consistent Hasher and Dynamic Load Balancer</title>
       <link>https://peacalm.github.io/post/2022/maglev-consistent-hash/</link>
       <pubDate>Sat, 21 May 2022 07:07:00 +0800</pubDate>
