@@ -20,11 +20,17 @@ $t_i$ 为第$i$个目标的目标分，$b_i$ 为第$i$个目标的Bias，一般�
 
 
 ## 乘法融合公式
+基础形式：
+$$
+RankScore = \prod_{i=1}^T (\beta_i + t_i) ^ {\alpha_i}
+$$
+$t_i$ 为第$i$个目标的目标分，$\alpha_i$和$\beta_i$ 为调整第$i$个目标权重的参数。  
+实践中为了便于调参，可以把它改写成Bias形式：
+
 $$
 RankScore = \prod_{i=1}^T (b_i + \beta_i \cdot t_i) ^ {\alpha_i}
 $$
-
-$t_i$ 为第$i$个目标的目标分，$b_i$ 为第$i$个目标的Bias，一般选用1，$\alpha_i$和$\beta_i$ 为调整第$i$个目标权重的参数。
+$b_i$ 为第$i$个目标的Bias，一般固定为1，然后一个简单的调参方式是：在$t_i$的平均值的倒数的基础上调节$\beta_i$，在1附近调节$\alpha_i$。
 
 
 ## 目标分预处理
