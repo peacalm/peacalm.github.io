@@ -6,10 +6,52 @@
     <description>Recent content on Peacalm Notes - 双全的网站</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 21 May 2022 07:07:00 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 11 Jun 2022 20:00:00 +0800</lastBuildDate>
     
         <atom:link href="https://peacalm.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>排序融合公式 | Ranking Value Model</title>
+      <link>https://peacalm.github.io/post/ranking-value-model/</link>
+      <pubDate>Sat, 11 Jun 2022 20:00:00 +0800</pubDate>
+      
+      <guid>https://peacalm.github.io/post/ranking-value-model/</guid>
+      
+        <description>&lt;p&gt;考虑有限候选多目标融合排序公式，目标个数T，候选个数N。&lt;/p&gt;
+&lt;h2 id=&#34;加法融合公式&#34;&gt;加法融合公式&lt;/h2&gt;
+&lt;p&gt;$$
+RankScore = \sum_{i=1}^T w_i * (b_i + t_i)
+$$&lt;/p&gt;
+&lt;p&gt;$t_i$ 为第$i$个目标的目标分；$b_i$ 为第$i$个目标的Bias，一般选用0；$w_i$ 为第$i$个目标的权重。&lt;/p&gt;
+&lt;h2 id=&#34;乘法融合公式&#34;&gt;乘法融合公式&lt;/h2&gt;
+&lt;p&gt;$$
+RankScore = \prod_{i=1}^T (b_i + \beta_i \cdot t_i) ^ {\alpha_i}
+$$&lt;/p&gt;
+&lt;p&gt;$t_i$ 为第$i$个目标的目标分；$b_i$ 为第$i$个目标的Bias，一般选用1；$\alpha_i$和$\beta_i$ 为调整第$i$个目标权重的参数。&lt;/p&gt;
+&lt;h2 id=&#34;目标分预处理&#34;&gt;目标分预处理&lt;/h2&gt;
+&lt;h3 id=&#34;归一化--normalization&#34;&gt;归一化 | Normalization&lt;/h3&gt;
+&lt;p&gt;目标分分布不稳定时，可以把目标分归一化线性映射到稳定的[A, B]的区间，一般B取1，A可取0.01或更小或0：&lt;/p&gt;
+&lt;p&gt;$$
+\tilde{t}_i = \frac{ t_i - \min t_i } { \max t_i - \min t_i} \cdot (B - A) + A
+$$&lt;/p&gt;
+&lt;p&gt;其中，
+$\max t_i = \max \limits_{1 \le j \le N} t_{ij}$ 为第$i$个目标分在$N$个候选上的分布的最大值，
+$\min t_i = \min \limits_{1 \le j \le N} t_{ij}$ 为第$i$个目标分在$N$个候选上的分布的最小值。&lt;/p&gt;
+&lt;h3 id=&#34;相对得分&#34;&gt;相对得分&lt;/h3&gt;
+&lt;p&gt;在推荐系统中，不同用户对某一个动作的使用频率或喜好程度不同，则表现为某一个目标分在不同用户上的分布有大小区别，
+因此可以用该目标分在当前待排序的有限候选集上的相对得分取代原始得分：&lt;/p&gt;
+&lt;p&gt;$$
+\hat{t}_i = \frac {t_i} { \overline{t}_i }
+$$&lt;/p&gt;
+&lt;p&gt;其中，
+$\overline{t}_i = \frac { \sum_{j=1}^N t_{ij} } {N}$ 为第$i$个目标分在$N$个候选上的分布的平均值。&lt;/p&gt;
+&lt;h2 id=&#34;在融合公式中使用排名&#34;&gt;在融合公式中使用排名&lt;/h2&gt;
+&lt;p&gt;对候选对象按某一个目标分排序，则可得到每一个候选对象在这一个目标上的排名$r_i$，为[1, N]之间的整数。
+然后可以直接在融合公式中使用排名，或者将排名归一化后再代入融合公式。&lt;/p&gt;
+</description>
+      
+    </item>
     
     <item>
       <title>Resume</title>

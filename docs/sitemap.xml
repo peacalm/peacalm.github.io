@@ -2,6 +2,62 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://peacalm.github.io/categories/</loc>
+    <lastmod>2022-06-11T20:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://peacalm.github.io/</loc>
+    <lastmod>2022-06-11T20:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://peacalm.github.io/post/</loc>
+    <lastmod>2022-06-11T20:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://peacalm.github.io/tags/</loc>
+    <lastmod>2022-06-11T20:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://peacalm.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2022-06-11T20:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://peacalm.github.io/tags/%E6%8E%92%E5%BA%8F/</loc>
+    <lastmod>2022-06-11T20:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://peacalm.github.io/post/ranking-value-model/</loc>
+    <lastmod>2022-06-11T20:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://peacalm.github.io/tags/%E8%9E%8D%E5%90%88%E5%85%AC%E5%BC%8F/</loc>
+    <lastmod>2022-06-11T20:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://peacalm.github.io/resume/</loc>
     <lastmod>2022-06-11T04:30:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -10,13 +66,6 @@
   
   <url>
     <loc>https://peacalm.github.io/tags/c&#43;&#43;%E5%AE%9E%E7%8E%B0/</loc>
-    <lastmod>2022-05-21T07:07:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://peacalm.github.io/categories/</loc>
     <lastmod>2022-05-21T07:07:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -37,27 +86,6 @@
   </url>
   
   <url>
-    <loc>https://peacalm.github.io/</loc>
-    <lastmod>2022-05-21T07:07:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://peacalm.github.io/post/</loc>
-    <lastmod>2022-05-21T07:07:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://peacalm.github.io/tags/</loc>
-    <lastmod>2022-05-21T07:07:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://peacalm.github.io/tags/%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C/</loc>
     <lastmod>2022-05-21T07:07:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -66,13 +94,6 @@
   
   <url>
     <loc>https://peacalm.github.io/tags/%E5%BA%93/</loc>
-    <lastmod>2022-05-21T07:07:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://peacalm.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2022-05-21T07:07:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
