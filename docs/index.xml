@@ -73,7 +73,7 @@ $\overline{t}_i = \frac { \sum_{j=1}^N t_{ij} } {N}$ 为第$i$个目标分在$N$
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
-&lt;th&gt;获奖时间&lt;/th&gt;
+&lt;th&gt;时间&lt;/th&gt;
 &lt;th&gt;奖项&lt;/th&gt;
 &lt;th&gt;名次&lt;/th&gt;
 &lt;th&gt;级别&lt;/th&gt;
