@@ -23,7 +23,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="李双全" />
-  <meta name="description" content="考虑有限候选多目标融合排序公式，目标个数T，候选个数N。 加法融合公式 $$ RankScore = \sum_{i=1}^T w_i * (b_i &#43; t_i) $$ $t_i$ 为第$i$个目标的目标分；$b_i$ 为第$i$个目" />
+  <meta name="description" content="考虑有限候选多目标融合排序公式，目标个数T，候选个数N。 加法融合公式 $$ RankScore = \sum_{i=1}^T w_i * (b_i &#43; t_i) $$ $t_i$ 为第$i$个目标的目标分，$b_i$ 为第$i$个目" />
 
   <meta name="keywords" content="lishuangquan, blog, software" />
 
@@ -60,19 +60,19 @@
 
 
 <meta property="og:title" content="排序融合公式 | Ranking Value Model" />
-<meta property="og:description" content="考虑有限候选多目标融合排序公式，目标个数T，候选个数N。 加法融合公式 $$ RankScore = \sum_{i=1}^T w_i * (b_i &#43; t_i) $$ $t_i$ 为第$i$个目标的目标分；$b_i$ 为第$i$个目" />
+<meta property="og:description" content="考虑有限候选多目标融合排序公式，目标个数T，候选个数N。 加法融合公式 $$ RankScore = \sum_{i=1}^T w_i * (b_i &#43; t_i) $$ $t_i$ 为第$i$个目标的目标分，$b_i$ 为第$i$个目" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://peacalm.github.io/post/ranking-value-model/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-06-11T20:00:00+08:00" />
 <meta property="article:modified_time" content="2022-06-11T20:00:00+08:00" />
 
 <meta itemprop="name" content="排序融合公式 | Ranking Value Model">
-<meta itemprop="description" content="考虑有限候选多目标融合排序公式，目标个数T，候选个数N。 加法融合公式 $$ RankScore = \sum_{i=1}^T w_i * (b_i &#43; t_i) $$ $t_i$ 为第$i$个目标的目标分；$b_i$ 为第$i$个目"><meta itemprop="datePublished" content="2022-06-11T20:00:00+08:00" />
+<meta itemprop="description" content="考虑有限候选多目标融合排序公式，目标个数T，候选个数N。 加法融合公式 $$ RankScore = \sum_{i=1}^T w_i * (b_i &#43; t_i) $$ $t_i$ 为第$i$个目标的目标分，$b_i$ 为第$i$个目"><meta itemprop="datePublished" content="2022-06-11T20:00:00+08:00" />
 <meta itemprop="dateModified" content="2022-06-11T20:00:00+08:00" />
 <meta itemprop="wordCount" content="590">
 <meta itemprop="keywords" content="排序,融合公式," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="排序融合公式 | Ranking Value Model"/>
-<meta name="twitter:description" content="考虑有限候选多目标融合排序公式，目标个数T，候选个数N。 加法融合公式 $$ RankScore = \sum_{i=1}^T w_i * (b_i &#43; t_i) $$ $t_i$ 为第$i$个目标的目标分；$b_i$ 为第$i$个目"/>
+<meta name="twitter:description" content="考虑有限候选多目标融合排序公式，目标个数T，候选个数N。 加法融合公式 $$ RankScore = \sum_{i=1}^T w_i * (b_i &#43; t_i) $$ $t_i$ 为第$i$个目标的目标分，$b_i$ 为第$i$个目"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -344,12 +344,12 @@
 <p>$$
 RankScore = \sum_{i=1}^T w_i * (b_i + t_i)
 $$</p>
-<p>$t_i$ 为第$i$个目标的目标分；$b_i$ 为第$i$个目标的Bias，一般选用0；$w_i$ 为第$i$个目标的权重。</p>
+<p>$t_i$ 为第$i$个目标的目标分，$b_i$ 为第$i$个目标的Bias，一般选用0，$w_i$ 为第$i$个目标的权重。</p>
 <h2 id="乘法融合公式">乘法融合公式</h2>
 <p>$$
 RankScore = \prod_{i=1}^T (b_i + \beta_i \cdot t_i) ^ {\alpha_i}
 $$</p>
-<p>$t_i$ 为第$i$个目标的目标分；$b_i$ 为第$i$个目标的Bias，一般选用1；$\alpha_i$和$\beta_i$ 为调整第$i$个目标权重的参数。</p>
+<p>$t_i$ 为第$i$个目标的目标分，$b_i$ 为第$i$个目标的Bias，一般选用1，$\alpha_i$和$\beta_i$ 为调整第$i$个目标权重的参数。</p>
 <h2 id="目标分预处理">目标分预处理</h2>
 <h3 id="归一化--normalization">归一化 | Normalization</h3>
 <p>目标分分布不稳定时，可以把目标分归一化线性映射到稳定的[A, B]的区间，一般B取1，A可取0.01或更小或0：</p>
