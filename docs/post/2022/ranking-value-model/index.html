@@ -69,7 +69,7 @@
 <meta itemprop="name" content="排序融合公式 | Ranking Value Model">
 <meta itemprop="description" content="考虑有限候选多目标融合排序公式，目标个数$T$，候选对象个数$N$。 每一个候选对象都有$T$个目标分，需要按某个融合公式把它们融合成一个最终"><meta itemprop="datePublished" content="2022-06-11T20:00:00+08:00" />
 <meta itemprop="dateModified" content="2022-06-12T06:00:00+08:00" />
-<meta itemprop="wordCount" content="1261">
+<meta itemprop="wordCount" content="1345">
 <meta itemprop="keywords" content="排序,融合公式,推荐,多目标," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="排序融合公式 | Ranking Value Model"/>
 <meta name="twitter:description" content="考虑有限候选多目标融合排序公式，目标个数$T$，候选对象个数$N$。 每一个候选对象都有$T$个目标分，需要按某个融合公式把它们融合成一个最终"/>
@@ -383,7 +383,8 @@ $w$和$c$为待调整的参数。</p>
 <p>例如，应用相对目标分的乘法融合公式为：
 $$
 RankScore = \prod_{i=1}^T (b_i + \frac {t_i} {w_i \cdot \overline{t}_i + c_i} ) ^ {\alpha_i}
-$$</p>
+$$
+此式也被称为个性化$\beta$形式，因为不同用户的目标分平均值$\overline{t}_i$不同，也就相当于Bias形式乘法融合公式中的$\beta_i$是不同的。</p>
 <h3 id="其他">其他</h3>
 <p>此外，还可以将目标分按大小阈值截断，使用Sigmoid函数映射到0~1等。</p>
 <h2 id="在融合公式中使用目标排名">在融合公式中使用目标排名</h2>

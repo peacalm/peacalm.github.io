@@ -61,7 +61,8 @@ $w$和$c$为待调整的参数。&lt;/p&gt;
 &lt;p&gt;例如，应用相对目标分的乘法融合公式为：
 $$
 RankScore = \prod_{i=1}^T (b_i + \frac {t_i} {w_i \cdot \overline{t}_i + c_i} ) ^ {\alpha_i}
-$$&lt;/p&gt;
+$$
+此式也被称为个性化$\beta$形式，因为不同用户的目标分平均值$\overline{t}_i$不同，也就相当于Bias形式乘法融合公式中的$\beta_i$是不同的。&lt;/p&gt;
 &lt;h3 id=&#34;其他&#34;&gt;其他&lt;/h3&gt;
 &lt;p&gt;此外，还可以将目标分按大小阈值截断，使用Sigmoid函数映射到0~1等。&lt;/p&gt;
 &lt;h2 id=&#34;在融合公式中使用目标排名&#34;&gt;在融合公式中使用目标排名&lt;/h2&gt;
