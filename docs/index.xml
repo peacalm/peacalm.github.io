@@ -56,7 +56,7 @@ $t^{(j)}$ 表示第$j$个候选对象的目标分。&lt;/p&gt;
 $$&lt;/p&gt;
 &lt;p&gt;其中，
 $\overline{t} = \frac { \sum_{j=1}^N t^{(j)} } {N}$ 为目标分在$N$个候选对象上的分布的平均值，
-w和c为待调整的参数。&lt;/p&gt;
+$w$和$c$为待调整的参数。&lt;/p&gt;
 &lt;p&gt;例如，应用相对目标分的乘法融合公式为：
 $$
 RankScore = \prod_{i=1}^T (b_i + \frac {t_i} {w_i \cdot \overline{t}_i + c_i} ) ^ {\alpha_i}
