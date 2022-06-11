@@ -69,7 +69,7 @@
 <meta itemprop="name" content="排序融合公式 | Ranking Value Model">
 <meta itemprop="description" content="考虑有限候选多目标融合排序公式，目标个数$T$，候选对象个数$N$。 每一个候选对象都有$T$个目标分，需要按某个融合公式把它们融合成一个最终"><meta itemprop="datePublished" content="2022-06-11T20:00:00+08:00" />
 <meta itemprop="dateModified" content="2022-06-12T05:00:00+08:00" />
-<meta itemprop="wordCount" content="1233">
+<meta itemprop="wordCount" content="1249">
 <meta itemprop="keywords" content="排序,融合公式,推荐,多目标," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="排序融合公式 | Ranking Value Model"/>
 <meta name="twitter:description" content="考虑有限候选多目标融合排序公式，目标个数$T$，候选对象个数$N$。 每一个候选对象都有$T$个目标分，需要按某个融合公式把它们融合成一个最终"/>
@@ -370,6 +370,7 @@ $$</p>
 $\max t = \max \limits_{1 \le j \le N} t^{(j)}$ 为目标分在$N$个候选对象上的分布的最大值，
 $\min t = \min \limits_{1 \le j \le N} t^{(j)}$ 为目标分在$N$个候选对象上的分布的最小值，
 $t^{(j)}$ 表示第$j$个候选对象的目标分。</p>
+<p>要注意，实践中要规避除零的风险。</p>
 <h3 id="相对目标分">相对目标分</h3>
 <p>在推荐系统中，不同用户对某一个动作的使用频率或喜好程度不同，则表现为某一个目标分在不同用户上的分布有大小区别，
 因此可以用该目标分在当前待排序的有限候选集上的相对得分取代原始得分：</p>
