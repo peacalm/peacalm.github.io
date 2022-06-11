@@ -17,7 +17,7 @@ math: true
 $$
 RankScore = \sum_{i=1}^T w_i \cdot (b_i + t_i)
 $$
-其中，$t_i$ 为第$i$个目标的目标分，$b_i$ 为第$i$个目标的Bias，一般固定为0，$w_i$ 为第$i$个目标的权重。
+其中，$t_i$ 为第$i$个目标的得分，$b_i$ 为第$i$个目标的Bias，一般固定为0，$w_i$ 为第$i$个目标的权重。
 
 
 ## 乘法融合公式
@@ -26,7 +26,7 @@ $$
 $$
 RankScore = \prod_{i=1}^T (\beta_i + t_i) ^ {\alpha_i}
 $$
-其中，$t_i$ 为第$i$个目标的目标分，$\alpha_i$和$\beta_i$ 为调整第$i$个目标权重的参数。实践中为了便于调参，可以把它改写成Bias形式：
+其中，$t_i$ 为第$i$个目标的得分，$\alpha_i$和$\beta_i$ 为调整第$i$个目标权重的参数。实践中为了便于调参，可以把它改写成Bias形式：
 $$
 RankScore = \prod_{i=1}^T (b_i + \beta_i \cdot t_i) ^ {\alpha_i}
 $$
