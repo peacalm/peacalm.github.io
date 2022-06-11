@@ -13,10 +13,10 @@
     
     <item>
       <title>排序融合公式 | Ranking Value Model</title>
-      <link>https://peacalm.github.io/post/ranking-value-model/</link>
+      <link>https://peacalm.github.io/post/2022/ranking-value-model/</link>
       <pubDate>Sat, 11 Jun 2022 20:00:00 +0800</pubDate>
       
-      <guid>https://peacalm.github.io/post/ranking-value-model/</guid>
+      <guid>https://peacalm.github.io/post/2022/ranking-value-model/</guid>
       
         <description>&lt;p&gt;考虑有限候选多目标融合排序公式，目标个数T，候选个数N。&lt;/p&gt;
 &lt;h2 id=&#34;加法融合公式&#34;&gt;加法融合公式&lt;/h2&gt;

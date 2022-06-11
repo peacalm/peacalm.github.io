@@ -9,10 +9,10 @@
     <lastBuildDate>Sat, 11 Jun 2022 20:00:00 +0800</lastBuildDate><atom:link href="https://peacalm.github.io/categories/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>排序融合公式 | Ranking Value Model</title>
-      <link>https://peacalm.github.io/post/ranking-value-model/</link>
+      <link>https://peacalm.github.io/post/2022/ranking-value-model/</link>
       <pubDate>Sat, 11 Jun 2022 20:00:00 +0800</pubDate>
       
-      <guid>https://peacalm.github.io/post/ranking-value-model/</guid>
+      <guid>https://peacalm.github.io/post/2022/ranking-value-model/</guid>
       <description>考虑有限候选多目标融合排序公式，目标个数T，候选个数N。 加法融合公式 $$ RankScore = \sum_{i=1}^T w_i * (b_i + t_i) $$ $t_i$ 为第$i$个目标的目标分，$b_i$ 为第$i$个目</description>
     </item>
     
