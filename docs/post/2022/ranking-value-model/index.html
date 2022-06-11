@@ -23,7 +23,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="李双全" />
-  <meta name="description" content="考虑有限候选多目标融合排序公式，目标个数T，候选个数N。 加法融合公式 $$ RankScore = \sum_{i=1}^T w_i * (b_i &#43; t_i) $$ $t_i$ 为第$i$个目标的目标分，$b_i$ 为第$i$个目" />
+  <meta name="description" content="考虑有限候选多目标融合排序公式，目标个数$T$，候选个数$N$。 加法融合公式 $$ RankScore = \sum_{i=1}^T w_i \cdot (b_i &#43; t_i) $$ $t_i$ 为第$i$个目标的目标分，$b_i$ 为第$" />
 
   <meta name="keywords" content="lishuangquan, blog, software" />
 
@@ -60,19 +60,19 @@
 
 
 <meta property="og:title" content="排序融合公式 | Ranking Value Model" />
-<meta property="og:description" content="考虑有限候选多目标融合排序公式，目标个数T，候选个数N。 加法融合公式 $$ RankScore = \sum_{i=1}^T w_i * (b_i &#43; t_i) $$ $t_i$ 为第$i$个目标的目标分，$b_i$ 为第$i$个目" />
+<meta property="og:description" content="考虑有限候选多目标融合排序公式，目标个数$T$，候选个数$N$。 加法融合公式 $$ RankScore = \sum_{i=1}^T w_i \cdot (b_i &#43; t_i) $$ $t_i$ 为第$i$个目标的目标分，$b_i$ 为第$" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://peacalm.github.io/post/2022/ranking-value-model/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2022-06-11T20:00:00+08:00" />
 <meta property="article:modified_time" content="2022-06-11T20:00:00+08:00" />
 
 <meta itemprop="name" content="排序融合公式 | Ranking Value Model">
-<meta itemprop="description" content="考虑有限候选多目标融合排序公式，目标个数T，候选个数N。 加法融合公式 $$ RankScore = \sum_{i=1}^T w_i * (b_i &#43; t_i) $$ $t_i$ 为第$i$个目标的目标分，$b_i$ 为第$i$个目"><meta itemprop="datePublished" content="2022-06-11T20:00:00+08:00" />
+<meta itemprop="description" content="考虑有限候选多目标融合排序公式，目标个数$T$，候选个数$N$。 加法融合公式 $$ RankScore = \sum_{i=1}^T w_i \cdot (b_i &#43; t_i) $$ $t_i$ 为第$i$个目标的目标分，$b_i$ 为第$"><meta itemprop="datePublished" content="2022-06-11T20:00:00+08:00" />
 <meta itemprop="dateModified" content="2022-06-11T20:00:00+08:00" />
-<meta itemprop="wordCount" content="806">
+<meta itemprop="wordCount" content="978">
 <meta itemprop="keywords" content="排序,融合公式," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="排序融合公式 | Ranking Value Model"/>
-<meta name="twitter:description" content="考虑有限候选多目标融合排序公式，目标个数T，候选个数N。 加法融合公式 $$ RankScore = \sum_{i=1}^T w_i * (b_i &#43; t_i) $$ $t_i$ 为第$i$个目标的目标分，$b_i$ 为第$i$个目"/>
+<meta name="twitter:description" content="考虑有限候选多目标融合排序公式，目标个数$T$，候选个数$N$。 加法融合公式 $$ RankScore = \sum_{i=1}^T w_i \cdot (b_i &#43; t_i) $$ $t_i$ 为第$i$个目标的目标分，$b_i$ 为第$"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -340,10 +340,10 @@
 
     
     <div class="post-content">
-      <p>考虑有限候选多目标融合排序公式，目标个数T，候选个数N。</p>
+      <p>考虑有限候选多目标融合排序公式，目标个数$T$，候选个数$N$。</p>
 <h2 id="加法融合公式">加法融合公式</h2>
 <p>$$
-RankScore = \sum_{i=1}^T w_i * (b_i + t_i)
+RankScore = \sum_{i=1}^T w_i \cdot (b_i + t_i)
 $$</p>
 <p>$t_i$ 为第$i$个目标的目标分，$b_i$ 为第$i$个目标的Bias，一般选用0，$w_i$ 为第$i$个目标的权重。</p>
 <h2 id="乘法融合公式">乘法融合公式</h2>
@@ -351,15 +351,14 @@ $$</p>
 $$
 RankScore = \prod_{i=1}^T (\beta_i + t_i) ^ {\alpha_i}
 $$
-$t_i$ 为第$i$个目标的目标分，$\alpha_i$和$\beta_i$ 为调整第$i$个目标权重的参数。<br>
-实践中为了便于调参，可以把它改写成Bias形式：</p>
+$t_i$ 为第$i$个目标的目标分，$\alpha_i$和$\beta_i$ 为调整第$i$个目标权重的参数。实践中为了便于调参，可以把它改写成Bias形式：</p>
 <p>$$
 RankScore = \prod_{i=1}^T (b_i + \beta_i \cdot t_i) ^ {\alpha_i}
 $$
 $b_i$ 为第$i$个目标的Bias，一般固定为1，然后一个简单的调参方式是：在$t_i$的平均值的倒数的基础上调节$\beta_i$，在1附近调节$\alpha_i$。</p>
 <h2 id="目标分预处理">目标分预处理</h2>
 <h3 id="归一化normalization">归一化(Normalization)</h3>
-<p>目标分分布不稳定或分布不便于直接用到排序融合公式中时，可以把目标分归一化线性映射到稳定的[A, B]的区间，一般B取1，A可取0.01或更小或0：</p>
+<p>目标分分布不稳定或分布不便于直接用到排序融合公式中时，可以把目标分归一化线性映射到稳定的$[A, B]$的区间，一般$B$取1，$A$可取0.01或更小或0：</p>
 <p>$$
 \tilde{t} = \frac{ t - \min t } { \max t - \min t} \cdot (B - A) + A
 $$</p>
@@ -383,8 +382,14 @@ $$</p>
 <h3 id="其他">其他</h3>
 <p>此外，还可以将目标分按大小阈值截断，使用Sigmoid函数映射到0~1等。</p>
 <h2 id="在融合公式中使用排名">在融合公式中使用排名</h2>
-<p>对候选对象按某一个目标分排序，则可得到每一个候选对象在这一个目标上的排名$r_i$，为[1, N]之间的整数。
-然后可以直接在融合公式中使用排名，或者将排名归一化后再代入融合公式。</p>
+<p>对候选对象按某一个目标分排序，则可得到每一个候选对象在这一个目标上的排名$r_i$，为$[1, N]$之间的整数。
+然后可以直接在融合公式中使用排名，或者将排名归一化到$[\frac {1} {N}, 1]$之间，也就是将$r_i$除以$N$，之后再代入融合公式。<br>
+需要注意的是，由于排序时一般是逆序排序，所以目标分最大的排名是1，因此使用排名代替目标分时改变了融合公式的单调性，需要调整一下，
+比如在乘法融合公式中，可以用$-\alpha$作为指数：</p>
+<p>$$
+RankScore = \prod_{i=1}^T (b_i + \beta_i \cdot \tilde{r}_i) ^ {- \alpha_i}
+$$
+其中，$\tilde{r}_i = \frac {r_i} {N}$。</p>
 
     </div>
 
