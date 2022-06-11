@@ -30,28 +30,35 @@ $t_i$ 为第$i$个目标的目标分，$b_i$ 为第$i$个目标的Bias，一般�
 ## 目标分预处理
 
 ### 归一化(Normalization)
-目标分分布不稳定时，可以把目标分归一化线性映射到稳定的[A, B]的区间，一般B取1，A可取0.01或更小或0：
+目标分分布不稳定或分布不便于直接用到排序融合公式中时，可以把目标分归一化线性映射到稳定的[A, B]的区间，一般B取1，A可取0.01或更小或0：
 
 $$
-\tilde{t}_i = \frac{ t_i - \min t_i } { \max t_i - \min t_i} \cdot (B - A) + A
+\tilde{t} = \frac{ t - \min t } { \max t - \min t} \cdot (B - A) + A
 $$
 
 其中，
-$\max t_i = \max \limits_{1 \le j \le N} t_{ij}$ 为第$i$个目标分在$N$个候选上的分布的最大值，
-$\min t_i = \min \limits_{1 \le j \le N} t_{ij}$ 为第$i$个目标分在$N$个候选上的分布的最小值。
+$\max t = \max \limits_{1 \le j \le N} t^{(j)}$ 为目标分在$N$个候选上的分布的最大值，
+$\min t = \min \limits_{1 \le j \le N} t^{(j)}$ 为目标分在$N$个候选上的分布的最小值，
+$t^{(j)}$ 表示第$j$个候选的目标分。
 
 
-### 相对得分
+### 相对目标分
 在推荐系统中，不同用户对某一个动作的使用频率或喜好程度不同，则表现为某一个目标分在不同用户上的分布有大小区别，
 因此可以用该目标分在当前待排序的有限候选集上的相对得分取代原始得分：
 
 $$
-\hat{t}\_i = \frac {t_i} { \overline{t}_i }
+\hat{t} = \frac {t} { w \cdot \overline{t} + c }
 $$
 
 其中，
-$\overline{t}\_i = \frac { \sum_{j=1}^N t_{ij} } {N}$ 为第$i$个目标分在$N$个候选上的分布的平均值。
+$\overline{t} = \frac { \sum_{j=1}^N t^{(j)} } {N}$ 为目标分在$N$个候选上的分布的平均值，
+w和c为待调整的参数。
 
+
+例如，应用相对目标分的乘法融合公式为：
+$$
+RankScore = \prod_{i=1}^T (b_i + \frac {t_i} {w_i \cdot \overline{t}_i + c_i} ) ^ {\alpha_i}
+$$
 
 ### 其他
 此外，还可以将目标分按大小阈值截断，使用Sigmoid函数映射到0~1等。
