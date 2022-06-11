@@ -30,7 +30,7 @@ RankScore = \prod_{i=1}^T (b_i + \beta_i \cdot t_i) ^ {\alpha_i}
 $$&lt;/p&gt;
 &lt;p&gt;$t_i$ 为第$i$个目标的目标分，$b_i$ 为第$i$个目标的Bias，一般选用1，$\alpha_i$和$\beta_i$ 为调整第$i$个目标权重的参数。&lt;/p&gt;
 &lt;h2 id=&#34;目标分预处理&#34;&gt;目标分预处理&lt;/h2&gt;
-&lt;h3 id=&#34;归一化--normalization&#34;&gt;归一化 | Normalization&lt;/h3&gt;
+&lt;h3 id=&#34;归一化normalization&#34;&gt;归一化(Normalization)&lt;/h3&gt;
 &lt;p&gt;目标分分布不稳定时，可以把目标分归一化线性映射到稳定的[A, B]的区间，一般B取1，A可取0.01或更小或0：&lt;/p&gt;
 &lt;p&gt;$$
 \tilde{t}_i = \frac{ t_i - \min t_i } { \max t_i - \min t_i} \cdot (B - A) + A
