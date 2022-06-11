@@ -69,7 +69,7 @@
 <meta itemprop="name" content="排序融合公式 | Ranking Value Model">
 <meta itemprop="description" content="考虑有限候选多目标融合排序公式，目标个数T，候选个数N。 加法融合公式 $$ RankScore = \sum_{i=1}^T w_i * (b_i &#43; t_i) $$ $t_i$ 为第$i$个目标的目标分，$b_i$ 为第$i$个目"><meta itemprop="datePublished" content="2022-06-11T20:00:00+08:00" />
 <meta itemprop="dateModified" content="2022-06-11T20:00:00+08:00" />
-<meta itemprop="wordCount" content="590">
+<meta itemprop="wordCount" content="629">
 <meta itemprop="keywords" content="排序,融合公式," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="排序融合公式 | Ranking Value Model"/>
 <meta name="twitter:description" content="考虑有限候选多目标融合排序公式，目标个数T，候选个数N。 加法融合公式 $$ RankScore = \sum_{i=1}^T w_i * (b_i &#43; t_i) $$ $t_i$ 为第$i$个目标的目标分，$b_i$ 为第$i$个目"/>
@@ -329,6 +329,7 @@
       <ul>
         <li><a href="#归一化--normalization">归一化 | Normalization</a></li>
         <li><a href="#相对得分">相对得分</a></li>
+        <li><a href="#其他">其他</a></li>
       </ul>
     </li>
     <li><a href="#在融合公式中使用排名">在融合公式中使用排名</a></li>
@@ -367,6 +368,8 @@ $\min t_i = \min \limits_{1 \le j \le N} t_{ij}$ 为第$i$个目标分在$N$个�
 $$</p>
 <p>其中，
 $\overline{t}_i = \frac { \sum_{j=1}^N t_{ij} } {N}$ 为第$i$个目标分在$N$个候选上的分布的平均值。</p>
+<h3 id="其他">其他</h3>
+<p>此外，还可以将目标分按大小阈值截断，使用Sigmoid函数映射到0~1等。</p>
 <h2 id="在融合公式中使用排名">在融合公式中使用排名</h2>
 <p>对候选对象按某一个目标分排序，则可得到每一个候选对象在这一个目标上的排名$r_i$，为[1, N]之间的整数。
 然后可以直接在融合公式中使用排名，或者将排名归一化后再代入融合公式。</p>
