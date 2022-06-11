@@ -13,7 +13,7 @@
       <pubDate>Sat, 11 Jun 2022 20:00:00 +0800</pubDate>
       
       <guid>https://peacalm.github.io/post/2022/ranking-value-model/</guid>
-      <description>考虑有限候选多目标融合排序公式，目标个数$T$，候选个数$N$。 加法融合公式 $$ RankScore = \sum_{i=1}^T w_i \cdot (b_i + t_i) $$ $t_i$ 为第$i$个目标的目标分，$b_i$ 为第$</description>
+      <description>考虑有限候选多目标融合排序公式，目标个数$T$，候选对象个数$N$。 每一个候选对象都有$T$个目标分，需要按某个融合公式把它们融合成一个最终</description>
     </item>
     
     <item>
