@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>多目标 on Peacalm Notes - 双全的网站</title>
+    <link>https://peacalm.github.io/tags/%E5%A4%9A%E7%9B%AE%E6%A0%87/</link>
+    <description>Recent content in 多目标 on Peacalm Notes - 双全的网站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 11 Jun 2022 20:00:00 +0800</lastBuildDate><atom:link href="https://peacalm.github.io/tags/%E5%A4%9A%E7%9B%AE%E6%A0%87/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>排序融合公式 | Ranking Value Model</title>
+      <link>https://peacalm.github.io/post/2022/ranking-value-model/</link>
+      <pubDate>Sat, 11 Jun 2022 20:00:00 +0800</pubDate>
+      
+      <guid>https://peacalm.github.io/post/2022/ranking-value-model/</guid>
+      <description>考虑有限候选多目标融合排序公式，目标个数$T$，候选对象个数$N$。 每一个候选对象都有$T$个目标分，需要按某个融合公式把它们融合成一个最终</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -3,7 +3,7 @@ title: "排序融合公式 | Ranking Value Model"
 date: 2022-06-11T20:00:00+08:00
 lastmod: 2022-06-11T20:00:00+08:00
 draft: false
-tags: ["排序", "融合公式", "推荐"]
+tags: ["排序", "融合公式", "推荐", "多目标"]
 categories: ["技术"]
 math: true
 ---
