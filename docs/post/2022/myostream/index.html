@@ -32,7 +32,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.92.1" />
+<meta name="generator" content="Hugo 0.101.0" />
 
 
 <link rel="canonical" href="https://peacalm.github.io/post/2022/myostream/" />
@@ -69,7 +69,7 @@
 <meta itemprop="name" content="C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器">
 <meta itemprop="description" content="懒汉的烦恼 使用C&#43;&#43;编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印输出。 相比之下Python"><meta itemprop="datePublished" content="2022-03-17T01:12:25+08:00" />
 <meta itemprop="dateModified" content="2022-03-18T00:54:42+08:00" />
-<meta itemprop="wordCount" content="653">
+<meta itemprop="wordCount" content="657">
 <meta itemprop="keywords" content="C&#43;&#43;,库,输出库,C&#43;&#43;实现,debug tool,watch tool,ACMer助手," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器"/>
 <meta name="twitter:description" content="懒汉的烦恼 使用C&#43;&#43;编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印输出。 相比之下Python"/>
@@ -355,9 +355,9 @@ std::map, std::multimap, std::unordered_map, std::unordered_multimap.</p>
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="cp">#include</span> <span class="cpf">&lt;myostream.h&gt;</span><span class="cp">
-</span><span class="cp">#define watch(...) std::cout &lt;&lt; MYOSTREAM_WATCH_TO_STRING(std::string, &#34; = &#34;, &#34;\n&#34;, &#34;\n\n&#34;, __VA_ARGS__)
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;myostream.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define watch(...) std::cout &lt;&lt; MYOSTREAM_WATCH_TO_STRING(std::string, &#34; = &#34;, &#34;\n&#34;, &#34;\n\n&#34;, __VA_ARGS__)
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>二，直接使用MYOSTREAM_WATCH，坏处是这里定义了一个变量<code>mycout</code>，这段代码不能在头文件中被多个源文件include:</p>
 <div class="highlight"><div class="chroma">
@@ -367,10 +367,10 @@ std::map, std::multimap, std::unordered_map, std::unordered_multimap.</p>
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="cp">#include</span> <span class="cpf">&lt;myostream.h&gt;</span><span class="cp">
-</span><span class="cp"></span><span class="n">myostream</span><span class="o">::</span><span class="n">ostream</span> <span class="n">mycout</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">.</span><span class="n">rdbuf</span><span class="p">());</span>
-<span class="cp">#define watch(...) MYOSTREAM_WATCH(mycout, &#34; = &#34;, &#34;\n&#34;, &#34;\n\n&#34;, __VA_ARGS__)
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;myostream.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">myostream</span><span class="o">::</span><span class="n">ostream</span> <span class="n">mycout</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">.</span><span class="n">rdbuf</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#define watch(...) MYOSTREAM_WATCH(mycout, &#34; = &#34;, &#34;\n&#34;, &#34;\n\n&#34;, __VA_ARGS__)
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>例如，如下debug代码：</p>
 <div class="highlight"><div class="chroma">
@@ -401,31 +401,31 @@ std::map, std::multimap, std::unordered_map, std::unordered_multimap.</p>
 </span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="cp">#ifndef ONLINE_JUDGE
-</span><span class="cp">#include</span> <span class="cpf">&lt;myostream.h&gt;</span><span class="cp">
-</span><span class="cp"></span><span class="n">myostream</span><span class="o">::</span><span class="n">ostream</span> <span class="n">mycout</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">.</span><span class="n">rdbuf</span><span class="p">());</span>
-<span class="cp">#define watch(...) MYOSTREAM_WATCH(mycout, &#34; = &#34;, &#34;\n&#34;, &#34;\n\n&#34;, __VA_ARGS__)
-</span><span class="cp">#else
-</span><span class="cp">#define watch(...)
-</span><span class="cp">#endif
-</span><span class="cp"></span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span>
-  <span class="n">watch</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
-
-  <span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;&gt;</span><span class="p">,</span>
-      <span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;&gt;</span> <span class="n">complex</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">},</span>
-                                              <span class="p">{{</span><span class="mi">1</span><span class="p">,</span> <span class="p">{</span><span class="s">&#34;a&#34;</span><span class="p">,</span> <span class="s">&#34;aa&#34;</span><span class="p">}},</span>
-                                               <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="p">{</span><span class="s">&#34;b&#34;</span><span class="p">,</span> <span class="s">&#34;bb&#34;</span><span class="p">}}},</span>
-                                              <span class="p">{</span><span class="s">&#34;Aya&#34;</span><span class="p">,</span> <span class="mf">88.5</span><span class="p">});</span>
-  <span class="n">watch</span><span class="p">(</span><span class="n">complex</span><span class="p">);</span>
-
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="cp">#ifndef ONLINE_JUDGE
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;myostream.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">myostream</span><span class="o">::</span><span class="n">ostream</span> <span class="n">mycout</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">.</span><span class="n">rdbuf</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#define watch(...) MYOSTREAM_WATCH(mycout, &#34; = &#34;, &#34;\n&#34;, &#34;\n\n&#34;, __VA_ARGS__)
+</span></span></span><span class="line"><span class="cl"><span class="cp">#else
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define watch(...)
+</span></span></span><span class="line"><span class="cl"><span class="cp">#endif
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="n">watch</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;&gt;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;&gt;</span> <span class="n">complex</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">                                              <span class="p">{{</span><span class="mi">1</span><span class="p">,</span> <span class="p">{</span><span class="s">&#34;a&#34;</span><span class="p">,</span> <span class="s">&#34;aa&#34;</span><span class="p">}},</span>
+</span></span><span class="line"><span class="cl">                                               <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="p">{</span><span class="s">&#34;b&#34;</span><span class="p">,</span> <span class="s">&#34;bb&#34;</span><span class="p">}}},</span>
+</span></span><span class="line"><span class="cl">                                              <span class="p">{</span><span class="s">&#34;Aya&#34;</span><span class="p">,</span> <span class="mf">88.5</span><span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="n">watch</span><span class="p">(</span><span class="n">complex</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在本地编译运行，可以输出：</p>
 <div class="highlight"><div class="chroma">
@@ -435,10 +435,10 @@ std::map, std::multimap, std::unordered_map, std::unordered_multimap.</p>
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">v = [1, 2, 3]
-
-complex = &lt;[1, 2, 3], {1: {a, aa}, 2: {b, bb}}, (Aya, 88.5)&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">v = [1, 2, 3]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">complex = &lt;[1, 2, 3], {1: {a, aa}, 2: {b, bb}}, (Aya, 88.5)&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>而在线提交，或定义了宏ONLINE_JUDGE后，则什么都不输出。</p>
 <h2 id="附录">附录</h2>
@@ -567,6 +567,8 @@ complex = &lt;[1, 2, 3], {1: {a, aa}, 2: {b, bb}}, (Aya, 88.5)&gt;
 
   
 
+  
+
         </div>
       </div>
     </main>
@@ -674,6 +676,8 @@ complex = &lt;[1, 2, 3], {1: {a, aa}, 2: {b, bb}}, (Aya, 88.5)&gt;
 
 
   <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
 
 
 

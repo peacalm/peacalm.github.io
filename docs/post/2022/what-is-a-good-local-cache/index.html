@@ -32,7 +32,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.92.1" />
+<meta name="generator" content="Hugo 0.101.0" />
 
 
 <link rel="canonical" href="https://peacalm.github.io/post/2022/what-is-a-good-local-cache/" />
@@ -350,11 +350,11 @@ Cache一般有SideCar和Wrapper两种使用模式。</p>
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">Cache
-↑  
-|  
-App  --&gt;   DataSource
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Cache
+</span></span><span class="line"><span class="cl">↑  
+</span></span><span class="line"><span class="cl">|  
+</span></span><span class="line"><span class="cl">App  --&gt;   DataSource
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="2">
 <li>Wrapper模式：应用程序只需要访问缓存，缓存具有代理能力可以帮助应用程序去访问数据源服务。</li>
@@ -366,8 +366,8 @@ App  --&gt;   DataSource
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">App --&gt; Cache --&gt; DataSource
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">App --&gt; Cache --&gt; DataSource
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>那么怎么才算是一个好的LocalCache呢？从业务应用上要灵活好用，满足多种多样的业务需求，同时也要具有基本的高性能。</p>
 <h2 id="灵活好用">灵活好用</h2>
@@ -520,6 +520,8 @@ App  --&gt;   DataSource
 
   
 
+  
+
         </div>
       </div>
     </main>
@@ -627,6 +629,8 @@ App  --&gt;   DataSource
 
 
   <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
 
 
 
