@@ -15,7 +15,7 @@ math: true
 ## 加法融合公式
 加法融合公式是线性的，形式简单，参数少，调参容易。其形式是：
 $$
-RankScore = \sum_{i=1}^T w_i \cdot (b_i + t_i)
+Score = \sum_{i=1}^T w_i \cdot (b_i + t_i)
 $$
 其中，$t_i$ 为第$i$个目标的得分，$b_i$ 为第$i$个目标的Bias，一般固定为0，$w_i$ 为第$i$个目标的权重。
 
@@ -24,11 +24,11 @@ $$
 乘法融合公式是非线性的，相对加法融合公式来说形式复杂，参数多，调参稍微困难一些，但一般能比加法融合公式取得更好的效果。
 其基础形式是：
 $$
-RankScore = \prod_{i=1}^T (\beta_i + t_i) ^ {\alpha_i}
+Score = \prod_{i=1}^T (\beta_i + t_i) ^ {\alpha_i}
 $$
 其中，$t_i$ 为第$i$个目标的得分，$\alpha_i$和$\beta_i$ 为调整第$i$个目标权重的参数。实践中为了便于调参，可以把它改写成Bias形式：
 $$
-RankScore = \prod_{i=1}^T (b_i + \beta_i \cdot t_i) ^ {\alpha_i}
+Score = \prod_{i=1}^T (b_i + \beta_i \cdot t_i) ^ {\alpha_i}
 $$
 $b_i$ 为第$i$个目标的Bias，一般固定为1，然后一个简单的调参方式是：在$t_i$的平均值的倒数的基础上调节$\beta_i$，在1附近调节$\alpha_i$。
 
@@ -65,7 +65,7 @@ $w$和$c$为待调整的参数。
 
 例如，应用相对目标分的乘法融合公式为：
 $$
-RankScore = \prod_{i=1}^T (b_i + \frac {t_i} {w_i \cdot \overline{t}_i + c_i} ) ^ {\alpha_i}
+Score = \prod_{i=1}^T (b_i + \frac {t_i} {w_i \cdot \overline{t}_i + c_i} ) ^ {\alpha_i}
 $$
 此式也被称为个性化$\beta$形式，因为不同用户的目标分平均值$\overline{t}_i$不同，也就相当于Bias形式乘法融合公式中的$\beta_i$是不同的。
 
@@ -83,6 +83,6 @@ $$
 例如，在乘法融合公式中使用目标排名时，可以用$-\alpha$作为指数：
 
 $$
-RankScore = \prod_{i=1}^T (b_i + \beta_i \cdot \tilde{r}_i) ^ {- \alpha_i}
+Score = \prod_{i=1}^T (b_i + \beta_i \cdot \tilde{r}_i) ^ {- \alpha_i}
 $$
 其中，$\tilde{r}_i = \frac {r_i} {N}$。
