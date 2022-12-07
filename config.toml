@@ -97,7 +97,7 @@ defaultContentLanguage = "en"           # Default language to use
 #    e-linkedin = "http://localhost:1313"
 #    f-google = "http://localhost:1313"
     g-github = "http://github.com/peacalm"
-#    h-weibo = "http://localhost:1313"
+    h-weibo = "https://weibo.com/u/1908224653"
     i-zhihu = "https://www.zhihu.com/people/SolitaryWayfarer"
     j-douban = "https://www.douban.com/people/58869709/?_i=9123209YYeJ5tv"
 #    k-pocket = "http://localhost:1313"
