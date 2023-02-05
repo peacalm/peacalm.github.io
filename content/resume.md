@@ -7,7 +7,7 @@ draft: false
 ## 技能值
 * Basics: 
 - - C++(0.85), Python(0.75), Golang(0.6)
-- - Data Structure and Algorithm(0.8), Networks(0.6), Operating System(0.6)
+- - Data Structures and Algorithms(0.8), Networks(0.6), Operating System(0.6)
 - - ML(0.4)
 * Applications: 
 - - Comment Ranking System(0.9), Recommendation System(0.6)
