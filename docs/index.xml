@@ -87,11 +87,19 @@ $$
       <guid>https://peacalm.github.io/resume/</guid>
       
         <description>&lt;h2 id=&#34;技能值&#34;&gt;技能值&lt;/h2&gt;
+&lt;h3 id=&#34;basics&#34;&gt;Basics&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;C++(0.85), Python(0.75), Golang(0.6)&lt;/li&gt;
 &lt;li&gt;Data Structure and Algorithm(0.8), Networks(0.6), Operating System(0.6)&lt;/li&gt;
-&lt;li&gt;Comment Ranking System(0.9), Recommendation System(0.6)&lt;/li&gt;
 &lt;li&gt;ML(0.4)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;applications&#34;&gt;Applications&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Comment Ranking System(0.9), Recommendation System(0.6)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;tools-and-frameworks&#34;&gt;Tools and Frameworks&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Git,&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;工作经历&#34;&gt;工作经历&lt;/h2&gt;
 &lt;p&gt;2017-2022，北京，字节跳动，后端开发工程师。评论排序系统架构和策略，推荐系统架构和策略。&lt;/p&gt;
