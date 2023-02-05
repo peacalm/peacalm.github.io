@@ -5,14 +5,15 @@ draft: false
 ---
 
 ## 技能值
-### Basics
-* C++(0.85), Python(0.75), Golang(0.6)
-* Data Structure and Algorithm(0.8), Networks(0.6), Operating System(0.6)
-* ML(0.4)
-### Applications
-* Comment Ranking System(0.9), Recommendation System(0.6)
-### Tools and Frameworks
-* Git, 
+* Basics: 
+- - C++(0.85), Python(0.75), Golang(0.6)
+- - Data Structure and Algorithm(0.8), Networks(0.6), Operating System(0.6)
+- - ML(0.4)
+* Applications: 
+- - Comment Ranking System(0.9), Recommendation System(0.6)
+* Tools and Frameworks:
+- - Git, Redis, Nsq, Kafka, Thrift
+
 
 ## 工作经历
 2017-2022，北京，字节跳动，后端开发工程师。评论排序系统架构和策略，推荐系统架构和策略。
