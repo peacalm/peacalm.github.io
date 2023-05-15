@@ -77,8 +77,23 @@ error: no member named 'NX' in 'EMPTY<const int[3]>'
 void func(int) {}
 ```
 ```C++
-CETYPE(decltype(func));  // void (int)
-CETYPE(decltype(&func)); // void (*)(int)
+{
+    CETYPE(decltype(func));  // void (int)
+    CETYPE(decltype(&func)); // void (*)(int)
+
+    auto fcopy = func;
+    CETYPE(decltype(fcopy)); // void (*)(int)
+
+    auto fcopy_ptr = &func;
+    CETYPE(decltype(fcopy_ptr)); // void (*)(int)
+
+    CETYPE(decltype(std::move(func)));  // void (&)(int)
+    CETYPE(decltype(&std::move(func))); // void (*)(int)
+    CETYPE(decltype(std::move(&func))); // void (*&&)(int)
+
+    decltype(func) && prfunc = func;
+    CETYPE(decltype(prfunc));  // void (&&)(int)
+}
 
 // references
 {
@@ -94,6 +109,12 @@ CETYPE(decltype(&func)); // void (*)(int)
     auto && rref = func;
     CETYPE(decltype(rref));  // void (&)(int)
     CETYPE(decltype(&rref)); // void (*)(int)
+
+    // ref of move
+    const auto & clref_of_move = std::move(func);
+    CETYPE(decltype(clref_of_move));  // void (&)(int)
+    auto && rref_of_move = std::move(func);
+    CETYPE(decltype(rref_of_move));   // void (&)(int)
 }
 
 // references of pointer
