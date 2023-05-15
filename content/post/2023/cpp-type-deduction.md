@@ -199,7 +199,7 @@ template<typename T> void rarg(T && t) {
 `const auto & clref = func;`得到clref的类型是`void (&)(int)`，const属性被忽略了。
 如果换成其他类型，则const属性会被保留，例如int，如下：
 
-### Other
+### Int
 ```C++
 int i = 0;
 // const被保留
@@ -271,3 +271,63 @@ rarg(3);
 // }
 
 ```
+
+### C array
+```C++
+char a[3];
+
+CETYPE(decltype(a));     // char[3]
+CETYPE(decltype(&a));    // char (*)[3]
+CETYPE(decltype(&a[0])); // char *
+
+const auto & acr = a;
+CETYPE(decltype(acr));  // const char (&)[3]
+const auto & pacr = &a;
+CETYPE(decltype(pacr)); // char (*const &)[3]
+const auto & pa0cr = &a[0];
+CETYPE(decltype(pa0cr)); // char *const &
+
+auto && arr = a;
+CETYPE(decltype(arr));  // char (&)[3]
+auto && parr = &a;
+CETYPE(decltype(parr)); // char (*&&)[3]
+auto pa = &a;
+auto && lparr = pa;
+CETYPE(decltype(lparr)); // char (*&)[3]
+
+auto && pa0rr = &a[0];
+CETYPE(decltype(pa0rr)); // char *&&
+auto pa0 = &a[0];
+auto && lpa0rr = pa0;
+CETYPE(decltype(lpa0rr)); // char *&
+```
+
+```C++
+const char a[3];
+
+CETYPE(decltype(a));     // const char[3]
+CETYPE(decltype(&a));    // const char (*)[3]
+CETYPE(decltype(&a[0])); // const char *
+
+const auto & acr = a;
+CETYPE(decltype(acr));  // const char (&)[3]
+const auto & pacr = &a;
+CETYPE(decltype(pacr)); // const char (*const &)[3]
+const auto & pa0cr = &a[0];
+CETYPE(decltype(pa0cr)); // const char *const &
+
+auto && arr = a;
+CETYPE(decltype(arr));  // const char (&)[3]
+auto && parr = &a;
+CETYPE(decltype(parr)); // const char (*&&)[3]
+auto pa = &a;
+auto && lparr = pa;
+CETYPE(decltype(lparr)); // const char (*&)[3]
+
+auto && pa0rr = &a[0];
+CETYPE(decltype(pa0rr)); // const char *const &
+auto pa0 = &a[0];
+auto && lpa0rr = pa0;
+CETYPE(decltype(lpa0rr)); // const char *&
+```
+
