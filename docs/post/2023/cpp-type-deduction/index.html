@@ -323,7 +323,12 @@
   <div class="post-toc-content">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#c-function">C function</a></li>
+    <li><a href="#如何查看类型">如何查看类型</a></li>
+    <li><a href="#类型推导示例">类型推导示例</a>
+      <ul>
+        <li><a href="#c-function">C function</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
   </div>
@@ -331,7 +336,7 @@
 
     
     <div class="post-content">
-      <h1 id="如何查看类型">如何查看类型</h1>
+      <h2 id="如何查看类型">如何查看类型</h2>
 <p>C++的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，成员变量，
 成员函数等特性的组合能生成不同的类型。类型推导是C++模版元编程的基础。
 那么如何查看某个类型或变量具体是什么类型呢？笔者使用的方法有</p>
@@ -428,8 +433,8 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 </div>
 </div><p>于是可以看出a的类型是&quot;const int[3]&quot;。
 （也有编译器输出&quot;int const[3]&quot;，这是等效的写法，它们是相同的类型）</p>
-<h1 id="类型推导示例">类型推导示例</h1>
-<h2 id="c-function">C function</h2>
+<h2 id="类型推导示例">类型推导示例</h2>
+<h3 id="c-function">C function</h3>
 <p>预先定义好的用于类型推导的函数：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">

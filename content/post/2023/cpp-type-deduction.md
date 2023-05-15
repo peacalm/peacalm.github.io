@@ -9,7 +9,7 @@ categories: ["技术"]
 #toc: false
 ---
 
-# 如何查看类型
+## 如何查看类型
 
 C++的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，成员变量，
 成员函数等特性的组合能生成不同的类型。类型推导是C++模版元编程的基础。
@@ -69,9 +69,9 @@ error: no member named 'NX' in 'EMPTY<const int[3]>'
 （也有编译器输出"int const[3]"，这是等效的写法，它们是相同的类型）
 
 
-# 类型推导示例
+## 类型推导示例
 
-## C function
+### C function
 预先定义好的用于类型推导的函数：
 ```C++
 void func(int) {}
