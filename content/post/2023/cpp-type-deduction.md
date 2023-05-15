@@ -16,7 +16,7 @@ C++的类型系统是极其复杂的，基本类型与const, volatile, 指针，
 那么如何查看某个类型或变量具体是什么类型呢？笔者使用的方法有
 * C++内置的typeid
 * boost::typeindex::type_id
-* 用std::is_same猜测校验
+* 猜测类型并用std::is_same校验
 * 故意使编译报错在编译器给出的错误信息中查看目标的类型
 
 例如用typeid：

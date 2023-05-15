@@ -25,7 +25,7 @@
 &lt;ul&gt;
 &lt;li&gt;C++内置的typeid&lt;/li&gt;
 &lt;li&gt;boost::typeindex::type_id&lt;/li&gt;
-&lt;li&gt;用std::is_same猜测校验&lt;/li&gt;
+&lt;li&gt;猜测类型并用std::is_same校验&lt;/li&gt;
 &lt;li&gt;故意使编译报错在编译器给出的错误信息中查看目标的类型&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;例如用typeid：&lt;/p&gt;
