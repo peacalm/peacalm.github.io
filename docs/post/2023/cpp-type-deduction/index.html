@@ -69,7 +69,7 @@
 <meta itemprop="name" content="C&#43;&#43;类型推导 | C&#43;&#43; Type Deduction">
 <meta itemprop="description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，成员变量， 成员函数等特性的组合能生成不同的类型。类"><meta itemprop="datePublished" content="2023-05-16T00:25:39+08:00" />
 <meta itemprop="dateModified" content="2023-05-16T00:25:39+08:00" />
-<meta itemprop="wordCount" content="1371">
+<meta itemprop="wordCount" content="1368">
 <meta itemprop="keywords" content="C&#43;&#43;,类型推导," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="C&#43;&#43;类型推导 | C&#43;&#43; Type Deduction"/>
 <meta name="twitter:description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，成员变量， 成员函数等特性的组合能生成不同的类型。类"/>
@@ -394,7 +394,7 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>但是这样太麻烦了，如果不想猜呢？由于编译器编译阶段是知道变量或表达式的类型的，所以我们可以故意
-写某种会编译报错的代码，让我们想要查看的目标类型信息展示在报错信息中：</p>
+写某种会编译报错的代码，让我们想要查看的类型名展示在报错信息中：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1

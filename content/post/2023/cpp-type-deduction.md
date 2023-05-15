@@ -50,7 +50,7 @@ if (std::is_same_v<decltype(a), int [3]>) {
 ```
 
 但是这样太麻烦了，如果不想猜呢？由于编译器编译阶段是知道变量或表达式的类型的，所以我们可以故意
-写某种会编译报错的代码，让我们想要查看的目标类型信息展示在报错信息中：
+写某种会编译报错的代码，让我们想要查看的类型名展示在报错信息中：
 ```C++
 template <typename> struct EMPTY{};
 // CE: compilation error; NX: not exists
