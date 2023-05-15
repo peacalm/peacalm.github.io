@@ -226,3 +226,29 @@ CETYPE(decltype(std::move(i)));  // int &&
 // 右值
 CETYPE(decltype(i + ci));  // int
 ```
+
+```C++
+larg(i);
+// template<typename T> void larg(const T & t) {
+//     CETYPE(T);           // int
+//     CETYPE(decltype(t)); // const int &
+// }
+
+rarg(i);
+// template<typename T> void rarg(T && t) {
+//     CETYPE(T);           // int &
+//     CETYPE(decltype(t)); // int &
+// }
+
+larg(ci);
+// template<typename T> void larg(const T & t) {
+//     CETYPE(T);           // int
+//     CETYPE(decltype(t)); // const int &
+// }
+
+rarg(ci);
+// template<typename T> void rarg(T && t) {
+//     CETYPE(T);           // const int &
+//     CETYPE(decltype(t)); // const int &
+// }
+```
