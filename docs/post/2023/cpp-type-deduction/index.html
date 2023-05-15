@@ -69,7 +69,7 @@
 <meta itemprop="name" content="C&#43;&#43;类型推导 | C&#43;&#43; Type Deduction">
 <meta itemprop="description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，成员变量， 成员函数等特性的组合能生成许多不同的类型"><meta itemprop="datePublished" content="2023-05-16T00:25:39+08:00" />
 <meta itemprop="dateModified" content="2023-05-16T00:25:39+08:00" />
-<meta itemprop="wordCount" content="1623">
+<meta itemprop="wordCount" content="1737">
 <meta itemprop="keywords" content="C&#43;&#43;,类型推导," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="C&#43;&#43;类型推导 | C&#43;&#43; Type Deduction"/>
 <meta name="twitter:description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，成员变量， 成员函数等特性的组合能生成许多不同的类型"/>
@@ -327,6 +327,7 @@
     <li><a href="#类型推导示例">类型推导示例</a>
       <ul>
         <li><a href="#c-function">C function</a></li>
+        <li><a href="#other">Other</a></li>
       </ul>
     </li>
   </ul>
@@ -676,22 +677,63 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 </div>
 </div><p>可见，函数模版参数<code>const T &amp; t</code>与定义引用<code>const auto &amp; r = ...</code>推导结果一致，
 函数模版参数<code>T &amp;&amp; t</code>与定义引用<code>auto &amp;&amp; r = ...</code>推导结果一致。</p>
-<p>特别的，std::move作用于函数类型时返回的是lvalue <code>FunctionType&amp;</code>而不是<code>FunctionType&amp;&amp;</code>。
-另外，由于C++规定不是成员函数的函数不能有const、valitale属性，所以
+<p>特别的，std::move作用于函数类型时返回的是lvalue <code>FunctionType&amp;</code>而不是<code>FunctionType&amp;&amp;</code>。</p>
+<p>另外，由于C++规定不是成员函数的函数不能有const、valitale属性，所以
 <code>const auto &amp; clref = func;</code>得到clref的类型是<code>void (&amp;)(int)</code>，const属性被忽略了。
-用int作为对比如下，可见const属性被保留了：</p>
+如果换成其他类型，则const属性会被保留，例如int，如下：</p>
+<h3 id="other">Other</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
+</span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">ival</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="k">auto</span> <span class="o">&amp;</span> <span class="n">clref</span> <span class="o">=</span> <span class="n">ival</span><span class="p">;</span>
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// const被保留
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span> <span class="k">auto</span> <span class="o">&amp;</span> <span class="n">clref</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">clref</span><span class="p">));</span>  <span class="c1">// const int &amp;
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="o">&amp;</span><span class="n">clref</span><span class="p">));</span> <span class="c1">// const int *
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">int</span> <span class="n">ci</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">i</span><span class="p">));</span>  <span class="c1">// int
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">ci</span><span class="p">));</span> <span class="c1">// const int
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 非单个标记符的左值，推导为T&amp;。例如加一个小括号，或前置自增
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">((</span><span class="n">i</span><span class="p">)));</span>  <span class="c1">// int &amp;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">((</span><span class="n">ci</span><span class="p">)));</span> <span class="c1">// const int &amp;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="o">++</span><span class="n">i</span><span class="p">));</span>  <span class="c1">// int &amp;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 右值引用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">i</span><span class="p">)));</span>  <span class="c1">// int &amp;&amp;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 右值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">ci</span><span class="p">));</span>  <span class="c1">// int
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div>

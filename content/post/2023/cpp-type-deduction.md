@@ -194,13 +194,35 @@ template<typename T> void rarg(T && t) {
 函数模版参数`T && t`与定义引用`auto && r = ...`推导结果一致。
 
 特别的，std::move作用于函数类型时返回的是lvalue `FunctionType&`而不是`FunctionType&&`。
+
 另外，由于C++规定不是成员函数的函数不能有const、valitale属性，所以
 `const auto & clref = func;`得到clref的类型是`void (&)(int)`，const属性被忽略了。
-用int作为对比如下，可见const属性被保留了：
+如果换成其他类型，则const属性会被保留，例如int，如下：
+
+### Other
 ```C++
-int ival = 0;
-const auto & clref = ival;
+int i = 0;
+// const被保留
+const auto & clref = i;
 CETYPE(decltype(clref));  // const int &
 CETYPE(decltype(&clref)); // const int *
 ```
 
+```C++
+int i = 0;
+const int ci = 0;
+
+CETYPE(decltype(i));  // int
+CETYPE(decltype(ci)); // const int
+
+// 非单个标记符的左值，推导为T&。例如加一个小括号，或前置自增
+CETYPE(decltype((i)));  // int &
+CETYPE(decltype((ci))); // const int &
+CETYPE(decltype(++i));  // int &
+
+// 右值引用
+CETYPE(decltype(std::move(i)));  // int &&
+
+// 右值
+CETYPE(decltype(i + ci));  // int
+```
