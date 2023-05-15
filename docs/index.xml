@@ -358,7 +358,7 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;可见，函数模版参数&lt;code&gt;const T &amp;amp; t&lt;/code&gt;与定义引用&lt;code&gt;const auto &amp;amp; r = ...&lt;/code&gt;推导结果一致，
 函数模版参数&lt;code&gt;T &amp;amp;&amp;amp; t&lt;/code&gt;与定义引用&lt;code&gt;auto &amp;amp;&amp;amp; r = ...&lt;/code&gt;推导结果一致。&lt;/p&gt;
-&lt;p&gt;特别的，std::move作用于函数类型时返回的是 lvalue &lt;code&gt;FunctionType&amp;amp;&lt;/code&gt;而不是&lt;code&gt;FunctionType&amp;amp;&amp;amp;&lt;/code&gt;。
+&lt;p&gt;特别的，std::move作用于函数类型时返回的是lvalue &lt;code&gt;FunctionType&amp;amp;&lt;/code&gt;而不是&lt;code&gt;FunctionType&amp;amp;&amp;amp;&lt;/code&gt;。
 另外，由于C++规定不是成员函数的函数不能有const、valitale属性，所以
 &lt;code&gt;const auto &amp;amp; clref = func;&lt;/code&gt;得到clref的类型是&lt;code&gt;void (&amp;amp;)(int)&lt;/code&gt;，const属性被忽略了。
 用int作为对比如下，可见const属性被保留了：&lt;/p&gt;
