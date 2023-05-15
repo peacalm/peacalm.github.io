@@ -69,7 +69,7 @@
 <meta itemprop="name" content="C&#43;&#43;类型推导 | C&#43;&#43; Type Deduction">
 <meta itemprop="description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，成员变量， 成员函数等特性的组合能生成许多不同的类型"><meta itemprop="datePublished" content="2023-05-16T00:25:39+08:00" />
 <meta itemprop="dateModified" content="2023-05-16T00:25:39+08:00" />
-<meta itemprop="wordCount" content="1538">
+<meta itemprop="wordCount" content="1549">
 <meta itemprop="keywords" content="C&#43;&#43;,类型推导," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="C&#43;&#43;类型推导 | C&#43;&#43; Type Deduction"/>
 <meta name="twitter:description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，成员变量， 成员函数等特性的组合能生成许多不同的类型"/>
@@ -501,6 +501,8 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 </span><span class="lnt">53
 </span><span class="lnt">54
 </span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="p">{</span>
@@ -513,8 +515,10 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 </span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">fcopy_ptr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">func</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">fcopy_ptr</span><span class="p">));</span> <span class="c1">// void (*)(int)
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">    <span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">func</span><span class="p">)));</span>  <span class="c1">// void (&amp;)(int)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="o">&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">func</span><span class="p">)));</span> <span class="c1">// void (*)(int)
+</span></span><span class="line"><span class="cl">    <span class="c1">// static_cast on rvalue reference to function returns lvalue
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">func</span><span class="p">)));</span>  <span class="c1">// void (&amp;)(int)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    
+</span></span><span class="line"><span class="cl">    <span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="o">&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">func</span><span class="p">)));</span> <span class="c1">// void (*)(int)
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="o">&amp;</span><span class="n">func</span><span class="p">)));</span> <span class="c1">// void (*&amp;&amp;)(int)
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl">    <span class="k">decltype</span><span class="p">(</span><span class="n">func</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">prfunc</span> <span class="o">=</span> <span class="n">func</span><span class="p">;</span>

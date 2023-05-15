@@ -87,7 +87,9 @@ void func(int) {}
     auto fcopy_ptr = &func;
     CETYPE(decltype(fcopy_ptr)); // void (*)(int)
 
+    // static_cast on rvalue reference to function returns lvalue
     CETYPE(decltype(std::move(func)));  // void (&)(int)
+    
     CETYPE(decltype(&std::move(func))); // void (*)(int)
     CETYPE(decltype(std::move(&func))); // void (*&&)(int)
 
