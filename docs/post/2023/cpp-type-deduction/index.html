@@ -69,7 +69,7 @@
 <meta itemprop="name" content="C&#43;&#43;类型推导 | C&#43;&#43; Type Deduction">
 <meta itemprop="description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，成员变量， 成员函数等特性的组合能生成许多不同的类型"><meta itemprop="datePublished" content="2023-05-16T00:25:39+08:00" />
 <meta itemprop="dateModified" content="2023-05-16T00:25:39+08:00" />
-<meta itemprop="wordCount" content="1549">
+<meta itemprop="wordCount" content="1618">
 <meta itemprop="keywords" content="C&#43;&#43;,类型推导," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="C&#43;&#43;类型推导 | C&#43;&#43; Type Deduction"/>
 <meta name="twitter:description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，成员变量， 成员函数等特性的组合能生成许多不同的类型"/>
@@ -517,7 +517,7 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// static_cast on rvalue reference to function returns lvalue
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">func</span><span class="p">)));</span>  <span class="c1">// void (&amp;)(int)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl">    <span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="o">&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">func</span><span class="p">)));</span> <span class="c1">// void (*)(int)
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="o">&amp;</span><span class="n">func</span><span class="p">)));</span> <span class="c1">// void (*&amp;&amp;)(int)
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
@@ -676,7 +676,8 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 </div>
 </div><p>可见，函数模版参数<code>const T &amp; t</code>与定义引用<code>const auto &amp; r = ...</code>推导结果一致，
 函数模版参数<code>T &amp;&amp; t</code>与定义引用<code>auto &amp;&amp; r = ...</code>推导结果一致。</p>
-<p>另外，由于C++规定不是成员函数的函数不能有const、valitale属性，所以
+<p>特别的，std::move作用于函数类型时返回的是 lvalue <code>FunctionType&amp;</code>而不是<code>FunctionType&amp;&amp;</code>。
+另外，由于C++规定不是成员函数的函数不能有const、valitale属性，所以
 <code>const auto &amp; clref = func;</code>得到clref的类型是<code>void (&amp;)(int)</code>，const属性被忽略了。
 用int作为对比如下，可见const属性被保留了：</p>
 <div class="highlight"><div class="chroma">
