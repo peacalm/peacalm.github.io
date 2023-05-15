@@ -1,8 +1,8 @@
 ---
-title: "C++ Type Deduction"
+title: "C++类型推导 | C++ Type Deduction"
 date: 2023-05-16T00:25:39+08:00
 lastmod: 2023-05-16T00:25:39+08:00
-draft: true
+draft: false
 tags: ["C++"]
 categories: ["技术"]
 #math: false
