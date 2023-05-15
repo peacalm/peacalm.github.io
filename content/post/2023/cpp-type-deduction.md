@@ -172,7 +172,7 @@ template<typename T> void rarg(T && t) {
 
 另外，由于C++规定不是成员函数的函数不能有const、valitale属性，所以
 `const auto & clref = func;`得到clref的类型是`void (&)(int)`，const属性被忽略了。
-用int作为对比如下：
+用int作为对比如下，可见const属性被保留了：
 ```C++
 int ival = 0;
 const auto & clref = ival;
