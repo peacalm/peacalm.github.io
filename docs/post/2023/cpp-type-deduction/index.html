@@ -69,7 +69,7 @@
 <meta itemprop="name" content="C&#43;&#43;类型推导 | C&#43;&#43; Type Deduction">
 <meta itemprop="description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，成员变量， 成员函数等特性的组合能生成不同的类型。类"><meta itemprop="datePublished" content="2023-05-16T00:25:39+08:00" />
 <meta itemprop="dateModified" content="2023-05-16T00:25:39+08:00" />
-<meta itemprop="wordCount" content="1368">
+<meta itemprop="wordCount" content="1430">
 <meta itemprop="keywords" content="C&#43;&#43;,类型推导," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="C&#43;&#43;类型推导 | C&#43;&#43; Type Deduction"/>
 <meta name="twitter:description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，成员变量， 成员函数等特性的组合能生成不同的类型。类"/>
@@ -513,7 +513,7 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>将函数用作如下模版函数的参数：</p>
+</div><p>定义如下两个模版函数，其参数声明分别是C++11以前的万能引用和C++11引入的新的万能引用。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -536,7 +536,8 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><div class="highlight"><div class="chroma">
+</div><p>将函数func用作以上两个模版函数的参数，类型推导结果如下：</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2

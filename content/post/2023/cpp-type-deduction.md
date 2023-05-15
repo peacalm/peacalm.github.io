@@ -113,7 +113,7 @@ CETYPE(decltype(&func)); // void (*)(int)
 }
 ```
 
-将函数用作如下模版函数的参数：
+定义如下两个模版函数，其参数声明分别是C++11以前的万能引用和C++11引入的新的万能引用。
 ```C++
 template<typename T> void larg(const T & t) {
     CETYPE(T);
@@ -124,6 +124,7 @@ template<typename T> void rarg(T && t) {
     CETYPE(decltype(t));
 }
 ```
+将函数func用作以上两个模版函数的参数，类型推导结果如下：
 ```C++
 {
     larg(func);
