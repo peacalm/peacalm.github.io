@@ -17,7 +17,7 @@ C++的类型系统是极其复杂的，基本类型与const, volatile, 指针，
 * C++内置的typeid
 * boost::typeindex::type_id
 * 用std::is_same猜测校验
-* 故意编译报错在编译器给出的错误信息中查看目标的类型
+* 故意使编译报错在编译器给出的错误信息中查看目标的类型
 
 例如用typeid：
 ```C++
