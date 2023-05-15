@@ -69,7 +69,7 @@
 <meta itemprop="name" content="C&#43;&#43;类型推导 | C&#43;&#43; Type Deduction">
 <meta itemprop="description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，成员变量， 成员函数等特性的组合能生成许多不同的类型"><meta itemprop="datePublished" content="2023-05-16T00:25:39+08:00" />
 <meta itemprop="dateModified" content="2023-05-16T00:25:39+08:00" />
-<meta itemprop="wordCount" content="2193">
+<meta itemprop="wordCount" content="2251">
 <meta itemprop="keywords" content="C&#43;&#43;,类型推导,泛型," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="C&#43;&#43;类型推导 | C&#43;&#43; Type Deduction"/>
 <meta name="twitter:description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，成员变量， 成员函数等特性的组合能生成许多不同的类型"/>
@@ -632,6 +632,19 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 </span><span class="lnt">38
 </span><span class="lnt">39
 </span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="p">{</span>
@@ -642,6 +655,19 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// }
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl">    <span class="n">rarg</span><span class="p">(</span><span class="n">func</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// template&lt;typename T&gt; void rarg(T &amp;&amp; t) {
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//     CETYPE(T);           // void (&amp;)(int)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//     CETYPE(decltype(t)); // void (&amp;)(int)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// }
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">larg</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">func</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// template&lt;typename T&gt; void larg(const T &amp; t) {
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//     CETYPE(T);           // void (int)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//     CETYPE(decltype(t)); // void (&amp;)(int)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// }
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="n">rarg</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">func</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// template&lt;typename T&gt; void rarg(T &amp;&amp; t) {
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//     CETYPE(T);           // void (&amp;)(int)
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//     CETYPE(decltype(t)); // void (&amp;)(int)

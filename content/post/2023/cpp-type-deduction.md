@@ -163,6 +163,19 @@ template<typename T> void rarg(T && t) {
     // }
 }
 {
+    larg(std::move(func));
+    // template<typename T> void larg(const T & t) {
+    //     CETYPE(T);           // void (int)
+    //     CETYPE(decltype(t)); // void (&)(int)
+    // }
+
+    rarg(std::move(func));
+    // template<typename T> void rarg(T && t) {
+    //     CETYPE(T);           // void (&)(int)
+    //     CETYPE(decltype(t)); // void (&)(int)
+    // }
+}
+{
     larg(&func);
     // template<typename T> void larg(const T & t) {
     //     CETYPE(T);           // void (*)(int)
