@@ -344,3 +344,15 @@ auto && lpa0rr = pa0;
 CETYPE(decltype(lpa0rr)); // const char *&
 ```
 
+```C++
+int ia[] = {};
+int ia2[] = {1, 2};
+int ia3[3] = {1};
+
+CETYPE(decltype(ia));  // int[0]
+CETYPE(decltype(ia2)); // int[2]
+CETYPE(decltype(ia3)); // int[3]
+CETYPE(int[]);         // int[]
+CETYPE(const int[]);   // const int[]
+CETYPE(decltype(&ia)); // int (*)[0]
+```
