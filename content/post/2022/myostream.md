@@ -4,7 +4,7 @@ date: 2022-03-17T01:12:25+08:00
 lastmod: 2022-03-18T00:54:42+08:00
 draft: false
 tags: ["C++", "库", "输出库", "C++实现", "debug tool", "watch tool", "ACMer助手"]
-categories: ["技术", "C++"]
+categories: ["技术"]
 ---
 
 ## 懒汉的烦恼

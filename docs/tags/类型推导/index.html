@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器 - Peacalm Notes</title>
+  <title>类型推导 · Peacalm Notes</title>
   
 
 <meta name="renderer" content="webkit" />
@@ -23,8 +23,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="李双全" />
-  <meta name="description" content="懒汉的烦恼 使用C&#43;&#43;编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印输出。 相比之下Python" />
-
+  <meta name="description" content="lishuangquan&#39;s site." />
   <meta name="keywords" content="lishuangquan, blog, software" />
 
 
@@ -35,8 +34,8 @@
 <meta name="generator" content="Hugo 0.101.0" />
 
 
-<link rel="canonical" href="https://peacalm.github.io/post/2022/myostream/" />
-
+<link rel="canonical" href="https://peacalm.github.io/tags/%E7%B1%BB%E5%9E%8B%E6%8E%A8%E5%AF%BC/" />
+<link href="/tags/%E7%B1%BB%E5%9E%8B%E6%8E%A8%E5%AF%BC/index.xml" rel="alternate" type="application/rss+xml" title="Peacalm Notes" />
 
 
 
@@ -59,20 +58,15 @@
 
 
 
-<meta property="og:title" content="C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器" />
-<meta property="og:description" content="懒汉的烦恼 使用C&#43;&#43;编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印输出。 相比之下Python" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://peacalm.github.io/post/2022/myostream/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2022-03-17T01:12:25+08:00" />
-<meta property="article:modified_time" content="2022-03-18T00:54:42+08:00" />
+<meta property="og:title" content="类型推导" />
+<meta property="og:description" content="lishuangquan&#39;s site." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://peacalm.github.io/tags/%E7%B1%BB%E5%9E%8B%E6%8E%A8%E5%AF%BC/" />
 
-<meta itemprop="name" content="C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器">
-<meta itemprop="description" content="懒汉的烦恼 使用C&#43;&#43;编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印输出。 相比之下Python"><meta itemprop="datePublished" content="2022-03-17T01:12:25+08:00" />
-<meta itemprop="dateModified" content="2022-03-18T00:54:42+08:00" />
-<meta itemprop="wordCount" content="657">
-<meta itemprop="keywords" content="C&#43;&#43;,库,输出库,C&#43;&#43;实现,debug tool,watch tool,ACMer助手," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器"/>
-<meta name="twitter:description" content="懒汉的烦恼 使用C&#43;&#43;编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印输出。 相比之下Python"/>
+<meta itemprop="name" content="类型推导">
+<meta itemprop="description" content="lishuangquan&#39;s site."><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="类型推导"/>
+<meta name="twitter:description" content="lishuangquan&#39;s site."/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -289,284 +283,55 @@
     <main id="main" class="main bg-llight">
       <div class="content-wrapper">
         <div id="content" class="content container">
-          <article class="post bg-white">
-    
-    <header class="post-header">
-      <h1 class="post-title">C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器</h1>
-      
-      <div class="post-meta">
-        <time datetime="2022-03-17" class="post-time">
-          2022-03-17
-        </time>
-        <div class="post-category">
-            <a href="https://peacalm.github.io/categories/%E6%8A%80%E6%9C%AF/"> 技术 </a>
-            
-          </div>
-        
-
-        
-        
-          <span id="busuanzi_container_page_pv">
-            | 阅读 <span id="busuanzi_value_page_pv"></span>
-          </span>
-        
-
-        
-        
-      </div>
-    </header>
-
-    
-    
-<div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">Table of Contents</h2>
-  <div class="post-toc-content">
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#懒汉的烦恼">懒汉的烦恼</a></li>
-    <li><a href="#acmer助手">ACMer助手</a></li>
-    <li><a href="#附录">附录</a></li>
-  </ul>
-</nav>
-  </div>
-</div>
-
-    
-    <div class="post-content">
-      <h2 id="懒汉的烦恼">懒汉的烦恼</h2>
-<p>使用C++编程时对数据打印输出比较麻烦，需要自行用for循环将vector, list, map等容器的成员一一打印输出。
-相比之下Python, Golang等语言就可以直接对所有数据类型打印输出，这对于debug是很友好的特性。
-因此，我开发了一个简单的C++库，几乎能够对所有容器直接打印输出，说几乎是因为我们只能对成员可访问可迭代的容器支持这个特性。</p>
-<p>支持的类型如下，以及他们的组合类型：</p>
-<p>std::pair, std::tuple, std::array, std::deque,
-std::forward_list, std::initializer_list, std::list, std::vector,
-std::set, std::multiset, std::unordered_set, std::unordered_multiset,
-std::map, std::multimap, std::unordered_map, std::unordered_multimap.</p>
-<h2 id="acmer助手">ACMer助手</h2>
-<p>特别的，我们在打ACM比赛或做类似的OJ题目的过程中，需要debug的时候，我们不仅想要打印容器里的值，
-而且还想要同时打印出变量名，以便我们在解题时，如果定义了多个容器变量，我们可以知道哪个变量的值使哪一个值，
-因此我设计了watch功能。</p>
-<p>宏定义watch可以用一下两种方式：
-一，用std::cout输出MYOSTREAM_WATCH_TO_STRING生成的字符串：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;myostream.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define watch(...) std::cout &lt;&lt; MYOSTREAM_WATCH_TO_STRING(std::string, &#34; = &#34;, &#34;\n&#34;, &#34;\n\n&#34;, __VA_ARGS__)
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>二，直接使用MYOSTREAM_WATCH，坏处是这里定义了一个变量<code>mycout</code>，这段代码不能在头文件中被多个源文件include:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;myostream.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">myostream</span><span class="o">::</span><span class="n">ostream</span> <span class="n">mycout</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">.</span><span class="n">rdbuf</span><span class="p">());</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#define watch(...) MYOSTREAM_WATCH(mycout, &#34; = &#34;, &#34;\n&#34;, &#34;\n\n&#34;, __VA_ARGS__)
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>例如，如下debug代码：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="cp">#ifndef ONLINE_JUDGE
-</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;myostream.h&gt;</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">myostream</span><span class="o">::</span><span class="n">ostream</span> <span class="n">mycout</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">.</span><span class="n">rdbuf</span><span class="p">());</span>
-</span></span><span class="line"><span class="cl"><span class="cp">#define watch(...) MYOSTREAM_WATCH(mycout, &#34; = &#34;, &#34;\n&#34;, &#34;\n\n&#34;, __VA_ARGS__)
-</span></span></span><span class="line"><span class="cl"><span class="cp">#else
-</span></span></span><span class="line"><span class="cl"><span class="cp">#define watch(...)
-</span></span></span><span class="line"><span class="cl"><span class="cp">#endif
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">};</span>
-</span></span><span class="line"><span class="cl">  <span class="n">watch</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">set</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;&gt;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">      <span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;&gt;</span> <span class="n">complex</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">},</span>
-</span></span><span class="line"><span class="cl">                                              <span class="p">{{</span><span class="mi">1</span><span class="p">,</span> <span class="p">{</span><span class="s">&#34;a&#34;</span><span class="p">,</span> <span class="s">&#34;aa&#34;</span><span class="p">}},</span>
-</span></span><span class="line"><span class="cl">                                               <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="p">{</span><span class="s">&#34;b&#34;</span><span class="p">,</span> <span class="s">&#34;bb&#34;</span><span class="p">}}},</span>
-</span></span><span class="line"><span class="cl">                                              <span class="p">{</span><span class="s">&#34;Aya&#34;</span><span class="p">,</span> <span class="mf">88.5</span><span class="p">});</span>
-</span></span><span class="line"><span class="cl">  <span class="n">watch</span><span class="p">(</span><span class="n">complex</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>在本地编译运行，可以输出：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">v = [1, 2, 3]
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">complex = &lt;[1, 2, 3], {1: {a, aa}, 2: {b, bb}}, (Aya, 88.5)&gt;
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>而在线提交，或定义了宏ONLINE_JUDGE后，则什么都不输出。</p>
-<h2 id="附录">附录</h2>
-<ul>
-<li><a href="https://github.com/peacalm/myostream">lib MyOStream on github</a></li>
-</ul>
-
-    </div>
-
-    
-    
-<div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">Author</span>
-    <span class="item-content">李双全</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">LastMod</span>
-    <span class="item-content">
-      2022-03-18
-      
-    </span>
-  </p>
-  
-  <p class="copyright-item">
-    <span class="item-title">License</span>
-    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
-  </p>
-</div>
-
-
-    
-    
-<div class="post-reward">
-  <input type="checkbox" name="reward" id="reward" hidden />
-  <label class="reward-button" for="reward">Reward</label>
-  <div class="qr-code">
-    
-    
-      <label class="qr-code-image" for="reward">
-        <img class="image" src="/reward/wechatpay-qr-code.png">
-        <span>Wechat</span>
-      </label>
-    
-      <label class="qr-code-image" for="reward">
-        <img class="image" src="/reward/alipay-qr-code.png">
-        <span>Alipay</span>
-      </label>
-  </div>
-</div>
-
-    <footer class="post-footer">
-      <div class="post-tags">
-          <a href="https://peacalm.github.io/tags/c&#43;&#43;/">C&#43;&#43;</a>
-          <a href="https://peacalm.github.io/tags/%E5%BA%93/">库</a>
-          <a href="https://peacalm.github.io/tags/%E8%BE%93%E5%87%BA%E5%BA%93/">输出库</a>
-          <a href="https://peacalm.github.io/tags/c&#43;&#43;%E5%AE%9E%E7%8E%B0/">C&#43;&#43;实现</a>
-          <a href="https://peacalm.github.io/tags/debug-tool/">debug tool</a>
-          <a href="https://peacalm.github.io/tags/watch-tool/">watch tool</a>
-          <a href="https://peacalm.github.io/tags/acmer%E5%8A%A9%E6%89%8B/">ACMer助手</a>
           
-        </div>
 
-      
-      <nav class="post-nav">
-        
-          <a class="prev" href="/post/2022/parameters-management-for-online-service/">
-            
-            <i class="iconfont">
-              <svg  class="icon" viewBox="0 0 1024 1024" version="1.1"
-  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-  width="18" height="18">
-  <path d="M691.908486 949.511495l75.369571-89.491197c10.963703-12.998035 10.285251-32.864502-1.499144-44.378743L479.499795 515.267417 757.434875 204.940602c11.338233-12.190647 11.035334-32.285311-0.638543-44.850487l-80.46666-86.564541c-11.680017-12.583596-30.356378-12.893658-41.662889-0.716314L257.233596 494.235404c-11.332093 12.183484-11.041474 32.266891 0.657986 44.844348l80.46666 86.564541c1.772366 1.910513 3.706415 3.533476 5.750981 4.877077l306.620399 321.703933C662.505829 963.726242 680.945807 962.528973 691.908486 949.511495z"></path>
-</svg>
-
-            </i>
-            <span class="prev-text nav-default">在线服务参数管理 | Parameters Management for Online Service</span>
-            <span class="prev-text nav-mobile">Prev</span>
-          </a>
-        
-          <a class="next" href="/post/2022/bytedance-growth/">
-            <span class="next-text nav-default">字节跳动发展史 | History of Bytedance</span>
-            <span class="prev-text nav-mobile">Next</span>
-            
-            <i class="iconfont">
-              <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
-  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-  width="18" height="18">
-  <path d="M332.091514 74.487481l-75.369571 89.491197c-10.963703 12.998035-10.285251 32.864502 1.499144 44.378743l286.278095 300.375162L266.565125 819.058374c-11.338233 12.190647-11.035334 32.285311 0.638543 44.850487l80.46666 86.564541c11.680017 12.583596 30.356378 12.893658 41.662889 0.716314l377.434212-421.426145c11.332093-12.183484 11.041474-32.266891-0.657986-44.844348l-80.46666-86.564541c-1.772366-1.910513-3.706415-3.533476-5.750981-4.877077L373.270379 71.774697C361.493148 60.273758 343.054193 61.470003 332.091514 74.487481z"></path>
-</svg>
-
-            </i>
-          </a>
-      </nav>
-    </footer>
-  </article>
-
+<section id="archive" class="archive">
   
+    
+      <div class="archive-title tag">
+        <h2 class="archive-name">Tag: 类型推导</h2>
+      </div>
+    
   
 
   
-  
-
-  
-
-  
-  
-    <div class="post bg-white">
-      <script src="https://utteranc.es/client.js"
-            repo= "peacalm/comments-for-peacalm.github.io"
-            issue-term="pathname"
-            theme="github-light"
-            crossorigin="anonymous"
-            async>
-      </script>
+    <div class="archive-post">
+      <time datetime="2023-05-16" class="archive-post-time">
+        2023-05-16
+      </time>
+      <span class="archive-post-title">
+        <a href="/post/2023/cpp-type-deduction/" class="archive-post-link">
+          C&#43;&#43;类型推导 | C&#43;&#43; Type Deduction
+        </a>
+      </span>
     </div>
   
+</section>
 
+
+
+
+
+
+  
+  
   
 
   
-
-  
-
-    
-
   
 
   
+  
+
+  
+  
+
+  
+  
+
+
+
+
 
         </div>
       </div>
