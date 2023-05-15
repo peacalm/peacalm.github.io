@@ -9,13 +9,6 @@
   </url>
   
   <url>
-    <loc>https://peacalm.github.io/post/2023/cpp-type-deduction/</loc>
-    <lastmod>2023-05-16T00:25:39+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://peacalm.github.io/categories/</loc>
     <lastmod>2023-05-16T00:25:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -45,6 +38,13 @@
   
   <url>
     <loc>https://peacalm.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2023-05-16T00:25:39+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://peacalm.github.io/post/2023/cpp-type-deduction/</loc>
     <lastmod>2023-05-16T00:25:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
