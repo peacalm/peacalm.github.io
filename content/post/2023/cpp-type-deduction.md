@@ -38,7 +38,7 @@ std::cout << boost::typeindex::type_id<decltype(a)>().pretty_name() << std::endl
 事实上，C++内置的typeid和Boost的type_id得出的结果都是对输入类型进行decay之后的类型，
 也就是去掉了引用和const, volatile属性。
 
-那有没有获取目标的完整类型的方法呢？
+那有没有获取完整类型的方法呢？
 C++中可以用std::is_same来判断两个类型是否相同，它没有对输入类型做任何改变。
 因此可以猜测一个结果然后用它来判断猜得是否正确：
 ```C++
