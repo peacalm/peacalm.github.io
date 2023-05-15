@@ -325,7 +325,7 @@ auto && lparr = pa;
 CETYPE(decltype(lparr)); // const char (*&)[3]
 
 auto && pa0rr = &a[0];
-CETYPE(decltype(pa0rr)); // const char *const &
+CETYPE(decltype(pa0rr)); // const char *&&
 auto pa0 = &a[0];
 auto && lpa0rr = pa0;
 CETYPE(decltype(lpa0rr)); // const char *&
