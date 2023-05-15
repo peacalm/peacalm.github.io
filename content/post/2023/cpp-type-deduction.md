@@ -27,7 +27,8 @@ std::cout << typeid(decltype(a)).name() << std::endl;
 ```
 可见使用typeid获取的类型名不具有好的可读性。于是可以用boost::typeindex::type_id替代：
 ```C++
-// need include this header: #include <boost/type_index.hpp>
+// need include this header
+// #include <boost/type_index.hpp>
 const int a[3] = {};
 std::cout << boost::typeindex::type_id<decltype(a)>().pretty_name() << std::endl;
 // prints: int [3]
