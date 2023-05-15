@@ -251,4 +251,17 @@ rarg(ci);
 //     CETYPE(T);           // const int &
 //     CETYPE(decltype(t)); // const int &
 // }
+
+rarg(std::move(ci));
+// template<typename T> void rarg(T && t) {
+//     CETYPE(T);           // const int
+//     CETYPE(decltype(t)); // const int &&
+// }
+
+rarg(3);
+// template<typename T> void rarg(T && t) {
+//     CETYPE(T);           // int 
+//     CETYPE(decltype(t)); // int &&
+// }
+
 ```
