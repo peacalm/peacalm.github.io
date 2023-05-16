@@ -356,3 +356,12 @@ CETYPE(int[]);         // int[]
 CETYPE(const int[]);   // const int[]
 CETYPE(decltype(&ia)); // int (*)[0]
 ```
+
+字面字符串常量，decltype推断结果如下：
+```C++
+CETYPE(decltype("abcd")); // const char (&)[5]
+
+auto s = "abcd";
+CETYPE(decltype(s)); // const char *
+```
+
