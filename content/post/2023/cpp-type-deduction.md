@@ -357,6 +357,7 @@ CETYPE(const int[]);   // const int[]
 CETYPE(decltype(&ia)); // int (*)[0]
 ```
 
+### C string
 字面字符串常量，decltype推断结果如下：
 ```C++
 CETYPE(decltype("abcd")); // const char (&)[5]
