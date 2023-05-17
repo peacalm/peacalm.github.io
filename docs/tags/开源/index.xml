@@ -6,7 +6,16 @@
     <description>Recent content in 开源 on Peacalm Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 21 May 2022 07:07:00 +0800</lastBuildDate><atom:link href="https://peacalm.github.io/tags/%E5%BC%80%E6%BA%90/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 17 May 2023 22:51:37 +0800</lastBuildDate><atom:link href="https://peacalm.github.io/tags/%E5%BC%80%E6%BA%90/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>成为Contributor | To Be a Contributor</title>
+      <link>https://peacalm.github.io/post/2023/to-be-a-contributor/</link>
+      <pubDate>Wed, 17 May 2023 22:51:37 +0800</pubDate>
+      
+      <guid>https://peacalm.github.io/post/2023/to-be-a-contributor/</guid>
+      <description>说来惭愧，身为一名程序员，从业五年多，竟然最近一年才开始在开源世界为他人的项目贡献代码。 最近我在阅读一个写得很棒的开源小代码库的时候发现他有</description>
+    </item>
+    
     <item>
       <title>Maglev一致性哈希和动态负载均衡 | Maglev Consistent Hasher and Dynamic Load Balancer</title>
       <link>https://peacalm.github.io/post/2022/maglev-consistent-hash/</link>
