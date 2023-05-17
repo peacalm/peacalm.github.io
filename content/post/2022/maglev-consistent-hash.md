@@ -3,7 +3,7 @@ title: "Maglev一致性哈希和动态负载均衡 | Maglev Consistent Hasher an
 date: 2022-05-21T07:07:00+08:00
 lastmod: 2022-05-21T07:07:00+08:00
 draft: false
-tags: ["maglev", "一致性哈希", "负载均衡", "库", "C++实现"]
+tags: ["maglev", "一致性哈希", "负载均衡", "库", "C++实现", "开源"]
 categories: ["技术"]
 ---
 >本文重点描述Maglev一致性哈希算法，并提出使Maglev一致性哈希算法支持带权重候选节点的改进方式，
