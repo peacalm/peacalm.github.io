@@ -17,8 +17,8 @@ toc: false
 至此我第二次成为他人项目的contributor，虽然只是一个小小的typo fix，但其实要读懂一个
 高级的代码并理解他的思想并不容易，特别是当你读一个比自己水平高很多的人写的代码的时候。
 
-顺便提一下我第一次成为他人项目contributor是为其贡献一个小小的feature
-（see [PR](https://github.com/cparse/cparse/pull/94))。
+顺便提一下我第一次成为他人项目contributor是为其贡献一个小小的feature，
+see [PR](https://github.com/cparse/cparse/pull/94)。
 
 这两次经历其实是一脉相承的，起因是我想要寻找一个能在C++项目中使用的动态表达式解析器。
 第一次我找到了一个相关的小项目并简单阅读了一下代码发现它并不能完全满足我的需求，
