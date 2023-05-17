@@ -763,11 +763,11 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 </span></span><span class="line"><span class="cl"><span class="c1">// 后置自增是一个右值，于是推导为T
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">i</span><span class="o">++</span><span class="p">));</span>  <span class="c1">// int
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl"><span class="c1">// 右值引用
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">i</span><span class="p">)));</span>  <span class="c1">// int &amp;&amp;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl"><span class="c1">// 右值
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">ci</span><span class="p">));</span>  <span class="c1">// int
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 右值引用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">i</span><span class="p">)));</span>  <span class="c1">// int &amp;&amp;
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">

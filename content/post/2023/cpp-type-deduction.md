@@ -236,11 +236,11 @@ CETYPE(decltype(++i));  // int &
 // 后置自增是一个右值，于是推导为T
 CETYPE(decltype(i++));  // int
 
-// 右值引用
-CETYPE(decltype(std::move(i)));  // int &&
-
 // 右值
 CETYPE(decltype(i + ci));  // int
+
+// 右值引用
+CETYPE(decltype(std::move(i)));  // int &&
 ```
 
 ```C++
