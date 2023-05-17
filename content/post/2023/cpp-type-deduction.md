@@ -62,7 +62,7 @@ int main() {
 }
 ```
 编译报错信息是：
-```
+```txt
 error: no member named 'NX' in 'EMPTY<const int[3]>'
 ```
 于是可以看出a的类型是"const int[3]"。
