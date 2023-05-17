@@ -17,6 +17,15 @@
     </item>
     
     <item>
+      <title>在线服务的异步RPC延时控制和无锁异步任务同步组件</title>
+      <link>https://peacalm.github.io/post/2022/lockless-sync-kit/</link>
+      <pubDate>Mon, 18 Apr 2022 19:04:20 +0800</pubDate>
+      
+      <guid>https://peacalm.github.io/post/2022/lockless-sync-kit/</guid>
+      <description>一、关于延时 控制延时是保证在线服务可用性的必要手段 在线服务对延时敏感。一般对在线服务发起远程调用时，都会配有一个超时限制，一旦请求超时， 则认</description>
+    </item>
+    
+    <item>
       <title>C&#43;&#43;轻量级输出库MyOStream：可打印输出所有成员可迭代的容器</title>
       <link>https://peacalm.github.io/post/2022/myostream/</link>
       <pubDate>Thu, 17 Mar 2022 01:12:25 +0800</pubDate>
