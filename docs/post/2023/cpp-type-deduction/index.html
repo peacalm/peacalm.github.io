@@ -69,7 +69,7 @@
 <meta itemprop="name" content="查看C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Results">
 <meta itemprop="description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"><meta itemprop="datePublished" content="2023-05-16T00:25:39+08:00" />
 <meta itemprop="dateModified" content="2023-05-16T00:25:39+08:00" />
-<meta itemprop="wordCount" content="2320">
+<meta itemprop="wordCount" content="2343">
 <meta itemprop="keywords" content="C&#43;&#43;,类型推导,泛型," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="查看C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Results"/>
 <meta name="twitter:description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"/>
@@ -744,6 +744,9 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 </span><span class="lnt">14
 </span><span class="lnt">15
 </span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -756,6 +759,9 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">((</span><span class="n">i</span><span class="p">)));</span>  <span class="c1">// int &amp;
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">((</span><span class="n">ci</span><span class="p">)));</span> <span class="c1">// const int &amp;
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="o">++</span><span class="n">i</span><span class="p">));</span>  <span class="c1">// int &amp;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 后置自增是一个右值，于是推导为T
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">i</span><span class="o">++</span><span class="p">));</span>  <span class="c1">// int
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl"><span class="c1">// 右值引用
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">i</span><span class="p">)));</span>  <span class="c1">// int &amp;&amp;
