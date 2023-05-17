@@ -1,7 +1,7 @@
 ---
 title: "查看C++类型推导结果 | Check C++ Type Deduction Results"
 date: 2023-05-16T00:25:39+08:00
-lastmod: 2023-05-16T00:25:39+08:00
+lastmod: 2023-05-17T00:25:39+08:00
 draft: false
 tags: ["C++", "类型推导", "泛型"]
 categories: ["技术"]
