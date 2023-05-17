@@ -26,6 +26,8 @@ enableGitInfo = false      # use git commit log to generate lastmod record # 可
 defaultContentLanguage = "en"           # Default language to use
 [languages.en]
   languageCode = "en"
+[languages.zh-cn]
+  languageCode = "zh-cn"
 
 [author]                  # essential                     # 必需
   name = "李双全"
