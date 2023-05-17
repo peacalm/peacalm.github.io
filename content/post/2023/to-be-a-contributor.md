@@ -5,8 +5,8 @@ lastmod: 2023-05-17T22:51:37+08:00
 draft: false
 tags: ["contributor"]
 categories: ["随笔"]
+toc: false
 #math: false
-#toc: false
 ---
 
 说来惭愧，身为一名程序员，从业五年多，竟然最近一年才开始在开源世界为他人的项目贡献代码。
