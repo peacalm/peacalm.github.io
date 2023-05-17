@@ -3,7 +3,7 @@ title: "成为Contributor | To Be a Contributor"
 date: 2023-05-17T22:51:37+08:00
 lastmod: 2023-05-17T22:51:37+08:00
 draft: false
-tags: ["contributor"]
+tags: ["contributor", "Lua"]
 categories: ["随笔"]
 toc: false
 #math: false
