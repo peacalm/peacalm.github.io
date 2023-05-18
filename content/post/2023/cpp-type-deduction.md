@@ -375,3 +375,218 @@ auto s = "abcd";
 CETYPE(decltype(s)); // const char *
 ```
 
+## C++中的函数类型到底有多少种形式？
+影响函数类型的修饰属性都是正交的，因此把每一种属性的选项数量乘起来就是答案。
+根据一个函数类型是否是const的，是否是volatile的，是否有C语言风格的可变长实参，
+是没有成员函数引用属性还是具有成员函数左值引用或成员函数右值引用，
+**请注意，这里一定是成员函数引用才算作函数类型签名，C语言函数的引用在此不算作函数类型**，
+还有C++17以后一个函数是否是noexcept也认作不同的函数类型，
+可以算出总共是`2 * 2 * 2 * 3 * 2 = 48`种！
+
+判断一个类型是否是函数类型，C++标准库中定义了`std::is_function`来实现这个判断。
+它的一种可能得实现方式就是把以上所说所有的函数类型形式都特化了一遍，如下所示：
+```C++
+// primary template
+template<typename>
+struct is_function : std::false_type { };
+ 
+// specialization for regular functions
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args...)> : std::true_type {};
+ 
+// specialization for variadic functions such as std::printf
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args..., ...)> : std::true_type {};
+ 
+// specialization for function types that have cv-qualifiers
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args...) const> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args...) volatile> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args...) const volatile> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args..., ...) const> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args..., ...) volatile> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args..., ...) const volatile> : std::true_type {};
+ 
+// specialization for function types that have ref-qualifiers
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args...) &> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args...) const &> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args...) volatile &> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args...) const volatile &> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args..., ...) &> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args..., ...) const &> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args..., ...) volatile &> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args..., ...) const volatile &> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args...) &&> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args...) const &&> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args...) volatile &&> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args...) const volatile &&> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args..., ...) &&> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args..., ...) const &&> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args..., ...) volatile &&> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args..., ...) const volatile &&> : std::true_type {};
+ 
+// specializations for noexcept versions of all the above (C++17 and later)
+ 
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args...) noexcept> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args..., ...) noexcept> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args...) const noexcept> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args...) volatile noexcept> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args...) const volatile noexcept> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args..., ...) const noexcept> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args..., ...) volatile noexcept> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args..., ...) const volatile noexcept> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args...) & noexcept> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args...) const & noexcept> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args...) volatile & noexcept> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args...) const volatile & noexcept> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args..., ...) & noexcept> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args..., ...) const & noexcept> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args..., ...) volatile & noexcept> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args..., ...) const volatile & noexcept> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args...) && noexcept> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args...) const && noexcept> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args...) volatile && noexcept> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args...) const volatile && noexcept> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args..., ...) && noexcept> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args..., ...) const && noexcept> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args..., ...) volatile && noexcept> : std::true_type {};
+template<typename Ret, typename... Args>
+struct is_function<Ret(Args..., ...) const volatile && noexcept> : std::true_type {};
+```
+
+针对上文特别提起的**引用属性**举个例子：
+```C++
+// 这两个是C语言函数的引用，判断为false
+std::is_function<void(&)(int)>::value;
+std::is_function<void(&&)(int)>::value;
+
+// 而这两个是成员函数的引用，判断为true
+std::is_function<void(int) &>::value;
+std::is_function<void(int) &&>::value;
+```
+## 对函数类型进行add pointer/c/v/r, remove c/v/r等操作是什么结果？
+以上48种函数类型形式其实可分成两类，第一类是非成员函数类型形式，也就是C语言函数类型形式，
+上文也提到，C++规定它们不允许有const和volatile属性，当然也不能有成员函数引用属性，
+只能有可变长实参属性和noexcept属性；剩下的就是第二类，即成员函数类型形式，
+凡是具有const属性、volatile属性、成员函数引用属性的都属于这类。
+
+### add reference and remove reference
+针对C语言函数类型形式的函数类型添加引用结果如下：
+```C++
+CETYPE(std::add_lvalue_reference_t<void(int)>);                // void (&)(int)
+CETYPE(std::add_rvalue_reference_t<void(int)>);                // void (&&)(int)
+CETYPE(std::add_lvalue_reference_t<void(int, ...)>);           // void (&)(int, ...)
+CETYPE(std::add_rvalue_reference_t<void(int, ...)>);           // void (&&)(int, ...)
+CETYPE(std::add_lvalue_reference_t<void(int) noexcept>);       // void (&)(int) noexcept
+CETYPE(std::add_rvalue_reference_t<void(int) noexcept>);       // void (&&)(int) noexcept
+CETYPE(std::add_lvalue_reference_t<void(int, ...) noexcept>);  // void (&)(int, ...) noexcept
+CETYPE(std::add_rvalue_reference_t<void(int, ...) noexcept>);  // void (&&)(int, ...) noexcept
+```
+可见这些函数类型都被添加了引用，不过应该注意这个是常规引用，不是成员函数引用，这个引用不影响函数签名。
+顺便提一下，对以上输出的带引用的类型施加std::remove_reference_t当然也会回到原输入类型。
+
+针对成员函数类型形式的函数类型add和remove引用结果如下：
+```C++
+// add reference
+CETYPE(std::add_lvalue_reference_t<void(int) const>);              // void (int) const
+CETYPE(std::add_rvalue_reference_t<void(int) volatile>);           // void (int) volatile
+CETYPE(std::add_lvalue_reference_t<void(int, ...) volatile>);      // void (int, ...) volatile
+CETYPE(std::add_rvalue_reference_t<void(int, ...) const>);         // void (int, ...) const
+CETYPE(std::add_lvalue_reference_t<void(int) const noexcept>);     // void (int) const noexcept
+CETYPE(std::add_rvalue_reference_t<void(int) volatile noexcept>);  // void (int) volatile noexcept
+CETYPE(std::add_lvalue_reference_t<void(int) &>);                  // void (int) &
+CETYPE(std::add_rvalue_reference_t<void(int) &>);                  // void (int) &
+CETYPE(std::add_lvalue_reference_t<void(int) &&>);                 // void (int) &&
+CETYPE(std::add_rvalue_reference_t<void(int) &&>);                 // void (int) &&
+CETYPE(std::add_lvalue_reference_t<void(int) const &>);            // void (int) const &
+CETYPE(std::add_rvalue_reference_t<void(int) volatile &>);         // void (int) volatile &
+CETYPE(std::add_lvalue_reference_t<void(int) const && noexcept>);  // void (int) const && noexcept
+
+// remove reference
+CETYPE(std::remove_reference_t<void(int) &>);                    // void (int) &
+CETYPE(std::remove_reference_t<void(int) &&>);                   // void (int) &&
+CETYPE(std::remove_reference_t<void(int) const &>);              // void (int) const &
+CETYPE(std::remove_reference_t<void(int) const &&>);             // void (int) const &&
+CETYPE(std::remove_reference_t<void(int) volatile &>);           // void (int) volatile &
+CETYPE(std::remove_reference_t<void(int) & noexcept>);           // void (int) & noexcept
+CETYPE(std::remove_reference_t<void(int) const & noexcept>);     // void (int) const & noexcept
+CETYPE(std::remove_reference_t<void(int) volatile && noexcept>); // void (int) volatile && noexcept
+```
+可见无论是add referenc还是remove reference，对输入的无论哪种函数类型，都没有任何影响。
+
+由此可见，对于函数类型来讲，如果某种属性是属于函数签名的一部分，那么这种属性就是这个基本类型的一部分，它是不会被改变的。成员函数的引用，在这里由于变成了函数签名的一部分，所以这时的引用就与普通常规引用大不相同。然后C++规定，成员函数类型形式的函数类型，是不能添加常规引用的（如上文C语言函数类型形式的被添加的那种），由此可以猜测，那么指针应该也是不能被添加的，而事实确实如此。
+
+### add const/volatile, remove const/volatile, add pointer
+由上文中总结的规律可以猜测：
+C语言函数形式的函数类型可以添加指针，而成员函数形式的函数类型不能添加指针；
+C语言函数形式的函数类型不能添加cv属性，而成员函数形式的函数类型本身自带的cv属性也不能被更改。
+事实确实如此：
+```C++
+// C语言函数类型，能添加指针
+CETYPE(std::add_pointer_t<void(int)>);              // void (*)(int)
+CETYPE(std::add_pointer_t<void(int,...)>);          // void (*)(int, ...)
+CETYPE(std::add_pointer_t<void(int,...) noexcept>); // void (*)(int, ...) noexcept
+
+// 成员函数类型，不能添加指针
+CETYPE(std::add_pointer_t<void(int) const>);       // void (int) const
+CETYPE(std::add_pointer_t<void(int,...) &>);       // void (int, ...) &
+CETYPE(std::add_pointer_t<void(int) volatile &&>); // void (int) volatile &&
+
+// C语言函数类型，不能添加cv
+CETYPE(std::add_const_t<void(int)>);           // void (int)
+CETYPE(std::add_volatile_t<void(int,...)>);    // void (int, ...)
+CETYPE(std::add_cv_t<void(int,...) noexcept>); // void (int, ...) noexcept
+
+// 成员函数类型，不能更改原有cv
+CETYPE(std::add_const_t<void(int) & noexcept>);   // void (int) & noexcept
+CETYPE(std::add_volatile_t<void(int,...) const>); // void (int, ...) const
+CETYPE(std::add_cv_t<void(int) volatile &&>);     // void (int) volatile &&
+CETYPE(std::remove_cv_t<void(int) const>);             // void (int) const
+CETYPE(std::remove_cv_t<void(int,...) volatile &>);    // void (int, ...) volatile &
+CETYPE(std::remove_cv_t<void(int) const && noexcept>); // void (int) const && noexcept
+```
+
