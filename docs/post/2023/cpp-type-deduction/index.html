@@ -71,7 +71,7 @@
 <meta itemprop="name" content="查看C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Results">
 <meta itemprop="description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"><meta itemprop="datePublished" content="2023-05-16T00:25:39+08:00" />
 <meta itemprop="dateModified" content="2023-05-19T00:25:39+08:00" />
-<meta itemprop="wordCount" content="5350">
+<meta itemprop="wordCount" content="5377">
 <meta itemprop="keywords" content="C&#43;&#43;,类型推导,泛型," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="查看C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Results"/>
 <meta name="twitter:description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"/>
@@ -1400,14 +1400,13 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">remove_reference_t</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="k">volatile</span> <span class="o">&amp;&amp;</span> <span class="k">noexcept</span><span class="o">&gt;</span><span class="p">);</span> <span class="c1">// void (int) volatile &amp;&amp; noexcept
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>可见无论是add还是remove reference，对输入的函数类型，都没有任何影响。所以可得：</p>
+</div><p>可见无论是add还是remove reference，对输入的函数类型，都没有做任何更改。所以可得：</p>
 <ul>
 <li>C语言函数形式的函数类型可以添加引用，而成员函数形式的函数类型本身自带的引用属性不会被更改。</li>
 </ul>
-<p>由此可见，<strong>对于函数类型来讲，如果某种属性是属于函数签名的一部分，那么这种属性就是这个基本类型的一部分，它是不会被改变的。</strong>
-成员函数的引用，在这里由于变成了函数签名的一部分，所以这时的引用就与普通常规引用大不相同，
-是不能通过std::add_lvalue_reference, std::remove_reference等被改变的。</p>
-<p>那么这类引用就太特殊了，凭什么都是函数类型，一些能被add/remove引用，而另一种不能呢？
+<p>成员函数的引用，在这里由于成为了函数签名的一部分，属于函数类型的一部分，所以这时的引用就与普通常规引用大不相同，
+似乎比普通引用的地位更高一等，是不能通过std::add_lvalue_reference, std::remove_reference等被改变的。</p>
+<p>那么这类引用就太特殊了，凭什么都是函数类型，一些能被添加引用和去除引用，而另一种不能呢？
 是否应该把它定义为另外一类引用，或者另外起一个名字称为另外一类功能？
 然后与常规引用不冲突，再可以添加常规引用呢？那么可能就会出现形如<code>void (&amp;)(int) const &amp;&amp;</code>
 之类的东西了。😂复杂程度又增加了，不过好像又能够和第一类函数类型保持一致了，是好还是不好呢？
@@ -1465,14 +1464,16 @@ C++的选择是不这么做，否则的话，还要再提供一种成员引用�
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">remove_cv_t</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="k">const</span> <span class="o">&amp;&amp;</span> <span class="k">noexcept</span><span class="o">&gt;</span><span class="p">);</span> <span class="c1">// void (int) const &amp;&amp; noexcept
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>C语言函数形式的函数类型是完整的函数类型，但成员函数形式的函数类型是不完整的，
-因为它不具有包含它的母类的类型信息，所以不难理解它不能被添加指针。
-实际上，如果强制为其添加指针，会导致编译报错，std::add_pointer_t里面规避了这点，
-对于不能添加指针的类型，返回了输入类型本身。</p>
+</div><p>可见：</p>
 <ul>
 <li>C语言函数形式的函数类型可以添加指针，而成员函数形式的函数类型不能添加指针；</li>
 <li>C语言函数形式的函数类型不能添加cv属性，而成员函数形式的函数类型本身自带的cv属性也不能被更改。</li>
 </ul>
+<p>C语言函数形式的函数类型是完整的函数类型，但成员函数形式的函数类型是不完整的，
+因为它不具有包含它的母类的类型信息，所以不难理解它不能被添加指针。
+实际上，如果强制为其添加指针，会导致编译报错，std::add_pointer_t里面规避了这点，
+对于不能添加指针的类型，返回了输入类型本身。</p>
+<p>由此可见，<strong>对于函数类型来讲，如果某种属性是属于函数签名的一部分，那么这种属性就是这个基本类型的一部分，它是不会被改变的。</strong></p>
 <h2 id="如何判断一个类型是否是-stdfunction">如何判断一个类型是否是 std::function</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">

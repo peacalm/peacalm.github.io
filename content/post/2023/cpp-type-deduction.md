@@ -571,16 +571,14 @@ CETYPE(std::remove_reference_t<void(int) & noexcept>);           // void (int) &
 CETYPE(std::remove_reference_t<void(int) const & noexcept>);     // void (int) const & noexcept
 CETYPE(std::remove_reference_t<void(int) volatile && noexcept>); // void (int) volatile && noexcept
 ```
-可见无论是add还是remove reference，对输入的函数类型，都没有任何影响。所以可得：
+可见无论是add还是remove reference，对输入的函数类型，都没有做任何更改。所以可得：
 
 * C语言函数形式的函数类型可以添加引用，而成员函数形式的函数类型本身自带的引用属性不会被更改。
 
-由此可见，**对于函数类型来讲，如果某种属性是属于函数签名的一部分，那么这种属性就是这个基本类型的一部分，它是不会被改变的。**
-成员函数的引用，在这里由于变成了函数签名的一部分，所以这时的引用就与普通常规引用大不相同，
-是不能通过std::add_lvalue_reference, std::remove_reference等被改变的。
+成员函数的引用，在这里由于成为了函数签名的一部分，属于函数类型的一部分，所以这时的引用就与普通常规引用大不相同，
+似乎比普通引用的地位更高一等，是不能通过std::add_lvalue_reference, std::remove_reference等被改变的。
 
-
-那么这类引用就太特殊了，凭什么都是函数类型，一些能被add/remove引用，而另一种不能呢？
+那么这类引用就太特殊了，凭什么都是函数类型，一些能被添加引用和去除引用，而另一种不能呢？
 是否应该把它定义为另外一类引用，或者另外起一个名字称为另外一类功能？
 然后与常规引用不冲突，再可以添加常规引用呢？那么可能就会出现形如`void (&)(int) const &&`
 之类的东西了。😂复杂程度又增加了，不过好像又能够和第一类函数类型保持一致了，是好还是不好呢？
@@ -614,13 +612,16 @@ CETYPE(std::remove_cv_t<void(int) const>);             // void (int) const
 CETYPE(std::remove_cv_t<void(int,...) volatile &>);    // void (int, ...) volatile &
 CETYPE(std::remove_cv_t<void(int) const && noexcept>); // void (int) const && noexcept
 ```
+可见：
+* C语言函数形式的函数类型可以添加指针，而成员函数形式的函数类型不能添加指针；
+* C语言函数形式的函数类型不能添加cv属性，而成员函数形式的函数类型本身自带的cv属性也不能被更改。
+
 C语言函数形式的函数类型是完整的函数类型，但成员函数形式的函数类型是不完整的，
 因为它不具有包含它的母类的类型信息，所以不难理解它不能被添加指针。
 实际上，如果强制为其添加指针，会导致编译报错，std::add_pointer_t里面规避了这点，
 对于不能添加指针的类型，返回了输入类型本身。
 
-* C语言函数形式的函数类型可以添加指针，而成员函数形式的函数类型不能添加指针；
-* C语言函数形式的函数类型不能添加cv属性，而成员函数形式的函数类型本身自带的cv属性也不能被更改。
+由此可见，**对于函数类型来讲，如果某种属性是属于函数签名的一部分，那么这种属性就是这个基本类型的一部分，它是不会被改变的。**
 
 
 ## 如何判断一个类型是否是 std::function
