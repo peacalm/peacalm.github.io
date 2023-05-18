@@ -630,10 +630,16 @@ C语言函数形式的函数类型是完整的函数类型，但成员函数形�
 template <typename T>
 struct is_stdfunction : std::false_type {};
 
-template <typename Ret, typename... Args>
-struct is_stdfunction<Ret(Args...)> : std::true_type {};
+template <typename Return, typename... Args>
+struct is_stdfunction<std::function<Return(Args...)>> : std::true_type {};
 
-template <typename Ret, typename... Args>
-struct is_stdfunction<Ret(Args..., ...)> : std::true_type {};
+template <typename Return, typename... Args>
+struct is_stdfunction<std::function<Return(Args..., ...)>> : std::true_type {};
+
+template <typename Return, typename... Args>
+struct is_stdfunction<std::function<Return(Args...) noexcept>> : std::true_type {};
+
+template <typename Return, typename... Args>
+struct is_stdfunction<std::function<Return(Args..., ...) noexcept>> : std::true_type {};
 ```
 
