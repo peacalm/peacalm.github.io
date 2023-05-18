@@ -619,3 +619,18 @@ C语言函数形式的函数类型是完整的函数类型，但成员函数形�
 
 * C语言函数形式的函数类型可以添加指针，而成员函数形式的函数类型不能添加指针；
 * C语言函数形式的函数类型不能添加cv属性，而成员函数形式的函数类型本身自带的cv属性也不能被更改。
+
+
+## 如何判断一个类型是否是 std::function
+
+```C++
+template <typename T>
+struct is_stdfunction : std::false_type {};
+
+template <typename Ret, typename... Args>
+struct is_stdfunction<Ret(Args...)> : std::true_type {};
+
+template <typename Ret, typename... Args>
+struct is_stdfunction<Ret(Args..., ...)> : std::true_type {};
+```
+
