@@ -81,11 +81,17 @@ void func(int) {}
     CETYPE(decltype(func));  // void (int)
     CETYPE(decltype(&func)); // void (*)(int)
 
+    // implicitly convert to pointer if assigned by function name
     auto fcopy = func;
     CETYPE(decltype(fcopy)); // void (*)(int)
+    const auto cfcopy = func;
+    CETYPE(decltype(cfcopy)); // void (*const)(int)
 
-    auto fcopy_ptr = &func;
-    CETYPE(decltype(fcopy_ptr)); // void (*)(int)
+    // same as above
+    auto fptr = &func;
+    CETYPE(decltype(fptr)); // void (*)(int)
+    const auto cfptr = &func;
+    CETYPE(decltype(cfptr)); // void (*const)(int)
 
     // static_cast on rvalue reference to function returns lvalue
     CETYPE(decltype(std::move(func)));  // void (&)(int)
