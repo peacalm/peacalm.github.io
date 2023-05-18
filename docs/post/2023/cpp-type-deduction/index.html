@@ -71,7 +71,7 @@
 <meta itemprop="name" content="查看C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Results">
 <meta itemprop="description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"><meta itemprop="datePublished" content="2023-05-16T00:25:39+08:00" />
 <meta itemprop="dateModified" content="2023-05-19T00:25:39+08:00" />
-<meta itemprop="wordCount" content="4708">
+<meta itemprop="wordCount" content="5217">
 <meta itemprop="keywords" content="C&#43;&#43;,类型推导,泛型," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="查看C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Results"/>
 <meta name="twitter:description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"/>
@@ -338,7 +338,7 @@
     <li><a href="#对函数类型进行add-pointercvr-remove-cvr等操作是什么结果">对函数类型进行add pointer/c/v/r, remove c/v/r等操作是什么结果？</a>
       <ul>
         <li><a href="#add-reference-and-remove-reference">add reference and remove reference</a></li>
-        <li><a href="#add-constvolatile-remove-constvolatile-add-pointer">add const/volatile, remove const/volatile, add pointer</a></li>
+        <li><a href="#add-pointer-add-constvolatile-remove-constvolatile">add pointer, add const/volatile, remove const/volatile</a></li>
       </ul>
     </li>
   </ul>
@@ -1296,24 +1296,32 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 </div>
 </div><h2 id="对函数类型进行add-pointercvr-remove-cvr等操作是什么结果">对函数类型进行add pointer/c/v/r, remove c/v/r等操作是什么结果？</h2>
 <p>以上48种函数类型形式其实可分成两类，
-第一类是<strong>非成员函数类型形式</strong>，也就是<strong>C语言函数类型形式</strong>，
-上文也提到，C++规定它们不允许有const和volatile属性，当然也不能有成员函数引用属性，
-只能有可变长实参属性和noexcept属性；
-剩下的就是第二类，即<strong>成员函数类型形式</strong>，凡是具有const属性、volatile属性、成员函数引用属性的都属于这类。</p>
+第一类是<strong>C语言函数形式</strong>的函数类型，上文也提到，C++规定它们不允许有const和volatile属性，
+当然它不是成员函数自然也不能有成员函数引用属性，只能有可变长实参属性和noexcept属性；
+剩下的就是第二类，<strong>非C语言函数形式</strong>的函数类型，凡是具有const属性、volatile属性、
+成员函数引用属性的都属于这类，这一类更像是成员函数，但是不具有母类类型信息，
+姑且叫<strong>成员函数形式</strong>的函数类型。</p>
 <p>用cppreference的说法，也可以说成第一类是<strong>not cv- or ref- qualified</strong> function type，
 第二类是<strong>cv- or ref- qualified</strong> function type.</p>
+<p>算一下，第一类有4种，第二类有44种。</p>
 <h3 id="add-reference-and-remove-reference">add reference and remove reference</h3>
-<p>针对C语言函数类型形式的函数类型添加引用结果如下：</p>
+<p>针对C语言函数形式的函数类型添加引用结果如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="n">CETYPE</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">add_lvalue_reference_t</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;</span><span class="p">);</span>                <span class="c1">// void (&amp;)(int)
@@ -1324,11 +1332,17 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">add_rvalue_reference_t</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="k">noexcept</span><span class="o">&gt;</span><span class="p">);</span>       <span class="c1">// void (&amp;&amp;)(int) noexcept
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">add_lvalue_reference_t</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="p">...)</span> <span class="k">noexcept</span><span class="o">&gt;</span><span class="p">);</span>  <span class="c1">// void (&amp;)(int, ...) noexcept
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">add_rvalue_reference_t</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="p">...)</span> <span class="k">noexcept</span><span class="o">&gt;</span><span class="p">);</span>  <span class="c1">// void (&amp;&amp;)(int, ...) noexcept
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 引用折叠
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">add_lvalue_reference_t</span><span class="o">&lt;</span><span class="kt">void</span> <span class="p">(</span><span class="o">&amp;</span><span class="p">)(</span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;</span><span class="p">);</span>                <span class="c1">// void (&amp;)(int)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">add_rvalue_reference_t</span><span class="o">&lt;</span><span class="kt">void</span> <span class="p">(</span><span class="o">&amp;</span><span class="p">)(</span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;</span><span class="p">);</span>                <span class="c1">// void (&amp;)(int)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">add_lvalue_reference_t</span><span class="o">&lt;</span><span class="kt">void</span> <span class="p">(</span><span class="o">&amp;&amp;</span><span class="p">)(</span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;</span><span class="p">);</span>               <span class="c1">// void (&amp;)(int)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">add_rvalue_reference_t</span><span class="o">&lt;</span><span class="kt">void</span> <span class="p">(</span><span class="o">&amp;&amp;</span><span class="p">)(</span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;</span><span class="p">);</span>               <span class="c1">// void (&amp;&amp;)(int)
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>可见这些函数类型都被添加了引用，不过应该注意这个是常规引用，不是成员函数引用，这个引用不影响函数签名。
 顺便提一下，对以上输出的带引用的类型施加std::remove_reference_t当然也会回到原输入类型。</p>
-<p>针对成员函数类型形式的函数类型add和remove引用结果如下：</p>
+<p>针对成员函数形式的函数类型add和remove引用结果如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1383,13 +1397,21 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">remove_reference_t</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="k">volatile</span> <span class="o">&amp;&amp;</span> <span class="k">noexcept</span><span class="o">&gt;</span><span class="p">);</span> <span class="c1">// void (int) volatile &amp;&amp; noexcept
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>可见无论是add referenc还是remove reference，对输入的无论哪种函数类型，都没有任何影响。</p>
-<p>由此可见，对于函数类型来讲，如果某种属性是属于函数签名的一部分，那么这种属性就是这个基本类型的一部分，它是不会被改变的。成员函数的引用，在这里由于变成了函数签名的一部分，所以这时的引用就与普通常规引用大不相同。然后C++规定，成员函数类型形式的函数类型，是不能添加常规引用的（如上文C语言函数类型形式的被添加的那种），由此可以猜测，那么指针应该也是不能被添加的，而事实确实如此。</p>
-<h3 id="add-constvolatile-remove-constvolatile-add-pointer">add const/volatile, remove const/volatile, add pointer</h3>
-<p>由上文中总结的规律可以猜测：
-C语言函数形式的函数类型可以添加指针，而成员函数形式的函数类型不能添加指针；
-C语言函数形式的函数类型不能添加cv属性，而成员函数形式的函数类型本身自带的cv属性也不能被更改。
-事实确实如此：</p>
+</div><p>可见无论是add还是remove reference，对输入的函数类型，都没有任何影响。所以可得：</p>
+<ul>
+<li>C语言函数形式的函数类型可以添加引用，而成员函数形式的函数类型本身自带的引用属性不会被更改。</li>
+</ul>
+<p>由此可见，<strong>对于函数类型来讲，如果某种属性是属于函数签名的一部分，那么这种属性就是这个基本类型的一部分，它是不会被改变的。</strong>
+成员函数的引用，在这里由于变成了函数签名的一部分，所以这时的引用就与普通常规引用大不相同，
+是不能通过std::add_lvalue_reference, std::remove_reference等被改变的。</p>
+<p>那么这类引用就太特殊了，凭什么都是函数类型，一些能被add/remove引用，而另一种不能呢？
+是否应该把它定义为另外一类引用，或者另外起一个名字称为另外一类功能？
+然后与常规引用不冲突，再可以添加常规引用呢？那么可能就会出现形如<code>void (&amp;)(int) const &amp;&amp;</code>
+之类的东西了。😂复杂程度又增加了，不过好像又能够和第一类函数类型保持一致了，是好还是不好呢？
+C++的选择是不这么做，否则的话，还要再提供一种成员引用的功能与之匹配。C++现在已经有一种
+成员指针的功能，即Pointer-to-member operator <code>.*</code>和<code>-&gt;*</code>，这已经够用了。</p>
+<p>其实不仅成员函数，数据成员也是不能添加引用的，只能用成员指针。</p>
+<h3 id="add-pointer-add-constvolatile-remove-constvolatile">add pointer, add const/volatile, remove const/volatile</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1416,22 +1438,22 @@ C语言函数形式的函数类型不能添加cv属性，而成员函数形式�
 </span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="c1">// C语言函数类型，能添加指针
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="c1">// C语言函数形式，能添加指针
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">add_pointer_t</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;</span><span class="p">);</span>              <span class="c1">// void (*)(int)
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">add_pointer_t</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">,...)</span><span class="o">&gt;</span><span class="p">);</span>          <span class="c1">// void (*)(int, ...)
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">add_pointer_t</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">,...)</span> <span class="k">noexcept</span><span class="o">&gt;</span><span class="p">);</span> <span class="c1">// void (*)(int, ...) noexcept
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl"><span class="c1">// 成员函数类型，不能添加指针
+</span></span><span class="line"><span class="cl"><span class="c1">// 成员函数形式，不能添加指针
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">add_pointer_t</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="k">const</span><span class="o">&gt;</span><span class="p">);</span>       <span class="c1">// void (int) const
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">add_pointer_t</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">,...)</span> <span class="o">&amp;&gt;</span><span class="p">);</span>       <span class="c1">// void (int, ...) &amp;
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">add_pointer_t</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="k">volatile</span> <span class="o">&amp;&amp;&gt;</span><span class="p">);</span> <span class="c1">// void (int) volatile &amp;&amp;
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl"><span class="c1">// C语言函数类型，不能添加cv
+</span></span><span class="line"><span class="cl"><span class="c1">// C语言函数形式，不能添加cv
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">add_const_t</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;</span><span class="p">);</span>           <span class="c1">// void (int)
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">add_volatile_t</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">,...)</span><span class="o">&gt;</span><span class="p">);</span>    <span class="c1">// void (int, ...)
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">add_cv_t</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">,...)</span> <span class="k">noexcept</span><span class="o">&gt;</span><span class="p">);</span> <span class="c1">// void (int, ...) noexcept
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl"><span class="c1">// 成员函数类型，不能更改原有cv
+</span></span><span class="line"><span class="cl"><span class="c1">// 成员函数形式，不能更改原有cv
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">add_const_t</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="o">&amp;</span> <span class="k">noexcept</span><span class="o">&gt;</span><span class="p">);</span>   <span class="c1">// void (int) &amp; noexcept
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">add_volatile_t</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">,...)</span> <span class="k">const</span><span class="o">&gt;</span><span class="p">);</span> <span class="c1">// void (int, ...) const
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">add_cv_t</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="k">volatile</span> <span class="o">&amp;&amp;&gt;</span><span class="p">);</span>     <span class="c1">// void (int) volatile &amp;&amp;
@@ -1440,7 +1462,15 @@ C语言函数形式的函数类型不能添加cv属性，而成员函数形式�
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">remove_cv_t</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="k">const</span> <span class="o">&amp;&amp;</span> <span class="k">noexcept</span><span class="o">&gt;</span><span class="p">);</span> <span class="c1">// void (int) const &amp;&amp; noexcept
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div>
+</div><p>C语言函数形式的函数类型是完整的函数类型，但成员函数形式的函数类型是不完整的，
+因为它不具有包含它的母类的类型信息，所以不难理解它不能被添加指针。
+实际上，如果强制为其添加指针，会导致编译报错，std::add_pointer_t里面规避了这点，
+对于不能添加指针的类型，返回了输入类型本身。</p>
+<ul>
+<li>C语言函数形式的函数类型可以添加指针，而成员函数形式的函数类型不能添加指针；</li>
+<li>C语言函数形式的函数类型不能添加cv属性，而成员函数形式的函数类型本身自带的cv属性也不能被更改。</li>
+</ul>
+
     </div>
 
     
