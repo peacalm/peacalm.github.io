@@ -536,10 +536,10 @@ CETYPE(std::add_lvalue_reference_t<void(int, ...) noexcept>);  // void (&)(int, 
 CETYPE(std::add_rvalue_reference_t<void(int, ...) noexcept>);  // void (&&)(int, ...) noexcept
 
 // 引用折叠
-CETYPE(std::add_lvalue_reference_t<void (&)(int)>);                // void (&)(int)
-CETYPE(std::add_rvalue_reference_t<void (&)(int)>);                // void (&)(int)
-CETYPE(std::add_lvalue_reference_t<void (&&)(int)>);               // void (&)(int)
-CETYPE(std::add_rvalue_reference_t<void (&&)(int)>);               // void (&&)(int)
+CETYPE(std::add_lvalue_reference_t<void (&)(int)>);   // void (&)(int)
+CETYPE(std::add_rvalue_reference_t<void (&)(int)>);   // void (&)(int)
+CETYPE(std::add_lvalue_reference_t<void (&&)(int)>);  // void (&)(int)
+CETYPE(std::add_rvalue_reference_t<void (&&)(int)>);  // void (&&)(int)
 ```
 可见这些函数类型都被添加了引用，不过应该注意这个是常规引用，不是成员函数引用，这个引用不影响函数签名。
 顺便提一下，对以上输出的带引用的类型施加std::remove_reference_t当然也会回到原输入类型。
