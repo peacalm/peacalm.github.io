@@ -66,12 +66,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://peacalm.github.io/post/2023/cpp-type-deduction/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2023-05-16T00:25:39+08:00" />
-<meta property="article:modified_time" content="2023-05-17T00:25:39+08:00" />
+<meta property="article:modified_time" content="2023-05-19T00:25:39+08:00" />
 
 <meta itemprop="name" content="查看C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Results">
 <meta itemprop="description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"><meta itemprop="datePublished" content="2023-05-16T00:25:39+08:00" />
-<meta itemprop="dateModified" content="2023-05-17T00:25:39+08:00" />
-<meta itemprop="wordCount" content="4648">
+<meta itemprop="dateModified" content="2023-05-19T00:25:39+08:00" />
+<meta itemprop="wordCount" content="4708">
 <meta itemprop="keywords" content="C&#43;&#43;,类型推导,泛型," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="查看C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Results"/>
 <meta name="twitter:description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"/>
@@ -1041,12 +1041,12 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 </div><h2 id="c中的函数类型到底有多少种形式">C++中的函数类型到底有多少种形式？</h2>
 <p>影响函数类型的修饰属性都是正交的，因此把每一种属性的选项数量乘起来就是答案。
 根据一个函数类型是否是const的，是否是volatile的，是否有C语言风格的可变长实参，
-是没有成员函数引用属性还是具有成员函数左值引用或成员函数右值引用，
-<strong>请注意，这里一定是成员函数引用才算作函数类型签名，C语言函数的引用在此不算作函数类型</strong>，
+是没有成员函数引用属性还是具有成员函数左值引用或成员函数右值引用
+（<strong>请注意，这里一定是成员函数引用才算作函数类型签名，C语言函数的引用在此不算作函数类型</strong>），
 还有C++17以后一个函数是否是noexcept也认作不同的函数类型，
-可以算出总共是<code>2 * 2 * 2 * 3 * 2 = 48</code>种！</p>
+所以根据这五种属性可以算出总共是<code>2 * 2 * 2 * 3 * 2 = 48</code>种！</p>
 <p>判断一个类型是否是函数类型，C++标准库中定义了<code>std::is_function</code>来实现这个判断。
-它的一种可能得实现方式就是把以上所说所有的函数类型形式都特化了一遍，如下所示：</p>
+它的一种可能的实现方式就是把以上所说所有的函数类型形式都特化一遍，如下所示：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
@@ -1295,10 +1295,13 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="对函数类型进行add-pointercvr-remove-cvr等操作是什么结果">对函数类型进行add pointer/c/v/r, remove c/v/r等操作是什么结果？</h2>
-<p>以上48种函数类型形式其实可分成两类，第一类是非成员函数类型形式，也就是C语言函数类型形式，
+<p>以上48种函数类型形式其实可分成两类，
+第一类是<strong>非成员函数类型形式</strong>，也就是<strong>C语言函数类型形式</strong>，
 上文也提到，C++规定它们不允许有const和volatile属性，当然也不能有成员函数引用属性，
-只能有可变长实参属性和noexcept属性；剩下的就是第二类，即成员函数类型形式，
-凡是具有const属性、volatile属性、成员函数引用属性的都属于这类。</p>
+只能有可变长实参属性和noexcept属性；
+剩下的就是第二类，即<strong>成员函数类型形式</strong>，凡是具有const属性、volatile属性、成员函数引用属性的都属于这类。</p>
+<p>用cppreference的说法，也可以说成第一类是<strong>not cv- or ref- qualified</strong> function type，
+第二类是<strong>cv- or ref- qualified</strong> function type.</p>
 <h3 id="add-reference-and-remove-reference">add reference and remove reference</h3>
 <p>针对C语言函数类型形式的函数类型添加引用结果如下：</p>
 <div class="highlight"><div class="chroma">
@@ -1450,7 +1453,7 @@ C语言函数形式的函数类型不能添加cv属性，而成员函数形式�
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
     <span class="item-content">
-      2023-05-17
+      2023-05-19
       
     </span>
   </p>
