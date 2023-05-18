@@ -1021,8 +1021,8 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 第一类是&lt;strong&gt;C语言函数形式&lt;/strong&gt;的函数类型，上文也提到，C++规定它们不允许有const和volatile属性，
 当然它不是成员函数自然也不能有成员函数引用属性，只能有可变长实参属性和noexcept属性；
 剩下的就是第二类，&lt;strong&gt;非C语言函数形式&lt;/strong&gt;的函数类型，凡是具有const属性、volatile属性、
-成员函数引用属性的都属于这类，这一类更像是成员函数，但是不具有母类类型信息，
-姑且叫&lt;strong&gt;成员函数形式&lt;/strong&gt;的函数类型。&lt;/p&gt;
+成员函数引用属性的都属于这类，这一类更像是成员函数，但是不具有母类类型信息，不是完整的成员函数类型，
+姑且叫&lt;strong&gt;成员函数形式&lt;/strong&gt;的函数类型吧。&lt;/p&gt;
 &lt;p&gt;用cppreference的说法，也可以说成第一类是&lt;strong&gt;not cv- or ref- qualified&lt;/strong&gt; function type，
 第二类是&lt;strong&gt;cv- or ref- qualified&lt;/strong&gt; function type.&lt;/p&gt;
 &lt;p&gt;算一下，第一类有4种，第二类有44种。&lt;/p&gt;
