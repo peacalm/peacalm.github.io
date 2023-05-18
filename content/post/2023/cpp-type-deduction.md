@@ -518,6 +518,8 @@ std::is_function<void(int) &&>::value;
 
 用cppreference的说法，也可以说成第一类是**not cv- or ref- qualified** function type，
 第二类是**cv- or ref- qualified** function type.
+不过也许说成C语言函数形式和成员函数形式，理解它们一个是完整的，一个是不完整的，
+可能能更好的理解它们为什么会有以下令人费解令人诧异的不同表现。
 
 算一下，第一类有4种，第二类有44种。
 
