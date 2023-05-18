@@ -585,7 +585,7 @@ CETYPE(std::remove_reference_t<void(int) volatile && noexcept>); // void (int) v
 C++的选择是不这么做，否则的话，还要再提供一种成员引用的功能与之匹配。C++现在已经有一种
 成员指针的功能，即Pointer-to-member operator `.*`和`->*`，这已经够用了。
 
-其实不仅成员函数，数据成员也是不能添加引用的，只能用成员指针。
+其实不仅成员函数，数据成员也是不能添加引用的，只能用成员指针（再配合std::mem_fn）。
 
 ### add pointer, add const/volatile, remove const/volatile
 ```C++

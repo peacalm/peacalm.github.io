@@ -71,7 +71,7 @@
 <meta itemprop="name" content="查看C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Results">
 <meta itemprop="description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"><meta itemprop="datePublished" content="2023-05-16T00:25:39+08:00" />
 <meta itemprop="dateModified" content="2023-05-19T00:25:39+08:00" />
-<meta itemprop="wordCount" content="5377">
+<meta itemprop="wordCount" content="5393">
 <meta itemprop="keywords" content="C&#43;&#43;,类型推导,泛型," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="查看C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Results"/>
 <meta name="twitter:description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"/>
@@ -1412,7 +1412,7 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 之类的东西了。😂复杂程度又增加了，不过好像又能够和第一类函数类型保持一致了，是好还是不好呢？
 C++的选择是不这么做，否则的话，还要再提供一种成员引用的功能与之匹配。C++现在已经有一种
 成员指针的功能，即Pointer-to-member operator <code>.*</code>和<code>-&gt;*</code>，这已经够用了。</p>
-<p>其实不仅成员函数，数据成员也是不能添加引用的，只能用成员指针。</p>
+<p>其实不仅成员函数，数据成员也是不能添加引用的，只能用成员指针（再配合std::mem_fn）。</p>
 <h3 id="add-pointer-add-constvolatile-remove-constvolatile">add pointer, add const/volatile, remove const/volatile</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
