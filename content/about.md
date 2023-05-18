@@ -22,5 +22,5 @@ draft: false
 ## 关于本站
 Peacalm寓意: peaceful & calm  
 建站工具：Hugo + GitHubPages  
-主题：Jane  
+主题：[Jane](https://github.com/xianmin/hugo-theme-jane)
 域名：使用GitHub提供的域名[peacalm.github.io](https://peacalm.github.io)或我的个人域名[lishuangquan.cn](https://lishuangquan.cn)都可以访问本站
