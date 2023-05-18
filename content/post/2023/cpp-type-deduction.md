@@ -636,10 +636,10 @@ struct is_stdfunction<std::function<Return(Args...)>> : std::true_type {};
 template <typename Return, typename... Args>
 struct is_stdfunction<std::function<Return(Args..., ...)>> : std::true_type {};
 
-template <typename Return, typename... Args>
-struct is_stdfunction<std::function<Return(Args...) noexcept>> : std::true_type {};
+// template <typename Return, typename... Args>
+// struct is_stdfunction<std::function<Return(Args...) noexcept>> : std::true_type {};
 
-template <typename Return, typename... Args>
-struct is_stdfunction<std::function<Return(Args..., ...) noexcept>> : std::true_type {};
+// template <typename Return, typename... Args>
+// struct is_stdfunction<std::function<Return(Args..., ...) noexcept>> : std::true_type {};
 ```
 
