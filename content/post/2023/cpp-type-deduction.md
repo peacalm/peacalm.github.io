@@ -623,6 +623,24 @@ C语言函数形式的函数类型是完整的函数类型，但成员函数形�
 
 由此可见，**对于函数类型来讲，如果某种属性是属于函数签名的一部分，那么这种属性就是这个基本类型的一部分，它是不会被改变的。**
 
+用std::is_const, std::is_references校验一下：
+### is_reference, is_const, is_volatile
+```C++
+std::cout << std::boolalpha;
+
+// 成员函数形式，这些都输出 false
+std::cout << std::is_reference_v<void(int) &> << std::endl;
+std::cout << std::is_reference_v<void(int) &&> << std::endl;
+std::cout << std::is_reference_v<void(int) const &> << std::endl;
+std::cout << std::is_const_v<void(int) const > << std::endl;
+std::cout << std::is_const_v<void(int) const &> << std::endl;
+std::cout << std::is_volatile_v<void(int) volatile > << std::endl;
+
+// C语言函数形式，这些都输出 true
+std::cout << std::is_reference_v<void (&)(int) > << std::endl;
+std::cout << std::is_reference_v<void (&&)(int)> << std::endl;
+std::cout << std::is_reference_v<void (&)(int) noexcept> << std::endl;
+```
 
 ## 如何判断一个类型是否是 std::function
 
