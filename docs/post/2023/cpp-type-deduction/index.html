@@ -71,7 +71,7 @@
 <meta itemprop="name" content="查验C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Results">
 <meta itemprop="description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"><meta itemprop="datePublished" content="2023-05-16T00:25:39+08:00" />
 <meta itemprop="dateModified" content="2023-05-19T00:25:39+08:00" />
-<meta itemprop="wordCount" content="6510">
+<meta itemprop="wordCount" content="6675">
 <meta itemprop="keywords" content="C&#43;&#43;,类型推导,泛型," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="查验C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Results"/>
 <meta name="twitter:description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"/>
@@ -1541,7 +1541,31 @@ C语言函数形式的函数类型 std::function是否都支持呢？事实是�
 </span></span><span class="line"><span class="cl"><span class="c1">// 没有对其他形式特化
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>所以目前std::function只支持这一种最基本的函数类型形式，
+</div><p>验证举例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">f1</span><span class="p">;</span> <span class="c1">// OK!
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 这些都会编译错误：implicit instantiation of undefined template。因为标准库中并没有为其特化。
+</span></span></span><span class="line"><span class="cl"><span class="c1">// std::function&lt;void(int, ...)&gt; f2;
+</span></span></span><span class="line"><span class="cl"><span class="c1">// std::function&lt;void(int) noexcept&gt; f3
+</span></span></span><span class="line"><span class="cl"><span class="c1">// std::function&lt;void(int) const&gt; f4;
+</span></span></span><span class="line"><span class="cl"><span class="c1">// std::function&lt;void(int) &amp;&gt; f5;
+</span></span></span><span class="line"><span class="cl"><span class="c1">// std::function&lt;void(int) &amp;&gt; f6;
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>上例中f2~f6会编译错误，但是如果只声明这些类型而不对其实例化，也是不会报错的，但是这没有意义。</p>
+<p>所以目前std::function只支持这一种最基本的函数类型形式，
 <strong>要想判断一个类型是否是std::function类型，只需要对<code>Return(Args...)</code>这一种函数类型形式做一个特化即可。</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1575,36 +1599,13 @@ C语言函数形式的函数类型 std::function是否都支持呢？事实是�
 </span></span></span><span class="line"><span class="cl"><span class="c1">// struct is_stdfunction&lt;std::function&lt;Return(Args..., ...) noexcept&gt;&gt; : std::true_type {};
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>举例：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">f1</span><span class="p">;</span> <span class="c1">// OK!
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl"><span class="c1">// 这些都会编译错误：implicit instantiation of undefined template。因为标准库中并没有为其特化。
-</span></span></span><span class="line"><span class="cl"><span class="c1">// std::function&lt;void(int, ...)&gt; f2;
-</span></span></span><span class="line"><span class="cl"><span class="c1">// std::function&lt;void(int) noexcept&gt; f3
-</span></span></span><span class="line"><span class="cl"><span class="c1">// std::function&lt;void(int) const&gt; f4;
-</span></span></span><span class="line"><span class="cl"><span class="c1">// std::function&lt;void(int) &amp;&gt; f5;
-</span></span></span><span class="line"><span class="cl"><span class="c1">// std::function&lt;void(int) &amp;&gt; f6;
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>上例中f2~f6会编译错误，但是如果只声明这些类型而不对其实例化，也是不会报错的，但是这没有意义。</p>
+</div><h3 id="stdfunction如何处理可变长实参variadic-functions">std::function如何处理可变长实参(variadic functions)</h3>
 <p>此外，还需要说明的一个特例是可变长实参，std::function可以说是不支持这种函数类型，但也可以说是
 不完全支持，或部分支持。</p>
-<h3 id="stdfunction如何处理可变长实参variadic-functions">std::function如何处理可变长实参(variadic functions)</h3>
 <p>std::function的特化中虽然不支持variadic这种函数类型形式，
 但是事实上我们可以将带有可变长实参的函数当成没有可变长实参的函数来用，
-然后再封装在std::function里面，这样虽然可行，但是却丢了可变长实参部分的参数。</p>
+然后再封装在std::function里面，不过这样虽然可行，但是却丢了可变长实参部分的功能。
+例如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1619,7 +1620,10 @@ C语言函数形式的函数类型 std::function是否都支持呢？事实是�
 </span></span></span><span class="line"><span class="cl"><span class="c1">// f2(&#34;printf %d&#34;, 1);  // error: no matching function for call to object of type &#39;std::function&lt;int (const char *)&gt;&#39;
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div>
+</div><p>也许这也没有多大实用性，所以严格来说，std::function对带有可变长实参的函数类型还是不支持的。
+那么应不应该支持一下呢？未来std::function会不会对带有variadic和noexcept的函数类型做一个特化呢？
+如果他想，其实是可以的，那时候我们的is_stdfunction的后三种特化就得用上了。</p>
+
     </div>
 
     
