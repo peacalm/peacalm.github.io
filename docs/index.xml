@@ -1407,7 +1407,7 @@ C语言函数形式的函数类型 std::function是否都支持呢？事实是�
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;这个std::function不对其特化，可能就是不想支持这种函数类型了吧，毕竟是C语言遗留产物。&lt;/p&gt;
+&lt;/div&gt;&lt;p&gt;这个std::function不对其特化，可能就是不想支持这种函数类型了吧，毕竟这是C语言遗留产物。&lt;/p&gt;
 </description>
       
     </item>
