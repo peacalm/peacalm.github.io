@@ -1657,7 +1657,7 @@ C语言函数形式的函数类型 std::function是否都支持呢？事实是�
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>例中野看到了，反过来，不带有noexcept的函数指针是不能转化成对应的带有noexcept的函数指针的。
+</div><p>例中也看到了，反过来，不带有noexcept的函数指针是不能转化成对应的带有noexcept的函数指针的。
 这也可以理解，毕竟noexcept是更严格的限制，可是说是子集，而不带noexcept的是超集。</p>
 <p>再有，针对可变长实参这个属性呢？
 当然，有可变长实参的函数指针与对应的没有可变长实参函数指针之间是不能相互转化的，例如：</p>
