@@ -700,7 +700,7 @@ std::function的特化中虽然不支持variadic这种函数类型形式，
 ```C++
 // std::function<int(const char*, ...)> f1 = printf;  // error: implicit instantiation of undefined template 'std::function<int (const char *, ...)>'
 std::function<int(const char*)> f2 = printf; // OK
-f2("printf"); // OK
+f2("printf no more arguments"); // OK
 // f2("printf %d", 1);  // error: no matching function for call to object of type 'std::function<int (const char *)>'
 ```
 也许这也没有多大实用性，所以严格来说，std::function对带有可变长实参的函数类型还是不支持的。

@@ -71,7 +71,7 @@
 <meta itemprop="name" content="查验C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Results">
 <meta itemprop="description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"><meta itemprop="datePublished" content="2023-05-16T00:25:39+08:00" />
 <meta itemprop="dateModified" content="2023-05-19T00:25:39+08:00" />
-<meta itemprop="wordCount" content="6695">
+<meta itemprop="wordCount" content="6698">
 <meta itemprop="keywords" content="C&#43;&#43;,类型推导,泛型," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="查验C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Results"/>
 <meta name="twitter:description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"/>
@@ -1617,7 +1617,7 @@ C语言函数形式的函数类型 std::function是否都支持呢？事实是�
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="c1">// std::function&lt;int(const char*, ...)&gt; f1 = printf;  // error: implicit instantiation of undefined template &#39;std::function&lt;int (const char *, ...)&gt;&#39;
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">f2</span> <span class="o">=</span> <span class="n">printf</span><span class="p">;</span> <span class="c1">// OK
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">f2</span><span class="p">(</span><span class="s">&#34;printf&#34;</span><span class="p">);</span> <span class="c1">// OK
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">f2</span><span class="p">(</span><span class="s">&#34;printf no more arguments&#34;</span><span class="p">);</span> <span class="c1">// OK
 </span></span></span><span class="line"><span class="cl"><span class="c1">// f2(&#34;printf %d&#34;, 1);  // error: no matching function for call to object of type &#39;std::function&lt;int (const char *)&gt;&#39;
 </span></span></span></code></pre></td></tr></table>
 </div>
