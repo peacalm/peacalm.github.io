@@ -1280,7 +1280,8 @@ C语言函数形式的函数类型 std::function是否都支持呢？事实是�
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// std::function&amp;lt;void(int) &amp;amp;&amp;gt; f6;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;上例中f2~f6会编译错误，但是如果只声明这些类型而不对其实例化，也是不会报错的，但是这没有意义。&lt;/p&gt;
+&lt;/div&gt;&lt;p&gt;上例中f2~f6会编译错误，当然如果只声明这些类型而不对其实例化，是不会报错的，但是这没有意义，
+这只是声明了一个没有任何实现的类类型而已。&lt;/p&gt;
 &lt;p&gt;所以目前std::function只支持这一种最基本的函数类型形式，
 &lt;strong&gt;要想判断一个类型是否是std::function类型，只需要对&lt;code&gt;Return(Args...)&lt;/code&gt;这一种函数类型形式做一个特化即可。&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
