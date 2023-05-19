@@ -682,7 +682,7 @@ struct is_stdfunction : std::false_type {};
 template <typename Return, typename... Args>
 struct is_stdfunction<std::function<Return(Args...)>> : std::true_type {};
 
-// 以下这些都是不需要的，因为std::function的实现中并没有为其特化，也就是std::function目前不支持这些形式
+// 以下这些特化都是不需要的，因为std::function的实现中并没有为其特化
 // template <typename Return, typename... Args>
 // struct is_stdfunction<std::function<Return(Args..., ...)>> : std::true_type {};
 // template <typename Return, typename... Args>
