@@ -648,21 +648,55 @@ std::cout << std::is_reference_v<void (&)(int) noexcept> << std::endl;
 std::is_reference, std::is_const, std::is_volatile判断出来了，结果永远是false。
 
 ## 如何判断一个类型是否是 std::function
-
+std::function是对函数的封装，它接受一个模板参数，该模版参数应该是一个函数类型。
+经过以上讨论，我们知道函数类型有48种形式，那么是否每一种std::function都支持呢？
+对于成员函数形式的函数类型我们知道它们是不完整的，对这些函数类型特化没有任何意义，那剩下的4种
+C语言函数形式的函数类型 std::function是否都支持呢？事实是，目前（2023）std::function
+只支持最基本的那一种，也就是只有这一种特化：
 ```C++
+template< class > class function; /* undefined */   
+template< class R, class... Args > class function<R(Args...)>; 
+// 没有对其他形式特化
+```
+所以目前std::function只支持这一种最基本的函数类型形式，
+**要想判断一个类型是否是std::function类型，只需要对`Return(Args...)`这一种函数类型形式做一个特化即可。**
+```C++
+// 只需这一个primary template和一个特化
 template <typename T>
 struct is_stdfunction : std::false_type {};
-
 template <typename Return, typename... Args>
 struct is_stdfunction<std::function<Return(Args...)>> : std::true_type {};
 
-template <typename Return, typename... Args>
-struct is_stdfunction<std::function<Return(Args..., ...)>> : std::true_type {};
-
+// 以下这些都是不需要的，因为std::function的实现中并没有为其特化，也就是std::function目前不支持这些形式
+// template <typename Return, typename... Args>
+// struct is_stdfunction<std::function<Return(Args..., ...)>> : std::true_type {};
 // template <typename Return, typename... Args>
 // struct is_stdfunction<std::function<Return(Args...) noexcept>> : std::true_type {};
-
 // template <typename Return, typename... Args>
 // struct is_stdfunction<std::function<Return(Args..., ...) noexcept>> : std::true_type {};
 ```
+举例：
+```C++
+std::function<void(int)> f1; // OK!
 
+// 这些都会编译错误：implicit instantiation of undefined template。因为标准库中并没有为其特化。
+// std::function<void(int, ...)> f2;
+// std::function<void(int) noexcept> f3
+// std::function<void(int) const> f4;
+// std::function<void(int) &> f5;
+// std::function<void(int) &> f6;
+```
+上例中f2~f6会编译错误，但是如果只声明这些类型而不对其实例化，也是不会报错的，但是这没有意义。
+
+此外，还需要说明的一个特例是可变长实参，std::function可以说是不支持这种函数类型，但也可以说是
+不完全支持，或部分支持。
+### std::function如何处理可变长实参(variadic functions)
+std::function的特化中虽然不支持variadic这种函数类型形式，
+但是事实上我们可以将带有可变长实参的函数当成没有可变长实参的函数来用，
+然后再封装在std::function里面，这样虽然可行，但是却丢了可变长实参部分的参数。
+```C++
+// std::function<int(const char*, ...)> f1 = printf;  // error: implicit instantiation of undefined template 'std::function<int (const char *, ...)>'
+std::function<int(const char*)> f2 = printf; // OK
+f2("printf"); // OK
+// f2("printf %d", 1);  // error: no matching function for call to object of type 'std::function<int (const char *)>'
+```
