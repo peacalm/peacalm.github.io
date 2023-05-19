@@ -635,12 +635,17 @@ std::cout << std::is_reference_v<void(int) const &> << std::endl;
 std::cout << std::is_const_v<void(int) const > << std::endl;
 std::cout << std::is_const_v<void(int) const &> << std::endl;
 std::cout << std::is_volatile_v<void(int) volatile > << std::endl;
+std::cout << std::is_reference_v<void(int)> << std::endl;
+std::cout << std::is_const_v<void(int)> << std::endl;
+std::cout << std::is_volatile_v<void(int)> << std::endl;
 
 // C语言函数形式，这些都输出 true
 std::cout << std::is_reference_v<void (&)(int) > << std::endl;
 std::cout << std::is_reference_v<void (&&)(int)> << std::endl;
 std::cout << std::is_reference_v<void (&)(int) noexcept> << std::endl;
 ```
+可见当const、volatile和引用等属性成为函数签名即成为函数类型的一部分的时候，这种属性就不能用
+std::is_reference, std::is_const, std::is_volatile判断出来了，结果永远是false。
 
 ## 如何判断一个类型是否是 std::function
 
