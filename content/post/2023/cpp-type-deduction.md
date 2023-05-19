@@ -707,4 +707,39 @@ f2("printf no more arguments"); // OK
 也许这也没有多大实用性，所以严格来说，std::function对带有可变长实参的函数类型还是不支持的。
 那么应不应该支持一下呢？未来std::function会不会对带有variadic和noexcept的函数类型做一个特化呢？
 如果他想，其实是可以的，那时候我们的is_stdfunction的后三种特化就得用上了。
+不过，对noexcept的特化其实是不必要的，因为带有noexcept的函数指针，是可以转化成对应不带noexcept的函数指针的。
+例如：
+```C++
+void f1(int) {}
+void f2(int) noexcept {}
+int main() {
+    static_cast<decltype(&f1)>(&f2);  // OK
+    // static_cast<decltype(&f2)>(&f1);  // error
 
+    auto p1 = &f1;
+    p1 = &f2;  // OK
+    
+    auto p2 = &f2;
+    // p2 = &f1;  // error
+}
+```
+例中野看到了，反过来，不带有noexcept的函数指针是不能转化成对应的带有noexcept的函数指针的。
+这也可以理解，毕竟noexcept是更严格的限制，可是说是子集，而不带noexcept的是超集。
+
+再有，针对可变长实参这个属性呢？
+当然，有可变长实参的函数指针与对应的没有可变长实参函数指针之间是不能相互转化的，例如：
+```C++
+void f1(int) {}
+void f2(int, ...) {}
+int main() {
+    // static_cast<decltype(&f1)>(&f2);  // error
+    // static_cast<decltype(&f2)>(&f1);  // error
+    
+    auto p1 = &f1;
+    // p1 = &f2;  // error
+    
+    auto p2 = &f2;
+    // p2 = &f1;  // error
+}
+```
+这个std::function不对其特化，可能就是不想支持这种函数类型了吧，毕竟是C语言遗留产物。
