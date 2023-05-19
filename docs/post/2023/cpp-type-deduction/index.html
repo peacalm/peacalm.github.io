@@ -71,7 +71,7 @@
 <meta itemprop="name" content="查验C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Results">
 <meta itemprop="description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"><meta itemprop="datePublished" content="2023-05-16T00:25:39+08:00" />
 <meta itemprop="dateModified" content="2023-05-19T00:25:39+08:00" />
-<meta itemprop="wordCount" content="6698">
+<meta itemprop="wordCount" content="6733">
 <meta itemprop="keywords" content="C&#43;&#43;,类型推导,泛型," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="查验C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Results"/>
 <meta name="twitter:description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"/>
@@ -1564,7 +1564,8 @@ C语言函数形式的函数类型 std::function是否都支持呢？事实是�
 </span></span></span><span class="line"><span class="cl"><span class="c1">// std::function&lt;void(int) &amp;&gt; f6;
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>上例中f2~f6会编译错误，当然如果只声明这些类型而不对其实例化，是不会报错的，但是这没有意义，
+</div><p>上例中f2~f6会编译错误，说明std::function不支持这些函数类型。
+当然如果只声明f2~f6对应的那些类型而不用它们定义变量，是不会报错的，但是这没有意义，
 这只是声明了一个没有任何实现的类类型而已。</p>
 <p>所以目前std::function只支持这一种最基本的函数类型形式，
 <strong>要想判断一个类型是否是std::function类型，只需要对<code>Return(Args...)</code>这一种函数类型形式做一个特化即可。</strong></p>
