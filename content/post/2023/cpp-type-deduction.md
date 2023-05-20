@@ -822,23 +822,21 @@ struct maybe_lambda
 int main() {
     std::cout << std::boolalpha;
     
+    // 这两个为 true
     auto l1 = [](int){};
     MAYBE_LAMBDA(decltype(l1));
-    
     auto l2 = [](int, ...){};
     MAYBE_LAMBDA(decltype(l2));
     
-    // generic lambda
-    auto l3 = [](auto){};
-    MAYBE_LAMBDA(decltype(l3));
+    // 以下均为 false
     
+    auto l3 = [](auto){}; // generic lambda
+    MAYBE_LAMBDA(decltype(l3));
     auto l4 = [&](int){};
     MAYBE_LAMBDA(decltype(l4));
-    
     auto l5 = [=](int){};
     MAYBE_LAMBDA(decltype(l5));
     
-    //
     MAYBE_LAMBDA(std::function<void(int)>);
     MAYBE_LAMBDA(int);
     MAYBE_LAMBDA(void);
