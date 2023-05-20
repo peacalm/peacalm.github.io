@@ -71,7 +71,7 @@
 <meta itemprop="name" content="查验C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Results">
 <meta itemprop="description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"><meta itemprop="datePublished" content="2023-05-16T00:25:39+08:00" />
 <meta itemprop="dateModified" content="2023-05-21T00:25:39+08:00" />
-<meta itemprop="wordCount" content="8098">
+<meta itemprop="wordCount" content="8619">
 <meta itemprop="keywords" content="C&#43;&#43;,类型推导,泛型," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="查验C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Results"/>
 <meta name="twitter:description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"/>
@@ -351,6 +351,7 @@
     <li><a href="#如何判断一个类型是否是可调用的">如何判断一个类型是否是可调用的</a>
       <ul>
         <li><a href="#判断一个类型是否具有operator的类类型">判断一个类型是否具有operator()的类类型</a></li>
+        <li><a href="#判断一个类型是否是可调用的">判断一个类型是否是可调用的</a></li>
       </ul>
     </li>
   </ul>
@@ -1916,7 +1917,7 @@ captureless并且non-generic的lambda。判断方法如下：</p>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="如何判断一个类型是否是可调用的">如何判断一个类型是否是可调用的</h2>
-<p>可调用类型包括C语言函数类型或C语言函数指针类型，以及具有operator()的类类型。</p>
+<p>可调用类型分两种，一种是具有operator()的类类型，另一种是C语言函数类型及其衍生的引用、指针、指针的引用等。</p>
 <h3 id="判断一个类型是否具有operator的类类型">判断一个类型是否具有operator()的类类型</h3>
 <p>operator()分两种，一种是非模版函数，一种是模版函数。
 对于operator()不是模版函数的类型来说，可以用如下方法判断：</p>
@@ -1938,28 +1939,281 @@ captureless并且non-generic的lambda。判断方法如下：</p>
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">is_callable_class</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">void_t</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="o">&amp;</span><span class="n">T</span><span class="o">::</span><span class="k">operator</span><span class="p">())</span><span class="o">&gt;&gt;</span> <span class="o">:</span> <span class="n">std</span><span class="o">::</span><span class="n">true_type</span> <span class="p">{};</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><div class="highlight"><div class="chroma">
+</div><p><em>对于operator()是模版函数的类，目前还没找到判断方法。</em></p>
+<p>举例：</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="c1">// 注意虽然这个宏的名字是IS_CALLABLE，但其实用的是is_callable_class
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define IS_CALLABLE(x) std::cout &lt;&lt; #x &lt;&lt; &#34;: &#34; &lt;&lt; is_callable_class&lt;x&gt;::value &lt;&lt; std::endl;
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">B</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">operator</span><span class="p">()()</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">C</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">operator</span><span class="p">()()</span> <span class="k">const</span> <span class="k">volatile</span> <span class="o">&amp;</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">boolalpha</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">l1</span> <span class="o">=</span> <span class="p">[](</span><span class="kt">int</span><span class="p">){};</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IS_CALLABLE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">l1</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">l2</span> <span class="o">=</span> <span class="p">[](</span><span class="kt">int</span><span class="p">,</span> <span class="p">...){};</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IS_CALLABLE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">l2</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">l3</span> <span class="o">=</span> <span class="p">[](</span><span class="k">auto</span><span class="p">){};</span> <span class="c1">// generic lambda
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">IS_CALLABLE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">l3</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">l4</span> <span class="o">=</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="kt">int</span><span class="p">){};</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IS_CALLABLE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">l4</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">l5</span> <span class="o">=</span> <span class="p">[</span><span class="o">=</span><span class="p">](</span><span class="kt">int</span><span class="p">){};</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IS_CALLABLE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">l5</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">IS_CALLABLE</span><span class="p">(</span><span class="n">A</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IS_CALLABLE</span><span class="p">(</span><span class="n">B</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IS_CALLABLE</span><span class="p">(</span><span class="n">C</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">IS_CALLABLE</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IS_CALLABLE</span><span class="p">(</span><span class="kt">int</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IS_CALLABLE</span><span class="p">(</span><span class="kt">void</span><span class="p">(</span><span class="kt">void</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IS_CALLABLE</span><span class="p">(</span><span class="kt">int</span><span class="p">(</span><span class="o">&amp;</span><span class="p">)(</span><span class="kt">int</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IS_CALLABLE</span><span class="p">(</span><span class="kt">int</span><span class="p">(</span><span class="o">*</span><span class="p">)(</span><span class="kt">int</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IS_CALLABLE</span><span class="p">(</span><span class="kt">void</span><span class="p">(</span><span class="o">*&amp;</span><span class="p">)(</span><span class="kt">int</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">IS_CALLABLE</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IS_CALLABLE</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>输出结果如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">decltype(l2): true
+</span></span><span class="line"><span class="cl">decltype(l3): false
+</span></span><span class="line"><span class="cl">decltype(l4): true
+</span></span><span class="line"><span class="cl">decltype(l5): true
+</span></span><span class="line"><span class="cl">A: false
+</span></span><span class="line"><span class="cl">B: true
+</span></span><span class="line"><span class="cl">C: true
+</span></span><span class="line"><span class="cl">std::function&lt;void(int)&gt;: true
+</span></span><span class="line"><span class="cl">int(int): false
+</span></span><span class="line"><span class="cl">void(void): false
+</span></span><span class="line"><span class="cl">int(&amp;)(int): false
+</span></span><span class="line"><span class="cl">int(*)(int): false
+</span></span><span class="line"><span class="cl">void(*&amp;)(int): false
+</span></span><span class="line"><span class="cl">int: false
+</span></span><span class="line"><span class="cl">void: false
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="判断一个类型是否是可调用的">判断一个类型是否是可调用的</h3>
+<p>在is_callable_class的基础上再针对C语言函数类型及其衍生类型做一个特化，即可实现判断一个类型是否是可调用的：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="c1">// Whether T is callable
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="o">=</span> <span class="kt">void</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">is_callable</span> <span class="o">:</span> <span class="n">is_callable_class</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="p">{};</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="o">=</span> <span class="kt">void</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">__is_callable</span> <span class="o">:</span> <span class="n">is_callable_class</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="p">{};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Return</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">is_callable</span><span class="o">&lt;</span><span class="n">Return</span><span class="p">(</span><span class="n">Args</span><span class="p">...)</span><span class="o">&gt;</span> <span class="o">:</span> <span class="n">std</span><span class="o">::</span><span class="n">true_type</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">__is_callable</span><span class="o">&lt;</span><span class="n">Return</span> <span class="p">(</span><span class="o">*</span><span class="p">)(</span><span class="n">Args</span><span class="p">...)</span><span class="o">&gt;</span> <span class="o">:</span> <span class="n">std</span><span class="o">::</span><span class="n">true_type</span> <span class="p">{};</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Return</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">is_callable</span><span class="o">&lt;</span><span class="n">Return</span><span class="p">(</span><span class="o">*</span><span class="p">)(</span><span class="n">Args</span><span class="p">...)</span><span class="o">&gt;</span> <span class="o">:</span> <span class="n">std</span><span class="o">::</span><span class="n">true_type</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">is_callable</span> <span class="o">:</span> <span class="n">__is_callable</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">decay_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span> <span class="p">{};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>举例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="cp">#define IS_CALLABLE(x) std::cout &lt;&lt; #x &lt;&lt; &#34;: &#34; &lt;&lt; is_callable&lt;x&gt;::value &lt;&lt; std::endl;
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">B</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">operator</span><span class="p">()()</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">C</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">operator</span><span class="p">()()</span> <span class="k">const</span> <span class="k">volatile</span> <span class="o">&amp;</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">boolalpha</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">l1</span> <span class="o">=</span> <span class="p">[](</span><span class="kt">int</span><span class="p">){};</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IS_CALLABLE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">l1</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">l2</span> <span class="o">=</span> <span class="p">[](</span><span class="kt">int</span><span class="p">,</span> <span class="p">...){};</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IS_CALLABLE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">l2</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">l3</span> <span class="o">=</span> <span class="p">[](</span><span class="k">auto</span><span class="p">){};</span> <span class="c1">// generic lambda
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">IS_CALLABLE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">l3</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">l4</span> <span class="o">=</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="kt">int</span><span class="p">){};</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IS_CALLABLE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">l4</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">l5</span> <span class="o">=</span> <span class="p">[</span><span class="o">=</span><span class="p">](</span><span class="kt">int</span><span class="p">){};</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IS_CALLABLE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">l5</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">IS_CALLABLE</span><span class="p">(</span><span class="n">A</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IS_CALLABLE</span><span class="p">(</span><span class="n">B</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IS_CALLABLE</span><span class="p">(</span><span class="n">C</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">IS_CALLABLE</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IS_CALLABLE</span><span class="p">(</span><span class="kt">int</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IS_CALLABLE</span><span class="p">(</span><span class="kt">void</span><span class="p">(</span><span class="kt">void</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IS_CALLABLE</span><span class="p">(</span><span class="kt">int</span><span class="p">(</span><span class="o">&amp;</span><span class="p">)(</span><span class="kt">int</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IS_CALLABLE</span><span class="p">(</span><span class="kt">int</span><span class="p">(</span><span class="o">*</span><span class="p">)(</span><span class="kt">int</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IS_CALLABLE</span><span class="p">(</span><span class="kt">void</span><span class="p">(</span><span class="o">*&amp;</span><span class="p">)(</span><span class="kt">int</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">IS_CALLABLE</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IS_CALLABLE</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>输入结果如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">decltype(l1): true
+</span></span><span class="line"><span class="cl">decltype(l2): true
+</span></span><span class="line"><span class="cl">decltype(l3): false
+</span></span><span class="line"><span class="cl">decltype(l4): true
+</span></span><span class="line"><span class="cl">decltype(l5): true
+</span></span><span class="line"><span class="cl">A: false
+</span></span><span class="line"><span class="cl">B: true
+</span></span><span class="line"><span class="cl">C: true
+</span></span><span class="line"><span class="cl">std::function&lt;void(int)&gt;: true
+</span></span><span class="line"><span class="cl">int(int): true
+</span></span><span class="line"><span class="cl">void(void): true
+</span></span><span class="line"><span class="cl">int(&amp;)(int): true
+</span></span><span class="line"><span class="cl">int(*)(int): true
+</span></span><span class="line"><span class="cl">void(*&amp;)(int): true
+</span></span><span class="line"><span class="cl">int: false
+</span></span><span class="line"><span class="cl">void: false
 </span></span></code></pre></td></tr></table>
 </div>
 </div>

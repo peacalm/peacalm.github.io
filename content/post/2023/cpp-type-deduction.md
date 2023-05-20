@@ -863,7 +863,7 @@ void*: false
 ```
 
 ## 如何判断一个类型是否是可调用的
-可调用类型包括C语言函数类型或C语言函数指针类型，以及具有operator()的类类型。
+可调用类型分两种，一种是具有operator()的类类型，另一种是C语言函数类型及其衍生的引用、指针、指针的引用等。
 
 ### 判断一个类型是否具有operator()的类类型
 operator()分两种，一种是非模版函数，一种是模版函数。
@@ -876,15 +876,143 @@ struct is_callable_class : std::false_type {};
 template <typename T>
 struct is_callable_class<T, std::void_t<decltype(&T::operator())>> : std::true_type {};
 ```
+*对于operator()是模版函数的类，目前还没找到判断方法。*
 
+举例：
+```C++
+// 注意虽然这个宏的名字是IS_CALLABLE，但其实用的是is_callable_class
+#define IS_CALLABLE(x) std::cout << #x << ": " << is_callable_class<x>::value << std::endl;
+
+struct A {};
+struct B {
+    void operator()() {}
+};
+struct C {
+    void operator()() const volatile & {}
+};
+
+int main() {
+    std::cout << std::boolalpha;
+    
+    auto l1 = [](int){};
+    IS_CALLABLE(decltype(l1));
+    auto l2 = [](int, ...){};
+    IS_CALLABLE(decltype(l2));
+    auto l3 = [](auto){}; // generic lambda
+    IS_CALLABLE(decltype(l3));
+    auto l4 = [&](int){};
+    IS_CALLABLE(decltype(l4));
+    auto l5 = [=](int){};
+    IS_CALLABLE(decltype(l5));
+    
+    IS_CALLABLE(A);
+    IS_CALLABLE(B);
+    IS_CALLABLE(C);
+    
+    IS_CALLABLE(std::function<void(int)>);
+    IS_CALLABLE(int(int));
+    IS_CALLABLE(void(void));
+    IS_CALLABLE(int(&)(int));
+    IS_CALLABLE(int(*)(int));
+    IS_CALLABLE(void(*&)(int));
+    
+    IS_CALLABLE(int);
+    IS_CALLABLE(void);
+    return 0;
+}
+```
+输出结果如下：
+```C++decltype(l1): true
+decltype(l2): true
+decltype(l3): false
+decltype(l4): true
+decltype(l5): true
+A: false
+B: true
+C: true
+std::function<void(int)>: true
+int(int): false
+void(void): false
+int(&)(int): false
+int(*)(int): false
+void(*&)(int): false
+int: false
+void: false
+```
+### 判断一个类型是否是可调用的
+在is_callable_class的基础上再针对C语言函数类型及其衍生类型做一个特化，即可实现判断一个类型是否是可调用的：
 ```C++
 // Whether T is callable
+
 template <typename T, typename = void>
-struct is_callable : is_callable_class<T> {};
+struct __is_callable : is_callable_class<T> {};
 
 template <typename Return, typename... Args>
-struct is_callable<Return(Args...)> : std::true_type {};
+struct __is_callable<Return (*)(Args...)> : std::true_type {};
 
-template <typename Return, typename... Args>
-struct is_callable<Return(*)(Args...)> : std::true_type {};
+template <typename T>
+struct is_callable : __is_callable<std::decay_t<T>> {};
+```
+
+举例：
+```C++
+#define IS_CALLABLE(x) std::cout << #x << ": " << is_callable<x>::value << std::endl;
+
+struct A {};
+struct B {
+    void operator()() {}
+};
+struct C {
+    void operator()() const volatile & {}
+};
+
+int main() {
+    std::cout << std::boolalpha;
+    
+    auto l1 = [](int){};
+    IS_CALLABLE(decltype(l1));
+    auto l2 = [](int, ...){};
+    IS_CALLABLE(decltype(l2));
+    auto l3 = [](auto){}; // generic lambda
+    IS_CALLABLE(decltype(l3));
+    auto l4 = [&](int){};
+    IS_CALLABLE(decltype(l4));
+    auto l5 = [=](int){};
+    IS_CALLABLE(decltype(l5));
+
+    IS_CALLABLE(A);
+    IS_CALLABLE(B);
+    IS_CALLABLE(C);
+
+    IS_CALLABLE(std::function<void(int)>);
+    IS_CALLABLE(int(int));
+    IS_CALLABLE(void(void));
+    IS_CALLABLE(int(&)(int));
+    IS_CALLABLE(int(*)(int));
+    IS_CALLABLE(void(*&)(int));
+    
+    IS_CALLABLE(int);
+    IS_CALLABLE(void);
+    return 0;
+}
+```
+
+输入结果如下：
+```Txt
+decltype(l1): true
+decltype(l2): true
+decltype(l3): false
+decltype(l4): true
+decltype(l5): true
+A: false
+B: true
+C: true
+std::function<void(int)>: true
+int(int): true
+void(void): true
+int(&)(int): true
+int(*)(int): true
+void(*&)(int): true
+int: false
+void: false
 ```
