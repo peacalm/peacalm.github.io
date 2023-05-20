@@ -1627,7 +1627,7 @@ captureless并且non-generic的lambda。判断方法如下：&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h2 id=&#34;如何判断一个类型是否是可调用的&#34;&gt;如何判断一个类型是否是可调用的&lt;/h2&gt;
 &lt;p&gt;可调用类型包括C语言函数类型或C语言函数指针类型，以及具有operator()的类类型。&lt;/p&gt;
-&lt;h3 id=&#34;判断一个类型是否具有operator&#34;&gt;判断一个类型是否具有operator()&lt;/h3&gt;
+&lt;h3 id=&#34;判断一个类型是否具有operator的类类型&#34;&gt;判断一个类型是否具有operator()的类类型&lt;/h3&gt;
 &lt;p&gt;operator()分两种，一种是非模版函数，一种是模版函数。
 对于operator()不是模版函数的类型来说，可以用如下方法判断：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
