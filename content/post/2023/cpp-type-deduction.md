@@ -939,6 +939,7 @@ void(*&)(int): false
 int: false
 void: false
 ```
+
 ### 判断一个类型是否是可调用的
 在is_callable_class的基础上再针对C语言函数类型及其衍生类型做一个特化，即可实现判断一个类型是否是可调用的：
 ```C++
@@ -997,7 +998,7 @@ int main() {
 }
 ```
 
-输入结果如下：
+输出结果如下：
 ```Txt
 decltype(l1): true
 decltype(l2): true
