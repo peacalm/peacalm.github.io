@@ -871,8 +871,8 @@ operator()分两种，一种是非模版函数，一种是模版函数。
 ```C++
 // Whether T has a non-template member operator()
 template <typename T, typename = void>
-struct is_callable : std::false_type {};
+struct is_callable_class : std::false_type {};
 
 template <typename T>
-struct is_callable<T, std::void_t<decltype(&T::operator())>> : std::true_type {};
+struct is_callable_class<T, std::void_t<decltype(&T::operator())>> : std::true_type {};
 ```
