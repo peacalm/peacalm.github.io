@@ -756,7 +756,7 @@ lambda是C++中的匿名类型，每个新定义的lambda都具有各自不同�
 这种特殊的lambda，除非用户手动定义了一个具有这种性质的自定义类型，而通常很少有人这么做，也不该这么做。
 
 所以虽然我们无法判断一个类型是否是lambda，但我们可以判断一个类型有可能是
-captureless并且non-generic的lambda。
+captureless并且non-generic的lambda。判断方法如下：
 
 ```C++
 // Get a C function pointer type by a member function pointer type
