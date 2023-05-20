@@ -922,7 +922,8 @@ int main() {
 }
 ```
 输出结果如下：
-```C++decltype(l1): true
+```Txt
+decltype(l1): true
 decltype(l2): true
 decltype(l3): false
 decltype(l4): true
