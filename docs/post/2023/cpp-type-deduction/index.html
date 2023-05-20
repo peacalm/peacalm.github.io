@@ -71,7 +71,7 @@
 <meta itemprop="name" content="查验C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Results">
 <meta itemprop="description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"><meta itemprop="datePublished" content="2023-05-16T00:25:39+08:00" />
 <meta itemprop="dateModified" content="2023-05-20T00:25:39+08:00" />
-<meta itemprop="wordCount" content="7088">
+<meta itemprop="wordCount" content="7841">
 <meta itemprop="keywords" content="C&#43;&#43;,类型推导,泛型," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="查验C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Results"/>
 <meta name="twitter:description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"/>
@@ -347,6 +347,7 @@
         <li><a href="#stdfunction如何处理可变长实参variadic-functions">std::function如何处理可变长实参(variadic functions)</a></li>
       </ul>
     </li>
+    <li><a href="#如何判断一个类型是否是-lambda">如何判断一个类型是否是 lambda</a></li>
   </ul>
 </nav>
   </div>
@@ -1692,7 +1693,228 @@ C语言函数形式的函数类型 std::function是否都支持呢？事实是�
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>这个std::function不对其特化，可能就是不想支持这种函数类型了吧，毕竟这是C语言遗留产物。</p>
-
+<h2 id="如何判断一个类型是否是-lambda">如何判断一个类型是否是 lambda</h2>
+<p>lambda是C++中的匿名类型，每个新定义的lambda都具有各自不同的类型，一般来说我们无法判断一个类型是否是lambda。
+但是对于一种特殊的lambda，也就是没有捕获外部变量的的（captureless）且不是generic的
+（使用auto声明参数类型的叫作generic lambda），它有一个特性，就是它能够转换成与它的operator()
+对应的C语言风格的函数指针，并且指向它的operator()。利用这个特性，假如我们判断一个类型具有这种性质，
+那么我们猜测这种类型大概率可能是个lambda，除非用户手动定义了一个具有这种性质的自定义类型，
+而通常很少有人这么做，也不该这么做。</p>
+<p>所以虽然我们无法判断一个类型是否是lambda，但我们可以判断一个类型有可能是
+captureless并且non-generic的lambda。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="c1">// Get a C function pointer type by a member function pointer type
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">detect_cfunction</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="kt">void</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Object</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Return</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">detect_cfunction</span><span class="o">&lt;</span><span class="n">Return</span> <span class="p">(</span><span class="n">Object</span><span class="o">::*</span><span class="p">)(</span><span class="n">Args</span><span class="p">...)</span><span class="o">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="n">Return</span> <span class="p">(</span><span class="o">*</span><span class="p">)(</span><span class="n">Args</span><span class="p">...);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Object</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Return</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">detect_cfunction</span><span class="o">&lt;</span><span class="n">Return</span> <span class="p">(</span><span class="n">Object</span><span class="o">::*</span><span class="p">)(</span><span class="n">Args</span><span class="p">...)</span> <span class="k">const</span><span class="o">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="n">Return</span> <span class="p">(</span><span class="o">*</span><span class="p">)(</span><span class="n">Args</span><span class="p">...);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Object</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Return</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">detect_cfunction</span><span class="o">&lt;</span><span class="n">Return</span> <span class="p">(</span><span class="n">Object</span><span class="o">::*</span><span class="p">)(</span><span class="n">Args</span><span class="p">...,</span> <span class="p">...)</span><span class="o">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="n">Return</span> <span class="p">(</span><span class="o">*</span><span class="p">)(</span><span class="n">Args</span><span class="p">...,</span> <span class="p">...);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Object</span><span class="p">,</span> <span class="k">typename</span> <span class="n">Return</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">detect_cfunction</span><span class="o">&lt;</span><span class="n">Return</span> <span class="p">(</span><span class="n">Object</span><span class="o">::*</span><span class="p">)(</span><span class="n">Args</span><span class="p">...,</span> <span class="p">...)</span> <span class="k">const</span><span class="o">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="n">Return</span> <span class="p">(</span><span class="o">*</span><span class="p">)(</span><span class="n">Args</span><span class="p">...,</span> <span class="p">...);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">detect_cfunction_t</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">detect_cfunction</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Detect type of callee, which is a pointer to member function operator()
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="o">=</span> <span class="kt">void</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">detect_callee</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="kt">void</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">detect_callee</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">void_t</span><span class="o">&lt;</span><span class="k">decltype</span><span class="p">(</span><span class="o">&amp;</span><span class="n">T</span><span class="o">::</span><span class="k">operator</span><span class="p">())</span><span class="o">&gt;&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">using</span> <span class="n">type</span> <span class="o">=</span> <span class="k">decltype</span><span class="p">(</span><span class="o">&amp;</span><span class="n">T</span><span class="o">::</span><span class="k">operator</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">detect_callee_t</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">detect_callee</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Detect C function style callee type
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">detect_c_callee_t</span> <span class="o">=</span> <span class="n">detect_cfunction_t</span><span class="o">&lt;</span><span class="n">detect_callee_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Detect whether T maybe a captureless and non-generic lambda
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">maybe_lambda</span>
+</span></span><span class="line"><span class="cl">    <span class="o">:</span> <span class="n">std</span><span class="o">::</span><span class="n">integral_constant</span><span class="o">&lt;</span>
+</span></span><span class="line"><span class="cl">          <span class="kt">bool</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="o">!</span><span class="n">std</span><span class="o">::</span><span class="n">is_same</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="kt">void</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&amp;&amp;</span>
+</span></span><span class="line"><span class="cl">              <span class="n">std</span><span class="o">::</span><span class="n">is_convertible</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">detect_c_callee_t</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;::</span><span class="n">value</span><span class="o">&gt;</span> <span class="p">{};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>举例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="cp">#define MAYBE_LAMBDA(x) std::cout &lt;&lt; #x &lt;&lt; &#34;: &#34; &lt;&lt; maybe_lambda&lt;x&gt;::value &lt;&lt; std::endl;
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">boolalpha</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">l1</span> <span class="o">=</span> <span class="p">[](</span><span class="kt">int</span><span class="p">){};</span>
+</span></span><span class="line"><span class="cl">    <span class="n">MAYBE_LAMBDA</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">l1</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">l2</span> <span class="o">=</span> <span class="p">[](</span><span class="kt">int</span><span class="p">,</span> <span class="p">...){};</span>
+</span></span><span class="line"><span class="cl">    <span class="n">MAYBE_LAMBDA</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">l2</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// generic lambda
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">auto</span> <span class="n">l3</span> <span class="o">=</span> <span class="p">[](</span><span class="k">auto</span><span class="p">){};</span>
+</span></span><span class="line"><span class="cl">    <span class="n">MAYBE_LAMBDA</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">l3</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">l4</span> <span class="o">=</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="kt">int</span><span class="p">){};</span>
+</span></span><span class="line"><span class="cl">    <span class="n">MAYBE_LAMBDA</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">l4</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">l5</span> <span class="o">=</span> <span class="p">[</span><span class="o">=</span><span class="p">](</span><span class="kt">int</span><span class="p">){};</span>
+</span></span><span class="line"><span class="cl">    <span class="n">MAYBE_LAMBDA</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">l5</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">//
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">MAYBE_LAMBDA</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">MAYBE_LAMBDA</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">MAYBE_LAMBDA</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">MAYBE_LAMBDA</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">MAYBE_LAMBDA</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>输出结果如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">decltype(l1): true
+</span></span><span class="line"><span class="cl">decltype(l2): true
+</span></span><span class="line"><span class="cl">decltype(l3): false
+</span></span><span class="line"><span class="cl">decltype(l4): false
+</span></span><span class="line"><span class="cl">decltype(l5): false
+</span></span><span class="line"><span class="cl">std::function&lt;void(int)&gt;: false
+</span></span><span class="line"><span class="cl">int: false
+</span></span><span class="line"><span class="cl">void: false
+</span></span><span class="line"><span class="cl">int*: false
+</span></span><span class="line"><span class="cl">void*: false
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
     </div>
 
     

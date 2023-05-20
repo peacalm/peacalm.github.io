@@ -743,3 +743,121 @@ int main() {
 }
 ```
 这个std::function不对其特化，可能就是不想支持这种函数类型了吧，毕竟这是C语言遗留产物。
+
+
+## 如何判断一个类型是否是 lambda
+lambda是C++中的匿名类型，每个新定义的lambda都具有各自不同的类型，一般来说我们无法判断一个类型是否是lambda。
+但是对于一种特殊的lambda，也就是没有捕获外部变量的的（captureless）且不是generic的
+（使用auto声明参数类型的叫作generic lambda），它有一个特性，就是它能够转换成与它的operator()
+对应的C语言风格的函数指针，并且指向它的operator()。利用这个特性，假如我们判断一个类型具有这种性质，
+那么我们猜测这种类型大概率可能是个lambda，除非用户手动定义了一个具有这种性质的自定义类型，
+而通常很少有人这么做，也不该这么做。
+
+所以虽然我们无法判断一个类型是否是lambda，但我们可以判断一个类型有可能是
+captureless并且non-generic的lambda。
+
+```C++
+// Get a C function pointer type by a member function pointer type
+
+template <typename T>
+struct detect_cfunction {
+  using type = void;
+};
+
+template <typename Object, typename Return, typename... Args>
+struct detect_cfunction<Return (Object::*)(Args...)> {
+  using type = Return (*)(Args...);
+};
+
+template <typename Object, typename Return, typename... Args>
+struct detect_cfunction<Return (Object::*)(Args...) const> {
+  using type = Return (*)(Args...);
+};
+
+template <typename Object, typename Return, typename... Args>
+struct detect_cfunction<Return (Object::*)(Args..., ...)> {
+  using type = Return (*)(Args..., ...);
+};
+
+template <typename Object, typename Return, typename... Args>
+struct detect_cfunction<Return (Object::*)(Args..., ...) const> {
+  using type = Return (*)(Args..., ...);
+};
+
+template <typename T>
+using detect_cfunction_t = typename detect_cfunction<T>::type;
+
+// Detect type of callee, which is a pointer to member function operator()
+
+template <typename T, typename = void>
+struct detect_callee {
+  using type = void;
+};
+
+template <typename T>
+struct detect_callee<T, std::void_t<decltype(&T::operator())>> {
+  using type = decltype(&T::operator());
+};
+
+template <typename T>
+using detect_callee_t = typename detect_callee<T>::type;
+
+// Detect C function style callee type
+template <typename T>
+using detect_c_callee_t = detect_cfunction_t<detect_callee_t<T>>;
+
+// Detect whether T maybe a captureless and non-generic lambda
+template <typename T>
+struct maybe_lambda
+    : std::integral_constant<
+          bool,
+          !std::is_same<T, void>::value &&
+              std::is_convertible<T, detect_c_callee_t<T>>::value> {};
+```
+
+举例：
+```C++
+#define MAYBE_LAMBDA(x) std::cout << #x << ": " << maybe_lambda<x>::value << std::endl;
+
+int main() {
+    std::cout << std::boolalpha;
+    
+    auto l1 = [](int){};
+    MAYBE_LAMBDA(decltype(l1));
+    
+    auto l2 = [](int, ...){};
+    MAYBE_LAMBDA(decltype(l2));
+    
+    // generic lambda
+    auto l3 = [](auto){};
+    MAYBE_LAMBDA(decltype(l3));
+    
+    auto l4 = [&](int){};
+    MAYBE_LAMBDA(decltype(l4));
+    
+    auto l5 = [=](int){};
+    MAYBE_LAMBDA(decltype(l5));
+    
+    //
+    MAYBE_LAMBDA(std::function<void(int)>);
+    MAYBE_LAMBDA(int);
+    MAYBE_LAMBDA(void);
+    MAYBE_LAMBDA(int*);
+    MAYBE_LAMBDA(void*);
+    
+    return 0;
+}
+```
+输出结果如下：
+```Txt
+decltype(l1): true
+decltype(l2): true
+decltype(l3): false
+decltype(l4): false
+decltype(l5): false
+std::function<void(int)>: false
+int: false
+void: false
+int*: false
+void*: false
+```
