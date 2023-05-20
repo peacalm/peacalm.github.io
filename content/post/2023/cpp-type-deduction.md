@@ -861,3 +861,18 @@ void: false
 int*: false
 void*: false
 ```
+
+## 如何判断一个类型是否是可调用的
+可调用类型包括C语言函数类型或C语言函数指针类型，以及具有operator()的类类型。
+
+### 判断一个类型是否具有operator()
+operator()分两种，一种是非模版函数，一种是模版函数。
+对于operator()不是模版函数的类型来说，可以用如下方法判断：
+```C++
+// Whether T has a non-template member operator()
+template <typename T, typename = void>
+struct is_callable : std::false_type {};
+
+template <typename T>
+struct is_callable<T, std::void_t<decltype(&T::operator())>> : std::true_type {};
+```
