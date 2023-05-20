@@ -876,3 +876,15 @@ struct is_callable_class : std::false_type {};
 template <typename T>
 struct is_callable_class<T, std::void_t<decltype(&T::operator())>> : std::true_type {};
 ```
+
+```C++
+// Whether T is callable
+template <typename T, typename = void>
+struct is_callable : is_callable_class<T> {};
+
+template <typename Return, typename... Args>
+struct is_callable<Return(Args...)> : std::true_type {};
+
+template <typename Return, typename... Args>
+struct is_callable<Return(*)(Args...)> : std::true_type {};
+```
