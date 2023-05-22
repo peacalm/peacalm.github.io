@@ -912,6 +912,7 @@ int main() {
     IS_CALLABLE(std::function<void(int)>);
     IS_CALLABLE(int(int));
     IS_CALLABLE(void(void));
+    IS_CALLABLE(void(int, ...));
     IS_CALLABLE(int(&)(int));
     IS_CALLABLE(int(*)(int));
     IS_CALLABLE(void(*&)(int));
@@ -934,6 +935,7 @@ C: true
 std::function<void(int)>: true
 int(int): false
 void(void): false
+void(int, ...): false
 int(&)(int): false
 int(*)(int): false
 void(*&)(int): false
@@ -951,6 +953,9 @@ struct __is_callable : is_callable_class<T> {};
 
 template <typename Return, typename... Args>
 struct __is_callable<Return (*)(Args...)> : std::true_type {};
+
+template <typename Return, typename... Args>
+struct __is_callable<Return(*)(Args..., ...)> : std::true_type {};
 
 template <typename T>
 struct is_callable : __is_callable<std::decay_t<T>> {};
@@ -989,6 +994,7 @@ int main() {
     IS_CALLABLE(std::function<void(int)>);
     IS_CALLABLE(int(int));
     IS_CALLABLE(void(void));
+    IS_CALLABLE(void(int, ...));
     IS_CALLABLE(int(&)(int));
     IS_CALLABLE(int(*)(int));
     IS_CALLABLE(void(*&)(int));
@@ -1012,6 +1018,7 @@ C: true
 std::function<void(int)>: true
 int(int): true
 void(void): true
+void(int, ...): true
 int(&)(int): true
 int(*)(int): true
 void(*&)(int): true
