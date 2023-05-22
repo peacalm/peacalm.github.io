@@ -909,7 +909,7 @@ void*: false
 ```
 
 ## 如何判断一个类型是否是可调用的
-可调用类型分两种，一种是具有operator()的类类型，另一种是C语言函数类型及其衍生的引用、指针、指针的引用等。
+可调用基本类型（这里不包括其引用）分两种，一种是具有operator()的类类型，另一种是C语言函数类型及其指针。
 
 ### 判断一个类型是否具有operator()的类类型
 operator()分两种，一种是非模版函数，一种是模版函数。
@@ -1014,23 +1014,136 @@ void: false
 int*: false
 void*: false
 ```
-
-### 判断一个类型是否是可调用的
-在is_callable_class的基础上再针对C语言函数类型及其衍生类型做一个特化，即可实现判断一个类型是否是可调用的：
+### 判断一个类型是否是C语言函数类型或其指针类型
 ```C++
-// Whether T is callable
-
-template <typename T, typename = void>
-struct is_callable_raw : is_callable_class<T> {};
-
-template <typename Return, typename... Args>
-struct is_callable_raw<Return (*)(Args...)> : std::true_type {};
-
-template <typename Return, typename... Args>
-struct is_callable_raw<Return (*)(Args..., ...)> : std::true_type {};
+// whether T is C function
 
 template <typename T>
-struct is_callable : is_callable_raw<std::decay_t<T>> {};
+struct is_cfunction : std::false_type {};
+
+template <typename Return, typename... Args>
+struct is_cfunction<Return(Args...)> : std::true_type {};
+
+template <typename Return, typename... Args>
+struct is_cfunction<Return(Args..., ...)> : std::true_type {};
+
+// whether T is C function pointer
+template <typename T>
+struct is_cfunction_pointer
+    : std::integral_constant<
+          bool,
+          std::is_pointer<T>::value &&
+              is_cfunction<std::remove_pointer_t<std::remove_cv_t<T>>>::value> {};
+
+// Whether T is C style callable: C function or C function pointer
+template <typename T>
+struct is_callable_c : std::integral_constant<
+          bool, is_cfunction<T>::value || is_cfunction_pointer<T>::value> {};
+```
+举例：
+```C++
+#define TEST(x) std::cout << #x << ": " << is_callable_c<x>::value << std::endl;
+
+struct A {};
+struct B {
+    void operator()() {}
+};
+struct C {
+    void operator()() const volatile & {}
+};
+
+int main() {
+    std::cout << std::boolalpha;
+    
+    auto l1 = [](int){};
+    TEST(decltype(l1));
+    auto l2 = [](int, ...){};
+    TEST(decltype(l2));
+    const auto l3 = [](int){};
+    TEST(decltype(l3));
+    
+    const auto & l4 = [](int){};
+    TEST(decltype(l4));
+    TEST(std::decay_t<decltype(l4)>);
+    auto && l5 = [](int){};
+    TEST(decltype(l5));
+    TEST(std::decay_t<decltype(l5)>);
+    
+    auto l6 = [](auto){}; // generic lambda
+    TEST(decltype(l6));
+
+    auto l7 = [&](int){};
+    TEST(decltype(l7));
+    auto l8 = [=](int){};
+    TEST(decltype(l8));
+    
+    TEST(A);
+    TEST(B);
+    TEST(B&);
+    TEST(C);
+    TEST(C&&);
+    
+    TEST(std::function<void(int)>);
+    TEST(std::function<void(int)>&);
+    TEST(int(int));
+    TEST(void(void));
+    TEST(void(int, ...));
+    TEST(int(&)(int));
+    TEST(int(*)(int));
+    TEST(void(*&)(int));
+
+    TEST(int);
+    TEST(void);
+    TEST(int*);
+    TEST(void*);
+    
+    return 0;
+}
+```
+输出如下：
+```txt
+decltype(l1): false
+decltype(l2): false
+decltype(l3): false
+decltype(l4): false
+std::decay_t<decltype(l4)>: false
+decltype(l5): false
+std::decay_t<decltype(l5)>: false
+decltype(l6): false
+decltype(l7): false
+decltype(l8): false
+A: false
+B: false
+B&: false
+C: false
+C&&: false
+std::function<void(int)>: false
+std::function<void(int)>&: false
+int(int): true
+void(void): true
+void(int, ...): true
+int(&)(int): false
+int(*)(int): true
+void(*&)(int): false
+int: false
+void: false
+int*: false
+void*: false
+```
+### 判断一个类型是否是可调用的
+可调用类型就是以上两种情况的综合，is_callable_class或is_callable_c。
+另外，如果想包括其引用也判断为可调用类型的话，可以先将某类型decay，然后再判断是否是以上两种情况之一。
+
+```C++
+// whether T is callable
+template <typename T>
+struct is_callable : std::integral_constant<
+          bool, is_callable_class<T>::value || is_callable_c<T>::value> {};
+
+// whether decay_t<T> is callable
+template <typename T>
+struct decay_is_callable : is_callable<std::decay_t<T>> {};
+
 ```
 
 举例：
@@ -1095,6 +1208,42 @@ int main() {
 ```
 
 输出结果如下：
+```txt
+decltype(l1): true
+decltype(l2): true
+decltype(l3): true
+decltype(l4): false
+std::decay_t<decltype(l4)>: true
+decltype(l5): false
+std::decay_t<decltype(l5)>: true
+decltype(l6): false
+decltype(l7): true
+decltype(l8): true
+A: false
+B: true
+B&: false
+C: true
+C&&: false
+std::function<void(int)>: true
+std::function<void(int)>&: false
+int(int): true
+void(void): true
+void(int, ...): true
+int(&)(int): false
+int(*)(int): true
+void(*&)(int): false
+int: false
+void: false
+int*: false
+void*: false
+```
+
+测试decay_is_callable结果如下：
+```C++
+#define TEST(x) std::cout << #x << ": " << is_callable<x>::value << std::endl;
+// 代码同上，这里省略
+```
+输出：
 ```txt
 decltype(l1): true
 decltype(l2): true
