@@ -862,6 +862,7 @@ int main() {
     
     TEST(std::function<void(int)>);
     TEST(std::function<void(int)>&);
+
     TEST(int(int));
     TEST(void(void));
     TEST(void(int, ...));
@@ -969,6 +970,7 @@ int main() {
     
     TEST(std::function<void(int)>);
     TEST(std::function<void(int)>&);
+
     TEST(int(int));
     TEST(void(void));
     TEST(void(int, ...));
@@ -1086,6 +1088,7 @@ int main() {
     
     TEST(std::function<void(int)>);
     TEST(std::function<void(int)>&);
+
     TEST(int(int));
     TEST(void(void));
     TEST(void(int, ...));
@@ -1193,6 +1196,7 @@ int main() {
     
     TEST(std::function<void(int)>);
     TEST(std::function<void(int)>&);
+
     TEST(int(int));
     TEST(void(void));
     TEST(void(int, ...));
@@ -1242,7 +1246,7 @@ void*: false
 
 测试decay_is_callable结果如下：
 ```C++
-#define TEST(x) std::cout << #x << ": " << is_callable<x>::value << std::endl;
+#define TEST(x) std::cout << #x << ": " << decay_is_callable<x>::value << std::endl;
 // 代码同上，这里省略
 ```
 输出：

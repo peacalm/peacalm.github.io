@@ -71,7 +71,7 @@
 <meta itemprop="name" content="查验C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Results">
 <meta itemprop="description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"><meta itemprop="datePublished" content="2023-05-16T00:25:39+08:00" />
 <meta itemprop="dateModified" content="2023-05-21T00:25:39+08:00" />
-<meta itemprop="wordCount" content="9404">
+<meta itemprop="wordCount" content="9408">
 <meta itemprop="keywords" content="C&#43;&#43;,类型推导,泛型," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="查验C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Results"/>
 <meta name="twitter:description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"/>
@@ -1887,6 +1887,7 @@ captureless并且non-generic的lambda。判断方法如下：</p>
 </span><span class="lnt">55
 </span><span class="lnt">56
 </span><span class="lnt">57
+</span><span class="lnt">58
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="cp">#define TEST(x) std::cout &lt;&lt; #x &lt;&lt; &#34;: &#34; &lt;&lt; maybe_lambda&lt;x&gt;::value &lt;&lt; std::endl;
@@ -1932,6 +1933,7 @@ captureless并且non-generic的lambda。判断方法如下：</p>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="n">TEST</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">TEST</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;&amp;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="n">TEST</span><span class="p">(</span><span class="kt">int</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">    <span class="n">TEST</span><span class="p">(</span><span class="kt">void</span><span class="p">(</span><span class="kt">void</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">    <span class="n">TEST</span><span class="p">(</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="p">...));</span>
@@ -2093,6 +2095,7 @@ captureless并且non-generic的lambda。判断方法如下：</p>
 </span><span class="lnt">55
 </span><span class="lnt">56
 </span><span class="lnt">57
+</span><span class="lnt">58
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="cp">#define TEST(x) std::cout &lt;&lt; #x &lt;&lt; &#34;: &#34; &lt;&lt; is_callable_class&lt;x&gt;::value &lt;&lt; std::endl;
@@ -2138,6 +2141,7 @@ captureless并且non-generic的lambda。判断方法如下：</p>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="n">TEST</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">TEST</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;&amp;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="n">TEST</span><span class="p">(</span><span class="kt">int</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">    <span class="n">TEST</span><span class="p">(</span><span class="kt">void</span><span class="p">(</span><span class="kt">void</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">    <span class="n">TEST</span><span class="p">(</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="p">...));</span>
@@ -2328,6 +2332,7 @@ captureless并且non-generic的lambda。判断方法如下：</p>
 </span><span class="lnt">55
 </span><span class="lnt">56
 </span><span class="lnt">57
+</span><span class="lnt">58
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="cp">#define TEST(x) std::cout &lt;&lt; #x &lt;&lt; &#34;: &#34; &lt;&lt; is_callable_c&lt;x&gt;::value &lt;&lt; std::endl;
@@ -2373,6 +2378,7 @@ captureless并且non-generic的lambda。判断方法如下：</p>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="n">TEST</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">TEST</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;&amp;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="n">TEST</span><span class="p">(</span><span class="kt">int</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">    <span class="n">TEST</span><span class="p">(</span><span class="kt">void</span><span class="p">(</span><span class="kt">void</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">    <span class="n">TEST</span><span class="p">(</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="p">...));</span>
@@ -2535,6 +2541,7 @@ captureless并且non-generic的lambda。判断方法如下：</p>
 </span><span class="lnt">55
 </span><span class="lnt">56
 </span><span class="lnt">57
+</span><span class="lnt">58
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="cp">#define TEST(x) std::cout &lt;&lt; #x &lt;&lt; &#34;: &#34; &lt;&lt; is_callable&lt;x&gt;::value &lt;&lt; std::endl;
@@ -2580,6 +2587,7 @@ captureless并且non-generic的lambda。判断方法如下：</p>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="n">TEST</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">TEST</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;&amp;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="n">TEST</span><span class="p">(</span><span class="kt">int</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">    <span class="n">TEST</span><span class="p">(</span><span class="kt">void</span><span class="p">(</span><span class="kt">void</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">    <span class="n">TEST</span><span class="p">(</span><span class="kt">void</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="p">...));</span>
@@ -2664,7 +2672,7 @@ captureless并且non-generic的lambda。判断方法如下：</p>
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="cp">#define TEST(x) std::cout &lt;&lt; #x &lt;&lt; &#34;: &#34; &lt;&lt; is_callable&lt;x&gt;::value &lt;&lt; std::endl;
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="cp">#define TEST(x) std::cout &lt;&lt; #x &lt;&lt; &#34;: &#34; &lt;&lt; decay_is_callable&lt;x&gt;::value &lt;&lt; std::endl;
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1">// 代码同上，这里省略
 </span></span></span></code></pre></td></tr></table>
 </div>
