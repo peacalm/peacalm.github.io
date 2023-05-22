@@ -1143,7 +1143,6 @@ struct is_callable : std::integral_constant<
 // whether decay_t<T> is callable
 template <typename T>
 struct decay_is_callable : is_callable<std::decay_t<T>> {};
-
 ```
 
 举例：
