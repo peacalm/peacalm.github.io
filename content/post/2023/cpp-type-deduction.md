@@ -1014,6 +1014,7 @@ void: false
 int*: false
 void*: false
 ```
+
 ### 2. 判断一个类型是否是C语言函数类型或其指针类型
 ```C++
 // whether T is C function
