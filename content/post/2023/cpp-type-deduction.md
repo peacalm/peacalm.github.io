@@ -819,31 +819,60 @@ struct maybe_lambda
 
 举例：
 ```C++
-#define MAYBE_LAMBDA(x) std::cout << #x << ": " << maybe_lambda<x>::value << std::endl;
+#define TEST(x) std::cout << #x << ": " << maybe_lambda<x>::value << std::endl;
+
+struct A {};
+struct B {
+    void operator()() {}
+};
+struct C {
+    void operator()() const volatile & {}
+};
 
 int main() {
     std::cout << std::boolalpha;
     
-    // 这两个为 true
     auto l1 = [](int){};
-    MAYBE_LAMBDA(decltype(l1));
+    TEST(decltype(l1));
     auto l2 = [](int, ...){};
-    MAYBE_LAMBDA(decltype(l2));
+    TEST(decltype(l2));
+    const auto l3 = [](int){};
+    TEST(decltype(l3));
     
-    // 以下均为 false
+    const auto & l4 = [](int){};
+    TEST(decltype(l4));
+    TEST(std::decay_t<decltype(l4)>);
+    auto && l5 = [](int){};
+    TEST(decltype(l5));
+    TEST(std::decay_t<decltype(l5)>);
     
-    auto l3 = [](auto){}; // generic lambda
-    MAYBE_LAMBDA(decltype(l3));
-    auto l4 = [&](int){};
-    MAYBE_LAMBDA(decltype(l4));
-    auto l5 = [=](int){};
-    MAYBE_LAMBDA(decltype(l5));
+    auto l6 = [](auto){}; // generic lambda
+    TEST(decltype(l6));
+
+    auto l7 = [&](int){};
+    TEST(decltype(l7));
+    auto l8 = [=](int){};
+    TEST(decltype(l8));
     
-    MAYBE_LAMBDA(std::function<void(int)>);
-    MAYBE_LAMBDA(int);
-    MAYBE_LAMBDA(void);
-    MAYBE_LAMBDA(int*);
-    MAYBE_LAMBDA(void*);
+    TEST(A);
+    TEST(B);
+    TEST(B&);
+    TEST(C);
+    TEST(C&&);
+    
+    TEST(std::function<void(int)>);
+    TEST(std::function<void(int)>&);
+    TEST(int(int));
+    TEST(void(void));
+    TEST(void(int, ...));
+    TEST(int(&)(int));
+    TEST(int(*)(int));
+    TEST(void(*&)(int));
+
+    TEST(int);
+    TEST(void);
+    TEST(int*);
+    TEST(void*);
     
     return 0;
 }
@@ -852,10 +881,27 @@ int main() {
 ```txt
 decltype(l1): true
 decltype(l2): true
-decltype(l3): false
+decltype(l3): true
 decltype(l4): false
+std::decay_t<decltype(l4)>: true
 decltype(l5): false
+std::decay_t<decltype(l5)>: true
+decltype(l6): false
+decltype(l7): false
+decltype(l8): false
+A: false
+B: false
+B&: false
+C: false
+C&&: false
 std::function<void(int)>: false
+std::function<void(int)>&: false
+int(int): false
+void(void): false
+void(int, ...): false
+int(&)(int): false
+int(*)(int): false
+void(*&)(int): false
 int: false
 void: false
 int*: false
@@ -880,8 +926,7 @@ struct is_callable_class<T, std::void_t<decltype(&T::operator())>> : std::true_t
 
 举例：
 ```C++
-// 注意虽然这个宏的名字是IS_CALLABLE，但其实用的是is_callable_class
-#define IS_CALLABLE(x) std::cout << #x << ": " << is_callable_class<x>::value << std::endl;
+#define TEST(x) std::cout << #x << ": " << is_callable_class<x>::value << std::endl;
 
 struct A {};
 struct B {
@@ -895,30 +940,47 @@ int main() {
     std::cout << std::boolalpha;
     
     auto l1 = [](int){};
-    IS_CALLABLE(decltype(l1));
+    TEST(decltype(l1));
     auto l2 = [](int, ...){};
-    IS_CALLABLE(decltype(l2));
-    auto l3 = [](auto){}; // generic lambda
-    IS_CALLABLE(decltype(l3));
-    auto l4 = [&](int){};
-    IS_CALLABLE(decltype(l4));
-    auto l5 = [=](int){};
-    IS_CALLABLE(decltype(l5));
+    TEST(decltype(l2));
+    const auto l3 = [](int){};
+    TEST(decltype(l3));
     
-    IS_CALLABLE(A);
-    IS_CALLABLE(B);
-    IS_CALLABLE(C);
+    const auto & l4 = [](int){};
+    TEST(decltype(l4));
+    TEST(std::decay_t<decltype(l4)>);
+    auto && l5 = [](int){};
+    TEST(decltype(l5));
+    TEST(std::decay_t<decltype(l5)>);
     
-    IS_CALLABLE(std::function<void(int)>);
-    IS_CALLABLE(int(int));
-    IS_CALLABLE(void(void));
-    IS_CALLABLE(void(int, ...));
-    IS_CALLABLE(int(&)(int));
-    IS_CALLABLE(int(*)(int));
-    IS_CALLABLE(void(*&)(int));
+    auto l6 = [](auto){}; // generic lambda
+    TEST(decltype(l6));
+
+    auto l7 = [&](int){};
+    TEST(decltype(l7));
+    auto l8 = [=](int){};
+    TEST(decltype(l8));
     
-    IS_CALLABLE(int);
-    IS_CALLABLE(void);
+    TEST(A);
+    TEST(B);
+    TEST(B&);
+    TEST(C);
+    TEST(C&&);
+    
+    TEST(std::function<void(int)>);
+    TEST(std::function<void(int)>&);
+    TEST(int(int));
+    TEST(void(void));
+    TEST(void(int, ...));
+    TEST(int(&)(int));
+    TEST(int(*)(int));
+    TEST(void(*&)(int));
+
+    TEST(int);
+    TEST(void);
+    TEST(int*);
+    TEST(void*);
+    
     return 0;
 }
 ```
@@ -926,13 +988,21 @@ int main() {
 ```txt
 decltype(l1): true
 decltype(l2): true
-decltype(l3): false
-decltype(l4): true
-decltype(l5): true
+decltype(l3): true
+decltype(l4): false
+std::decay_t<decltype(l4)>: true
+decltype(l5): false
+std::decay_t<decltype(l5)>: true
+decltype(l6): false
+decltype(l7): true
+decltype(l8): true
 A: false
 B: true
+B&: false
 C: true
+C&&: false
 std::function<void(int)>: true
+std::function<void(int)>&: false
 int(int): false
 void(void): false
 void(int, ...): false
@@ -941,6 +1011,8 @@ int(*)(int): false
 void(*&)(int): false
 int: false
 void: false
+int*: false
+void*: false
 ```
 
 ### 判断一个类型是否是可调用的
@@ -949,21 +1021,21 @@ void: false
 // Whether T is callable
 
 template <typename T, typename = void>
-struct __is_callable : is_callable_class<T> {};
+struct is_callable_raw : is_callable_class<T> {};
 
 template <typename Return, typename... Args>
-struct __is_callable<Return (*)(Args...)> : std::true_type {};
+struct is_callable_raw<Return (*)(Args...)> : std::true_type {};
 
 template <typename Return, typename... Args>
-struct __is_callable<Return(*)(Args..., ...)> : std::true_type {};
+struct is_callable_raw<Return (*)(Args..., ...)> : std::true_type {};
 
 template <typename T>
-struct is_callable : __is_callable<std::decay_t<T>> {};
+struct is_callable : is_callable_raw<std::decay_t<T>> {};
 ```
 
 举例：
 ```C++
-#define IS_CALLABLE(x) std::cout << #x << ": " << is_callable<x>::value << std::endl;
+#define TEST(x) std::cout << #x << ": " << is_callable<x>::value << std::endl;
 
 struct A {};
 struct B {
@@ -977,30 +1049,47 @@ int main() {
     std::cout << std::boolalpha;
     
     auto l1 = [](int){};
-    IS_CALLABLE(decltype(l1));
+    TEST(decltype(l1));
     auto l2 = [](int, ...){};
-    IS_CALLABLE(decltype(l2));
-    auto l3 = [](auto){}; // generic lambda
-    IS_CALLABLE(decltype(l3));
-    auto l4 = [&](int){};
-    IS_CALLABLE(decltype(l4));
-    auto l5 = [=](int){};
-    IS_CALLABLE(decltype(l5));
-
-    IS_CALLABLE(A);
-    IS_CALLABLE(B);
-    IS_CALLABLE(C);
-
-    IS_CALLABLE(std::function<void(int)>);
-    IS_CALLABLE(int(int));
-    IS_CALLABLE(void(void));
-    IS_CALLABLE(void(int, ...));
-    IS_CALLABLE(int(&)(int));
-    IS_CALLABLE(int(*)(int));
-    IS_CALLABLE(void(*&)(int));
+    TEST(decltype(l2));
+    const auto l3 = [](int){};
+    TEST(decltype(l3));
     
-    IS_CALLABLE(int);
-    IS_CALLABLE(void);
+    const auto & l4 = [](int){};
+    TEST(decltype(l4));
+    TEST(std::decay_t<decltype(l4)>);
+    auto && l5 = [](int){};
+    TEST(decltype(l5));
+    TEST(std::decay_t<decltype(l5)>);
+    
+    auto l6 = [](auto){}; // generic lambda
+    TEST(decltype(l6));
+
+    auto l7 = [&](int){};
+    TEST(decltype(l7));
+    auto l8 = [=](int){};
+    TEST(decltype(l8));
+    
+    TEST(A);
+    TEST(B);
+    TEST(B&);
+    TEST(C);
+    TEST(C&&);
+    
+    TEST(std::function<void(int)>);
+    TEST(std::function<void(int)>&);
+    TEST(int(int));
+    TEST(void(void));
+    TEST(void(int, ...));
+    TEST(int(&)(int));
+    TEST(int(*)(int));
+    TEST(void(*&)(int));
+
+    TEST(int);
+    TEST(void);
+    TEST(int*);
+    TEST(void*);
+    
     return 0;
 }
 ```
@@ -1009,13 +1098,21 @@ int main() {
 ```txt
 decltype(l1): true
 decltype(l2): true
-decltype(l3): false
+decltype(l3): true
 decltype(l4): true
+std::decay_t<decltype(l4)>: true
 decltype(l5): true
+std::decay_t<decltype(l5)>: true
+decltype(l6): false
+decltype(l7): true
+decltype(l8): true
 A: false
 B: true
+B&: true
 C: true
+C&&: true
 std::function<void(int)>: true
+std::function<void(int)>&: true
 int(int): true
 void(void): true
 void(int, ...): true
@@ -1024,4 +1121,6 @@ int(*)(int): true
 void(*&)(int): true
 int: false
 void: false
+int*: false
+void*: false
 ```
