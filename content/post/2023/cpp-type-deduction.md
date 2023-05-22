@@ -1101,6 +1101,7 @@ int main() {
     return 0;
 }
 ```
+
 输出如下：
 ```txt
 decltype(l1): false
@@ -1131,6 +1132,7 @@ void: false
 int*: false
 void*: false
 ```
+
 ### 判断一个类型是否是可调用的
 可调用类型就是以上两种情况的综合，is_callable_class或is_callable_c。
 另外，如果想包括其引用也判断为可调用类型的话，可以先将某类型decay，然后再判断是否是以上两种情况之一。
