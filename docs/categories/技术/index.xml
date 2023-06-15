@@ -8,7 +8,7 @@
     <language>en</language>
     <lastBuildDate>Thu, 15 Jun 2023 19:58:20 +0800</lastBuildDate><atom:link href="https://peacalm.github.io/categories/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>nullptr 是指针类型吗？如何用C&#43;&#43;的方式把&#34;T*&#34;转换成&#34;void*&#34;</title>
+      <title>nullptr 是指针类型吗？如何用C&#43;&#43;的方式把&#34;T*&#34;转换成&#34;void*&#34; | Is nullptr of pointer type? How to convert &#34;T*&#34; to &#34;void*&#34; by C&#43;&#43; way</title>
       <link>https://peacalm.github.io/post/2023/nullptr/</link>
       <pubDate>Thu, 15 Jun 2023 19:58:20 +0800</pubDate>
       
