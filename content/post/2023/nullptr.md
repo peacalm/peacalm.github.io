@@ -133,5 +133,4 @@ std::nullptr_t np = p; // OK
 const volatile std::nullptr_t * p{0};
 // std::nullptr_t* np = p; // Error
 std::nullptr_t* np = const_cast<std::nullptr_t*>(p); // OK
-void * vp = np;
 ```

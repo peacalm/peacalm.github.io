@@ -71,7 +71,7 @@
 <meta itemprop="name" content="nullptr 是指针类型吗？如何用C&#43;&#43;的方式把&#34;T*&#34;转换成&#34;void*&#34;">
 <meta itemprop="description" content="nullptr是指针类型吗？ nullptr是C&#43;&#43;里预定义的一个变量，它的类型是std::nullptr_t。 判断一个类型是否是指针类型，可"><meta itemprop="datePublished" content="2023-06-15T19:58:20+08:00" />
 <meta itemprop="dateModified" content="2023-06-15T19:58:20+08:00" />
-<meta itemprop="wordCount" content="1137">
+<meta itemprop="wordCount" content="1131">
 <meta itemprop="keywords" content="C&#43;&#43;," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="nullptr 是指针类型吗？如何用C&#43;&#43;的方式把&#34;T*&#34;转换成&#34;void*&#34;"/>
 <meta name="twitter:description" content="nullptr是指针类型吗？ nullptr是C&#43;&#43;里预定义的一个变量，它的类型是std::nullptr_t。 判断一个类型是否是指针类型，可"/>
@@ -534,14 +534,12 @@ cv-unqualified pointer。
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
-</span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="k">const</span> <span class="k">volatile</span> <span class="n">std</span><span class="o">::</span><span class="n">nullptr_t</span> <span class="o">*</span> <span class="n">p</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// std::nullptr_t* np = p; // Error
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">std</span><span class="o">::</span><span class="n">nullptr_t</span><span class="o">*</span> <span class="n">np</span> <span class="o">=</span> <span class="k">const_cast</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">nullptr_t</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">p</span><span class="p">);</span> <span class="c1">// OK
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="o">*</span> <span class="n">vp</span> <span class="o">=</span> <span class="n">np</span><span class="p">;</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div>
     </div>
