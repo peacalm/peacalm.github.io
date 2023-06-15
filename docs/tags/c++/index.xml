@@ -6,7 +6,16 @@
     <description>Recent content in C&#43;&#43; on Peacalm Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 16 May 2023 00:25:39 +0800</lastBuildDate><atom:link href="https://peacalm.github.io/tags/c++/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 15 Jun 2023 19:58:20 +0800</lastBuildDate><atom:link href="https://peacalm.github.io/tags/c++/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>nullptr 是指针类型吗？如何用C&#43;&#43;的方式把&#34;T*&#34;转换成&#34;void*&#34;</title>
+      <link>https://peacalm.github.io/post/2023/nullptr/</link>
+      <pubDate>Thu, 15 Jun 2023 19:58:20 +0800</pubDate>
+      
+      <guid>https://peacalm.github.io/post/2023/nullptr/</guid>
+      <description>nullptr是指针类型吗？ nullptr是C++里预定义的一个变量，它的类型是std::nullptr_t。 判断一个类型是否是指针类型，可</description>
+    </item>
+    
     <item>
       <title>查验C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Results</title>
       <link>https://peacalm.github.io/post/2023/cpp-type-deduction/</link>
