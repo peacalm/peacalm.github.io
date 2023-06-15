@@ -331,10 +331,7 @@
       </ul>
     </li>
     <li><a href="#如何用c的方式把t转换成void">如何用C++的方式把&quot;T*&quot;转换成&quot;void*&quot;</a></li>
-  </ul>
-
-  <ul>
-    <li>
+    <li><a href="#cv-qualified-stdnullptr_t及其指针">cv-qualified std::nullptr_t及其指针</a>
       <ul>
         <li><a href="#cv-qualified-stdnullptr_t-类型的变量能直接赋值给-stdnullptr_t-类型的变量吗">cv-qualified std::nullptr_t 类型的变量能直接赋值给 std::nullptr_t 类型的变量吗？</a></li>
         <li><a href="#cv-qualified-stdnullptr_t--类型的变量能直接赋值给-stdnullptr_t--类型的变量吗">cv-qualified std::nullptr_t * 类型的变量能直接赋值给 std::nullptr_t * 类型的变量吗？</a></li>
@@ -516,7 +513,7 @@ cv-unqualified pointer。
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h1 id="cv-qualified-stdnullptr_t及其指针">cv-qualified std::nullptr_t及其指针</h1>
+</div><h2 id="cv-qualified-stdnullptr_t及其指针">cv-qualified std::nullptr_t及其指针</h2>
 <p>经过以上讨论，将std::nullptr_t当做一个普通类类型看待，而不是指针类型，那么如下两个问题就可迎刃而解。</p>
 <h3 id="cv-qualified-stdnullptr_t-类型的变量能直接赋值给-stdnullptr_t-类型的变量吗">cv-qualified std::nullptr_t 类型的变量能直接赋值给 std::nullptr_t 类型的变量吗？</h3>
 <p>可以。</p>

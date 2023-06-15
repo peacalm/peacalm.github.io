@@ -187,7 +187,7 @@ cv-unqualified pointer。
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h1 id=&#34;cv-qualified-stdnullptr_t及其指针&#34;&gt;cv-qualified std::nullptr_t及其指针&lt;/h1&gt;
+&lt;/div&gt;&lt;h2 id=&#34;cv-qualified-stdnullptr_t及其指针&#34;&gt;cv-qualified std::nullptr_t及其指针&lt;/h2&gt;
 &lt;p&gt;经过以上讨论，将std::nullptr_t当做一个普通类类型看待，而不是指针类型，那么如下两个问题就可迎刃而解。&lt;/p&gt;
 &lt;h3 id=&#34;cv-qualified-stdnullptr_t-类型的变量能直接赋值给-stdnullptr_t-类型的变量吗&#34;&gt;cv-qualified std::nullptr_t 类型的变量能直接赋值给 std::nullptr_t 类型的变量吗？&lt;/h3&gt;
 &lt;p&gt;可以。&lt;/p&gt;

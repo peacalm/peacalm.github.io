@@ -112,7 +112,8 @@ void* cpp_cast(T* p) { // 使用C++风格的强制类型转换
 }
 ```
 
-# cv-qualified std::nullptr_t及其指针
+## cv-qualified std::nullptr_t及其指针
+
 经过以上讨论，将std::nullptr_t当做一个普通类类型看待，而不是指针类型，那么如下两个问题就可迎刃而解。
 
 ### cv-qualified std::nullptr_t 类型的变量能直接赋值给 std::nullptr_t 类型的变量吗？
