@@ -133,6 +133,7 @@ std::is_null_pointer_v<void*> = 0
 
 可见默认情况下`std::nullptr_t`也不是类类型，它就是独特的一个类型，可用`std::is_null_pointer`来判断。
 
+（当然，如果在Clang下编译时手动添加宏定义_LIBCPP_HAS_NO_NULLPTR，那么std::is_class_v<std::nullptr_t>就等于true了，它就是普通的类类型了。）
 
 ## 如何用C++的方式把\"T*\"转换成\"void*\"
 
