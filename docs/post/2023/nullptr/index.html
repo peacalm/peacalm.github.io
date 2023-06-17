@@ -71,7 +71,7 @@
 <meta itemprop="name" content="nullptr 是指针类型吗？如何用C&#43;&#43;的方式把&#34;T*&#34;转换成&#34;void*&#34; | Is nullptr of Pointer Type? How to Convert &#34;T*&#34; to &#34;void*&#34; by C&#43;&#43; Way">
 <meta itemprop="description" content="nullptr是指针类型吗？ nullptr是C&#43;&#43;里预定义的一个变量，它的类型是std::nullptr_t。 判断一个类型是否是指针类型，可"><meta itemprop="datePublished" content="2023-06-15T19:58:20+08:00" />
 <meta itemprop="dateModified" content="2023-06-15T19:58:20+08:00" />
-<meta itemprop="wordCount" content="1264">
+<meta itemprop="wordCount" content="1374">
 <meta itemprop="keywords" content="C&#43;&#43;," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="nullptr 是指针类型吗？如何用C&#43;&#43;的方式把&#34;T*&#34;转换成&#34;void*&#34; | Is nullptr of Pointer Type? How to Convert &#34;T*&#34; to &#34;void*&#34; by C&#43;&#43; Way"/>
 <meta name="twitter:description" content="nullptr是指针类型吗？ nullptr是C&#43;&#43;里预定义的一个变量，它的类型是std::nullptr_t。 判断一个类型是否是指针类型，可"/>
@@ -430,9 +430,28 @@
 </span><span class="lnt">24
 </span><span class="lnt">25
 </span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">_LIBCPP_TEMPLATE_VIS</span> <span class="n">nullptr_t</span>
+<pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="cp">#ifdef _LIBCPP_HAS_NO_NULLPTR
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="n">_LIBCPP_BEGIN_NAMESPACE_STD</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">_LIBCPP_TEMPLATE_VIS</span> <span class="n">nullptr_t</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">void</span><span class="o">*</span> <span class="n">__lx</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
@@ -458,13 +477,27 @@
 </span></span><span class="line"><span class="cl"><span class="kr">inline</span> <span class="n">_LIBCPP_INLINE_VISIBILITY</span> <span class="n">_LIBCPP_CONSTEXPR</span> <span class="n">nullptr_t</span> <span class="nf">__get_nullptr_t</span><span class="p">()</span> <span class="p">{</span><span class="k">return</span> <span class="n">nullptr_t</span><span class="p">(</span><span class="mi">0</span><span class="p">);}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="cp">#define nullptr _VSTD::__get_nullptr_t()
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="n">_LIBCPP_END_NAMESPACE_STD</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">#else  </span><span class="c1">// _LIBCPP_HAS_NO_NULLPTR
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="n">std</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">typedef</span> <span class="nf">decltype</span><span class="p">(</span><span class="k">nullptr</span><span class="p">)</span> <span class="n">nullptr_t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">#endif </span><span class="c1">// _LIBCPP_HAS_NO_NULLPTR
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>可见<code>std::nullptr_t</code>不是指针类型，是类似类的类型。
+</div><p>可见<code>std::nullptr_t</code>不是指针类型，可能是类似类的类型。
 所以当然可以构造出指向<code>std::nullptr_t</code>的指针类型了，例如<code>std::nullptr_ *</code>，<code>const std::nullptr_ *</code>等。
 那么<code>std::nullptr_t</code>是类类型吗？</p>
 <h3 id="nullptr是类类型吗">nullptr是类类型吗？</h3>
-<p>判断一个类型是否是类类型，可用std::is_class。测试代码如下：</p>
+<p>通过以上源码可以看出<code>std::nullptr_t</code>通过宏开关设置了两种实现方式，
+第一种就是一个普通的struct，而第二种似乎是编译器内置的，看不出类型。</p>
+<p>判断一个类型是否是类类型，可用std::is_class。
+测试代码如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1

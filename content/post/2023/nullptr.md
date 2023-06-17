@@ -51,6 +51,10 @@ std::is_pointer_v<std::nullptr_t *> = 1
 它的一种实现方式如下：
 
 ```C++
+#ifdef _LIBCPP_HAS_NO_NULLPTR
+
+_LIBCPP_BEGIN_NAMESPACE_STD
+
 struct _LIBCPP_TEMPLATE_VIS nullptr_t
 {
     void* __lx;
@@ -77,13 +81,30 @@ struct _LIBCPP_TEMPLATE_VIS nullptr_t
 inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR nullptr_t __get_nullptr_t() {return nullptr_t(0);}
 
 #define nullptr _VSTD::__get_nullptr_t()
+
+_LIBCPP_END_NAMESPACE_STD
+
+#else  // _LIBCPP_HAS_NO_NULLPTR
+
+namespace std
+{
+    typedef decltype(nullptr) nullptr_t;
+}
+
+#endif // _LIBCPP_HAS_NO_NULLPTR
 ```
 
-可见`std::nullptr_t`不是指针类型，是类似类的类型。
+可见`std::nullptr_t`不是指针类型，可能是类似类的类型。
 所以当然可以构造出指向`std::nullptr_t`的指针类型了，例如`std::nullptr_ *`，`const std::nullptr_ *`等。
 那么`std::nullptr_t`是类类型吗？
+
+
 ### nullptr是类类型吗？
-判断一个类型是否是类类型，可用std::is_class。测试代码如下：
+通过以上源码可以看出`std::nullptr_t`通过宏开关设置了两种实现方式，
+第一种就是一个普通的struct，而第二种似乎是编译器内置的，看不出类型。
+
+判断一个类型是否是类类型，可用std::is_class。
+测试代码如下：
 
 ```C++
 watch(std::is_class_v<std::nullptr_t>,
