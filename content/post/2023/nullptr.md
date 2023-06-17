@@ -34,7 +34,7 @@ int main() {
 
 输出：
 
-```Txt
+```txt
 std::is_pointer_v<std::nullptr_t> = 0
 std::is_member_pointer_v<std::nullptr_t> = 0
 std::is_pointer_v<std::nullptr_t *> = 1
@@ -120,7 +120,7 @@ watch(std::is_null_pointer_v<std::nullptr_t>,
 
 Clang和GCC在 -std=c++17 下默认输出是一样的：
 
-```Txt
+```txt
 std::is_class_v<std::nullptr_t> = 0
 std::is_union_v<std::nullptr_t> = 0
 std::is_null_pointer_v<std::nullptr_t> = 1
