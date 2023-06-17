@@ -135,6 +135,28 @@ std::is_null_pointer_v<void*> = 0
 
 （当然，如果在Clang下编译时手动添加宏定义_LIBCPP_HAS_NO_NULLPTR，那么`std::is_class_v<std::nullptr_t>`就等于true了，它就是普通的类类型了。）
 
+
+### nullptr 能被取地址吗？
+nullptr是右值临时变量，无法取地址，但是我们可以使用`std::nullptr_t`重新定义一个新的"nullptr"左值，然后就可以对其取地址了。代码如下：
+
+```C++
+// watch(nullptr, &nullptr); // error: cannot take the address of an rvalue of type 'nullptr_t'
+
+std::nullptr_t null1, null2;
+watch(null1, &null1);
+watch(null2, &null2);
+```
+
+输出：
+
+```txt
+null1 = nullptr
+&null1 = 0x16b1d3578
+
+null2 = nullptr
+&null2 = 0x16b1d3570
+```
+
 ## 如何用C++的方式把\"T*\"转换成\"void*\"
 
 假如`T`是某种未知的模版类型，如何把`T*`的变量转换成`void*`类型呢？
