@@ -168,9 +168,9 @@
 那么&lt;code&gt;std::nullptr_t&lt;/code&gt;是类类型吗？&lt;/p&gt;
 &lt;h3 id=&#34;nullptr是类类型吗&#34;&gt;nullptr是类类型吗？&lt;/h3&gt;
 &lt;p&gt;通过以上源码可以看出&lt;code&gt;std::nullptr_t&lt;/code&gt;通过宏开关设置了两种实现方式，
-第一种就是一个普通的struct，而第二种似乎是编译器内置的，看不出类型。&lt;/p&gt;
-&lt;p&gt;判断一个类型是否是类类型，可用std::is_class。
-测试代码如下：&lt;/p&gt;
+第一种就是一个普通的struct，是类类型，而第二种似乎是编译器内置的，不是类类型。
+所以&lt;code&gt;std::nullptr_t&lt;/code&gt;的类型是依赖实现的，可能是类类型，也可能不是。&lt;/p&gt;
+&lt;p&gt;判断一个类型是否是类类型，可用std::is_class。测试代码如下：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -193,7 +193,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;std&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;::&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_null_pointer_v&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;输出：&lt;/p&gt;
+&lt;/div&gt;&lt;p&gt;Clang和GCC在 -std=c++17 下默认输出是一样的：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -216,7 +216,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;std::is_null_pointer_v&amp;lt;void*&amp;gt; = 0
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;可见&lt;code&gt;std::nullptr_t&lt;/code&gt;也不是类类型。它就是独特的一个类型，可用&lt;code&gt;std::is_null_pointer&lt;/code&gt;来判断。&lt;/p&gt;
+&lt;/div&gt;&lt;p&gt;可见默认情况下&lt;code&gt;std::nullptr_t&lt;/code&gt;也不是类类型，它就是独特的一个类型，可用&lt;code&gt;std::is_null_pointer&lt;/code&gt;来判断。&lt;/p&gt;
 &lt;h2 id=&#34;如何用c的方式把t转换成void&#34;&gt;如何用C++的方式把&amp;quot;T*&amp;quot;转换成&amp;quot;void*&amp;quot;&lt;/h2&gt;
 &lt;p&gt;假如&lt;code&gt;T&lt;/code&gt;是某种未知的模版类型，如何把&lt;code&gt;T*&lt;/code&gt;的变量转换成&lt;code&gt;void*&lt;/code&gt;类型呢？
 用C语言的强制类型转换很容易实现：&lt;/p&gt;

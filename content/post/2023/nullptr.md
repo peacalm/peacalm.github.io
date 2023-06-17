@@ -102,10 +102,10 @@ namespace std
 ### nullptr是类类型吗？
 
 通过以上源码可以看出`std::nullptr_t`通过宏开关设置了两种实现方式，
-第一种就是一个普通的struct，而第二种似乎是编译器内置的，看不出类型。
+第一种就是一个普通的struct，是类类型，而第二种似乎是编译器内置的，不是类类型。
+所以`std::nullptr_t`的类型是依赖实现的，可能是类类型，也可能不是。
 
-判断一个类型是否是类类型，可用std::is_class。
-测试代码如下：
+判断一个类型是否是类类型，可用std::is_class。测试代码如下：
 
 ```C++
 watch(std::is_class_v<std::nullptr_t>,
@@ -118,7 +118,7 @@ watch(std::is_null_pointer_v<std::nullptr_t>,
     std::is_null_pointer_v<void*>);
 ```
 
-输出：
+Clang和GCC在 -std=c++17 下默认输出是一样的：
 
 ```Txt
 std::is_class_v<std::nullptr_t> = 0
@@ -131,7 +131,7 @@ std::is_null_pointer_v<std::nullptr_t> = 1
 std::is_null_pointer_v<void*> = 0
 ```
 
-可见`std::nullptr_t`也不是类类型。它就是独特的一个类型，可用`std::is_null_pointer`来判断。
+可见默认情况下`std::nullptr_t`也不是类类型，它就是独特的一个类型，可用`std::is_null_pointer`来判断。
 
 
 ## 如何用C++的方式把\"T*\"转换成\"void*\"
