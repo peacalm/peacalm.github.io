@@ -1,5 +1,5 @@
 ---
-title: "查验C++类型推导结果 | Check C++ Type Deduction Results"
+title: "查验C++类型推导结果 | Check C++ Type Deduction Result"
 date: 2023-05-16T00:25:39+08:00
 lastmod: 2023-05-21T00:25:39+08:00
 draft: false
