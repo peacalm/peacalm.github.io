@@ -118,6 +118,8 @@ watch(std::is_null_pointer_v<std::nullptr_t>,
     std::is_null_pointer_v<void*>);
 ```
 
+输出：
+
 ```Txt
 std::is_class_v<std::nullptr_t> = 0
 std::is_union_v<std::nullptr_t> = 0
