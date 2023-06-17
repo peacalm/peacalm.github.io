@@ -25,25 +25,21 @@ int main() {
     static_assert(std::is_same_v<decltype(nullptr), std::nullptr_t>, "Never happpen");
 
     watch(std::is_pointer_v<std::nullptr_t>,
-          std::is_pointer_v<const std::nullptr_t>,
-          std::is_pointer_v<volatile std::nullptr_t>,
-          std::is_pointer_v<std::nullptr_t *>,
-          std::is_pointer_v<const std::nullptr_t *>,
-          std::is_pointer_v<volatile std::nullptr_t *>
+          std::is_member_pointer_v<std::nullptr_t>,
+          std::is_pointer_v<std::nullptr_t *>
     );
     return 0;
 }
 ```
+
 输出：
 
 ```Txt
 std::is_pointer_v<std::nullptr_t> = 0
-std::is_pointer_v<const std::nullptr_t> = 0
-std::is_pointer_v<volatile std::nullptr_t> = 0
+std::is_member_pointer_v<std::nullptr_t> = 0
 std::is_pointer_v<std::nullptr_t *> = 1
-std::is_pointer_v<const std::nullptr_t *> = 1
-std::is_pointer_v<volatile std::nullptr_t *> = 1
 ```
+
 可见`std::nullptr_t`并不是一个指针类型。
 只不过我们平时常用`nullptr`来赋值给任意指针类型，会给人一种`std::nullptr_t`是指针类型的错觉。
 
@@ -83,7 +79,35 @@ inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR nullptr_t __get_nullptr_t() {
 #define nullptr _VSTD::__get_nullptr_t()
 ```
 
-可见`std::nullptr_t`就是一个类类型，不是指针类型。那么当然可以构造出指向`std::nullptr_t`的指针类型了，例如`std::nullptr_ *`，`const std::nullptr_ *`等。
+可见`std::nullptr_t`不是指针类型，是类似类的类型。
+所以当然可以构造出指向`std::nullptr_t`的指针类型了，例如`std::nullptr_ *`，`const std::nullptr_ *`等。
+那么`std::nullptr_t`是类类型吗？
+### nullptr是类类型吗？
+判断一个类型是否是类类型，可用std::is_class。测试代码如下：
+
+```C++
+watch(std::is_class_v<std::nullptr_t>,
+    std::is_union_v<std::nullptr_t>,
+    std::is_null_pointer_v<std::nullptr_t>,
+    std::is_scalar_v<std::nullptr_t>,
+    std::is_object_v<std::nullptr_t>);
+
+watch(std::is_null_pointer_v<std::nullptr_t>,
+    std::is_null_pointer_v<void*>);
+```
+
+```Txt
+std::is_class_v<std::nullptr_t> = 0
+std::is_union_v<std::nullptr_t> = 0
+std::is_null_pointer_v<std::nullptr_t> = 1
+std::is_scalar_v<std::nullptr_t> = 1
+std::is_object_v<std::nullptr_t> = 1
+
+std::is_null_pointer_v<std::nullptr_t> = 1
+std::is_null_pointer_v<void*> = 0
+```
+
+可见`std::nullptr_t`也不是类类型。它就是独特的一个类型，可用`std::is_null_pointer`来判断。
 
 
 ## 如何用C++的方式把\"T*\"转换成\"void*\"
@@ -115,7 +139,7 @@ void* cpp_cast(T* p) { // 使用C++风格的强制类型转换
 
 ## cv-qualified std::nullptr_t及其指针
 
-经过以上讨论，将std::nullptr_t当做一个普通类类型看待，而不是指针类型，那么如下两个问题就可迎刃而解。
+经过以上讨论，知道std::nullptr_t不是指针类型，那么如下两个问题就可迎刃而解。
 
 ### cv-qualified std::nullptr_t 类型的变量能直接赋值给 std::nullptr_t 类型的变量吗？
 
