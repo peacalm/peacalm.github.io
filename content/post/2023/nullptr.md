@@ -136,7 +136,7 @@ std::is_null_pointer_v<void*> = 0
 （当然，如果在Clang下编译时手动添加宏定义_LIBCPP_HAS_NO_NULLPTR，那么`std::is_class_v<std::nullptr_t>`就等于true了，它就是普通的类类型了。）
 
 
-### nullptr 能被取地址吗？
+### nullptr能被取地址吗？
 nullptr是右值临时变量，无法取地址，但是我们可以使用`std::nullptr_t`重新定义一个新的"nullptr"左值，然后就可以对其取地址了。代码如下：
 
 ```C++

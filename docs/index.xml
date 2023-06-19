@@ -218,7 +218,7 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;可见默认情况下&lt;code&gt;std::nullptr_t&lt;/code&gt;也不是类类型，它就是独特的一个类型，可用&lt;code&gt;std::is_null_pointer&lt;/code&gt;来判断。&lt;/p&gt;
 &lt;p&gt;（当然，如果在Clang下编译时手动添加宏定义_LIBCPP_HAS_NO_NULLPTR，那么&lt;code&gt;std::is_class_v&amp;lt;std::nullptr_t&amp;gt;&lt;/code&gt;就等于true了，它就是普通的类类型了。）&lt;/p&gt;
-&lt;h3 id=&#34;nullptr-能被取地址吗&#34;&gt;nullptr 能被取地址吗？&lt;/h3&gt;
+&lt;h3 id=&#34;nullptr能被取地址吗&#34;&gt;nullptr能被取地址吗？&lt;/h3&gt;
 &lt;p&gt;nullptr是右值临时变量，无法取地址，但是我们可以使用&lt;code&gt;std::nullptr_t&lt;/code&gt;重新定义一个新的&amp;quot;nullptr&amp;quot;左值，然后就可以对其取地址了。代码如下：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;

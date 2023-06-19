@@ -71,7 +71,7 @@
 <meta itemprop="name" content="nullptr 是指针类型吗？如何用C&#43;&#43;的方式把&#34;T*&#34;转换成&#34;void*&#34; | Is nullptr of Pointer Type? How to Convert &#34;T*&#34; to &#34;void*&#34; by C&#43;&#43; Way">
 <meta itemprop="description" content="nullptr是指针类型吗？ nullptr是C&#43;&#43;里预定义的一个变量，它的类型是std::nullptr_t。 判断一个类型是否是指针类型，可"><meta itemprop="datePublished" content="2023-06-15T19:58:20+08:00" />
 <meta itemprop="dateModified" content="2023-06-17T19:58:20+08:00" />
-<meta itemprop="wordCount" content="1695">
+<meta itemprop="wordCount" content="1701">
 <meta itemprop="keywords" content="C&#43;&#43;," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="nullptr 是指针类型吗？如何用C&#43;&#43;的方式把&#34;T*&#34;转换成&#34;void*&#34; | Is nullptr of Pointer Type? How to Convert &#34;T*&#34; to &#34;void*&#34; by C&#43;&#43; Way"/>
 <meta name="twitter:description" content="nullptr是指针类型吗？ nullptr是C&#43;&#43;里预定义的一个变量，它的类型是std::nullptr_t。 判断一个类型是否是指针类型，可"/>
@@ -329,7 +329,7 @@
       <ul>
         <li><a href="#原理">原理</a></li>
         <li><a href="#nullptr是类类型吗">nullptr是类类型吗？</a></li>
-        <li><a href="#nullptr-能被取地址吗">nullptr 能被取地址吗？</a></li>
+        <li><a href="#nullptr能被取地址吗">nullptr能被取地址吗？</a></li>
       </ul>
     </li>
     <li><a href="#如何用c的方式把t转换成void">如何用C++的方式把&quot;T*&quot;转换成&quot;void*&quot;</a></li>
@@ -546,7 +546,7 @@
 </div>
 </div><p>可见默认情况下<code>std::nullptr_t</code>也不是类类型，它就是独特的一个类型，可用<code>std::is_null_pointer</code>来判断。</p>
 <p>（当然，如果在Clang下编译时手动添加宏定义_LIBCPP_HAS_NO_NULLPTR，那么<code>std::is_class_v&lt;std::nullptr_t&gt;</code>就等于true了，它就是普通的类类型了。）</p>
-<h3 id="nullptr-能被取地址吗">nullptr 能被取地址吗？</h3>
+<h3 id="nullptr能被取地址吗">nullptr能被取地址吗？</h3>
 <p>nullptr是右值临时变量，无法取地址，但是我们可以使用<code>std::nullptr_t</code>重新定义一个新的&quot;nullptr&quot;左值，然后就可以对其取地址了。代码如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
