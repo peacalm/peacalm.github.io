@@ -71,7 +71,7 @@
 <meta itemprop="name" content="nullptr 是指针类型吗？如何用C&#43;&#43;的方式把&#34;T*&#34;转换成&#34;void*&#34; | Is nullptr of Pointer Type? How to Convert &#34;T*&#34; to &#34;void*&#34; by C&#43;&#43; Way">
 <meta itemprop="description" content="nullptr是指针类型吗？ nullptr是C&#43;&#43;里预定义的一个变量，它的类型是std::nullptr_t。 判断一个类型是否是指针类型，可"><meta itemprop="datePublished" content="2023-06-15T19:58:20+08:00" />
 <meta itemprop="dateModified" content="2023-06-17T19:58:20+08:00" />
-<meta itemprop="wordCount" content="1701">
+<meta itemprop="wordCount" content="1703">
 <meta itemprop="keywords" content="C&#43;&#43;," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="nullptr 是指针类型吗？如何用C&#43;&#43;的方式把&#34;T*&#34;转换成&#34;void*&#34; | Is nullptr of Pointer Type? How to Convert &#34;T*&#34; to &#34;void*&#34; by C&#43;&#43; Way"/>
 <meta name="twitter:description" content="nullptr是指针类型吗？ nullptr是C&#43;&#43;里预定义的一个变量，它的类型是std::nullptr_t。 判断一个类型是否是指针类型，可"/>
@@ -599,9 +599,9 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>那么如何用C++的类型转换方式实现呢？</p>
-<p>实时上只用reinterpret_cast或static_cast是不行的，因为它们不能将 cv-qualified pointer 转换成
+<p>事实上只用reinterpret_cast或static_cast是不行的，因为它们不能将 cv-qualified pointer 转换成
 cv-unqualified pointer。
-必须首先使用const_cast将cv属性去掉，然后再使用reinterpret_cast或static_cast。如下：</p>
+所以必须首先使用const_cast将cv属性去掉，然后再使用reinterpret_cast或static_cast。如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1

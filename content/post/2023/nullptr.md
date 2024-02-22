@@ -170,9 +170,9 @@ void* c_cast(T* p) { // 使用C风格的强制类型转换
 
 那么如何用C++的类型转换方式实现呢？
 
-实时上只用reinterpret_cast或static_cast是不行的，因为它们不能将 cv-qualified pointer 转换成
+事实上只用reinterpret_cast或static_cast是不行的，因为它们不能将 cv-qualified pointer 转换成
 cv-unqualified pointer。
-必须首先使用const_cast将cv属性去掉，然后再使用reinterpret_cast或static_cast。如下：
+所以必须首先使用const_cast将cv属性去掉，然后再使用reinterpret_cast或static_cast。如下：
 
 ```C++
 template <typename T>
