@@ -22,7 +22,7 @@ myostream::ostream mycout(std::cout.rdbuf());
 
 int main() {
     // 确认nullptr就是std::nullptr_t类型
-    static_assert(std::is_same_v<decltype(nullptr), std::nullptr_t>, "Never happpen");
+    static_assert(std::is_same_v<decltype(nullptr), std::nullptr_t>, "Never happen");
 
     watch(std::is_pointer_v<std::nullptr_t>,
           std::is_member_pointer_v<std::nullptr_t>,
