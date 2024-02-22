@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://peacalm.github.io/post/2023/nullptr/</loc>
+    <lastmod>2023-06-17T19:58:20+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://peacalm.github.io/tags/c&#43;&#43;/</loc>
     <lastmod>2023-06-17T19:58:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -10,13 +17,6 @@
   
   <url>
     <loc>https://peacalm.github.io/categories/</loc>
-    <lastmod>2023-06-17T19:58:20+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://peacalm.github.io/post/2023/nullptr/</loc>
     <lastmod>2023-06-17T19:58:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
