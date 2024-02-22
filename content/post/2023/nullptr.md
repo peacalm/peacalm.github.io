@@ -1,6 +1,6 @@
 ---
 title: "nullptr 是指针类型吗？如何用C++的方式把\"T*\"转换成\"void*\" |
-Is nullptr A Pointer Type? How to Convert \"T*\" to \"void*\" by C++ Way"
+Is nullptr a Pointer Type? How to Convert \"T*\" to \"void*\" by C++ Way"
 date: 2023-06-15T19:58:20+08:00
 lastmod: 2023-06-17T19:58:20+08:00
 draft: false
