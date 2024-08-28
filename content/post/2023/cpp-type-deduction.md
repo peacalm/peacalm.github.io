@@ -94,11 +94,15 @@ void func(int) {}
     CETYPE(decltype(cfptr)); // void (*const)(int)
 
     // static_cast on rvalue reference to function returns lvalue
+    CETYPE(decltype(static_cast<void(&&)(int)>(func)));  // void (&)(int)
+    CETYPE(decltype(static_cast<void(&)(int)>(func)));   // void (&)(int)
+    // so, std::move on function returns lvalue reference
     CETYPE(decltype(std::move(func)));  // void (&)(int)
 
     CETYPE(decltype(&std::move(func))); // void (*)(int)
     CETYPE(decltype(std::move(&func))); // void (*&&)(int)
 
+    // explicitly define a rvalue reference to function
     decltype(func) && prfunc = func;
     CETYPE(decltype(prfunc));  // void (&&)(int)
 }
@@ -139,6 +143,12 @@ void func(int) {}
     CETYPE(decltype(clref)); // void (*const &)(int)
     auto && rref = pfunc;
     CETYPE(decltype(rref));  // void (*&)(int)
+
+    // ref of move
+    const auto & clref_of_move = std::move(pfunc);
+    CETYPE(decltype(clref_of_move));  // void (*const &)(int)
+    auto && rref_of_move = std::move(pfunc);
+    CETYPE(decltype(rref_of_move));  // void (*&&)(int)
 }
 ```
 
@@ -206,6 +216,20 @@ template<typename T> void rarg(T && t) {
     // template<typename T> void rarg(T && t) {
     //     CETYPE(T);           // void (*&)(int)
     //     CETYPE(decltype(t)); // void (*&)(int)
+    // }
+}
+{
+    auto pfunc = &func;  // void (*)(int)
+    larg(std::move(pfunc));
+    // template<typename T> void larg(const T & t) {
+    //     CETYPE(T);           // void (*)(int)
+    //     CETYPE(decltype(t)); // void (*const &)(int)
+    // }
+
+    rarg(std::move(pfunc));
+    // template<typename T> void rarg(T && t) {
+    //     CETYPE(T);           // void (*)(int)
+    //     CETYPE(decltype(t)); // void (*&&)(int)
     // }
 }
 ```

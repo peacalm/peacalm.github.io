@@ -71,7 +71,7 @@
 <meta itemprop="name" content="查验C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Result">
 <meta itemprop="description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"><meta itemprop="datePublished" content="2023-05-16T00:25:39+08:00" />
 <meta itemprop="dateModified" content="2023-05-21T00:25:39+08:00" />
-<meta itemprop="wordCount" content="9408">
+<meta itemprop="wordCount" content="9533">
 <meta itemprop="keywords" content="C&#43;&#43;,类型推导,泛型," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="查验C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Result"/>
 <meta name="twitter:description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"/>
@@ -535,6 +535,16 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 </span><span class="lnt">61
 </span><span class="lnt">62
 </span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="p">{</span>
@@ -554,12 +564,16 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 </span></span><span class="line"><span class="cl">    <span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">cfptr</span><span class="p">));</span> <span class="c1">// void (*const)(int)
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// static_cast on rvalue reference to function returns lvalue
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="o">&amp;&amp;</span><span class="p">)(</span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;</span><span class="p">(</span><span class="n">func</span><span class="p">)));</span>  <span class="c1">// void (&amp;)(int)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">(</span><span class="o">&amp;</span><span class="p">)(</span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;</span><span class="p">(</span><span class="n">func</span><span class="p">)));</span>   <span class="c1">// void (&amp;)(int)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// so, std::move on function returns lvalue reference
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">func</span><span class="p">)));</span>  <span class="c1">// void (&amp;)(int)
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl">    <span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="o">&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">func</span><span class="p">)));</span> <span class="c1">// void (*)(int)
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="o">&amp;</span><span class="n">func</span><span class="p">)));</span> <span class="c1">// void (*&amp;&amp;)(int)
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">    <span class="k">decltype</span><span class="p">(</span><span class="n">func</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">prfunc</span> <span class="o">=</span> <span class="n">func</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// explicitly define a rvalue reference to function
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">decltype</span><span class="p">(</span><span class="n">func</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">prfunc</span> <span class="o">=</span> <span class="n">func</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">prfunc</span><span class="p">));</span>  <span class="c1">// void (&amp;&amp;)(int)
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -599,6 +613,12 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 </span></span><span class="line"><span class="cl">    <span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">clref</span><span class="p">));</span> <span class="c1">// void (*const &amp;)(int)
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">auto</span> <span class="o">&amp;&amp;</span> <span class="n">rref</span> <span class="o">=</span> <span class="n">pfunc</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">rref</span><span class="p">));</span>  <span class="c1">// void (*&amp;)(int)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ref of move
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">const</span> <span class="k">auto</span> <span class="o">&amp;</span> <span class="n">clref_of_move</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">pfunc</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">clref_of_move</span><span class="p">));</span>  <span class="c1">// void (*const &amp;)(int)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">auto</span> <span class="o">&amp;&amp;</span> <span class="n">rref_of_move</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">pfunc</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">rref_of_move</span><span class="p">));</span>  <span class="c1">// void (*&amp;&amp;)(int)
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -681,6 +701,20 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 </span><span class="lnt">51
 </span><span class="lnt">52
 </span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="p">{</span>
@@ -734,6 +768,20 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 </span></span><span class="line"><span class="cl">    <span class="c1">// template&lt;typename T&gt; void rarg(T &amp;&amp; t) {
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//     CETYPE(T);           // void (*&amp;)(int)
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//     CETYPE(decltype(t)); // void (*&amp;)(int)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// }
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">pfunc</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">func</span><span class="p">;</span>  <span class="c1">// void (*)(int)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">larg</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">pfunc</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// template&lt;typename T&gt; void larg(const T &amp; t) {
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//     CETYPE(T);           // void (*)(int)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//     CETYPE(decltype(t)); // void (*const &amp;)(int)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// }
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="n">rarg</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">pfunc</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// template&lt;typename T&gt; void rarg(T &amp;&amp; t) {
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//     CETYPE(T);           // void (*)(int)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//     CETYPE(decltype(t)); // void (*&amp;&amp;)(int)
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// }
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
