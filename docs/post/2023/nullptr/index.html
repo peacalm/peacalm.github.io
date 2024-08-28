@@ -71,7 +71,7 @@
 <meta itemprop="name" content="&#34;nullptr&#34;是指针类型吗？如何用C&#43;&#43;的方式把&#34;T*&#34;转换成&#34;void*&#34; | Is &#34;nullptr&#34; a Pointer Type? How to Convert &#34;T*&#34; to &#34;void*&#34; by C&#43;&#43; Way">
 <meta itemprop="description" content="nullptr是指针类型吗？ nullptr是C&#43;&#43;里预定义的一个变量，它的类型是std::nullptr_t。 判断一个类型是否是指针类型，可"><meta itemprop="datePublished" content="2023-06-15T19:58:20+08:00" />
 <meta itemprop="dateModified" content="2023-06-17T19:58:20+08:00" />
-<meta itemprop="wordCount" content="1703">
+<meta itemprop="wordCount" content="1704">
 <meta itemprop="keywords" content="C&#43;&#43;," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="&#34;nullptr&#34;是指针类型吗？如何用C&#43;&#43;的方式把&#34;T*&#34;转换成&#34;void*&#34; | Is &#34;nullptr&#34; a Pointer Type? How to Convert &#34;T*&#34; to &#34;void*&#34; by C&#43;&#43; Way"/>
 <meta name="twitter:description" content="nullptr是指针类型吗？ nullptr是C&#43;&#43;里预定义的一个变量，它的类型是std::nullptr_t。 判断一个类型是否是指针类型，可"/>
@@ -492,7 +492,7 @@
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>可见<code>std::nullptr_t</code>不是指针类型，可能是类似类的类型。
-所以当然可以构造出指向<code>std::nullptr_t</code>的指针类型了，例如<code>std::nullptr_ *</code>，<code>const std::nullptr_ *</code>等。
+所以当然可以构造出指向<code>std::nullptr_t</code>的指针类型了，例如<code>std::nullptr_t *</code>，<code>const std::nullptr_t *</code>等。
 那么<code>std::nullptr_t</code>是类类型吗？</p>
 <h3 id="nullptr是类类型吗">nullptr是类类型吗？</h3>
 <p>通过以上源码可以看出<code>std::nullptr_t</code>通过宏开关设置了两种实现方式，

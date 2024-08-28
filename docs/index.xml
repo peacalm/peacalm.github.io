@@ -164,7 +164,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;可见&lt;code&gt;std::nullptr_t&lt;/code&gt;不是指针类型，可能是类似类的类型。
-所以当然可以构造出指向&lt;code&gt;std::nullptr_t&lt;/code&gt;的指针类型了，例如&lt;code&gt;std::nullptr_ *&lt;/code&gt;，&lt;code&gt;const std::nullptr_ *&lt;/code&gt;等。
+所以当然可以构造出指向&lt;code&gt;std::nullptr_t&lt;/code&gt;的指针类型了，例如&lt;code&gt;std::nullptr_t *&lt;/code&gt;，&lt;code&gt;const std::nullptr_t *&lt;/code&gt;等。
 那么&lt;code&gt;std::nullptr_t&lt;/code&gt;是类类型吗？&lt;/p&gt;
 &lt;h3 id=&#34;nullptr是类类型吗&#34;&gt;nullptr是类类型吗？&lt;/h3&gt;
 &lt;p&gt;通过以上源码可以看出&lt;code&gt;std::nullptr_t&lt;/code&gt;通过宏开关设置了两种实现方式，

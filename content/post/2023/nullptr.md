@@ -95,7 +95,7 @@ namespace std
 ```
 
 可见`std::nullptr_t`不是指针类型，可能是类似类的类型。
-所以当然可以构造出指向`std::nullptr_t`的指针类型了，例如`std::nullptr_ *`，`const std::nullptr_ *`等。
+所以当然可以构造出指向`std::nullptr_t`的指针类型了，例如`std::nullptr_t *`，`const std::nullptr_t *`等。
 那么`std::nullptr_t`是类类型吗？
 
 

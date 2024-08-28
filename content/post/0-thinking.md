@@ -8,7 +8,7 @@ categories: []
 ---
 
 - Books
-  - ~~C~~SAPP, ~~DDIA~~, ModernC++D, LargeScaleCSD, PiLua, DesignP
+  - ~~C~~SAPP, ~~DDIA~~, ModernC++D, LargeScaleCSD, ~~PiLua~~, DesignP
   - ~~SLM~~, ~~DeepLearningRec~~, ML, DL, TF-DL
   - ~~LargeScale~~DistributedStorageSystem
 
