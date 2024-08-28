@@ -105,6 +105,9 @@ void func(int) {}
     // explicitly define a rvalue reference to function
     decltype(func) && prfunc = func;
     CETYPE(decltype(prfunc));  // void (&&)(int)
+
+    // again, std::move on rvalue reference to function also returns lvalue reference
+    CETYPE(decltype(std::move(prfunc)));  // void (&)(int)
 }
 
 // references

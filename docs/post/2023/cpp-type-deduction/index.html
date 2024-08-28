@@ -71,7 +71,7 @@
 <meta itemprop="name" content="查验C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Result">
 <meta itemprop="description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"><meta itemprop="datePublished" content="2023-05-16T00:25:39+08:00" />
 <meta itemprop="dateModified" content="2023-05-21T00:25:39+08:00" />
-<meta itemprop="wordCount" content="9533">
+<meta itemprop="wordCount" content="9552">
 <meta itemprop="keywords" content="C&#43;&#43;,类型推导,泛型," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="查验C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Result"/>
 <meta name="twitter:description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"/>
@@ -545,6 +545,9 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 </span><span class="lnt">71
 </span><span class="lnt">72
 </span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-C++" data-lang="C++"><span class="line"><span class="cl"><span class="p">{</span>
@@ -575,6 +578,9 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 </span></span><span class="line"><span class="cl">    <span class="c1">// explicitly define a rvalue reference to function
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">decltype</span><span class="p">(</span><span class="n">func</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">prfunc</span> <span class="o">=</span> <span class="n">func</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">prfunc</span><span class="p">));</span>  <span class="c1">// void (&amp;&amp;)(int)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// again, std::move on rvalue reference to function also returns lvalue reference
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">CETYPE</span><span class="p">(</span><span class="k">decltype</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">prfunc</span><span class="p">)));</span>  <span class="c1">// void (&amp;)(int)
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// references
