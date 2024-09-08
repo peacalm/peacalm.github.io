@@ -49,7 +49,7 @@ App --> Cache --> DataSource
   * Peek:          本次Query只读取Cache数据，即使Miss或Expired也不从数据源服务获取最新数据，可用于窥测Cache状态，或保护后端数据源服务。
   * Stale:         本次Query读取Cache数据时，可以接受过期的数据。
   * StaleFailover: 本次Query如果从远程数据源服务读取数据失败，则可以接受Cache中的过期的数据。
-  * Fast:          本次Query只返回Cache里的数据，如果Miss或Expired，则发送eload任务刷新缓存，不阻塞当前Query。
+  * Fast:          本次Query只返回Cache里的数据，如果Miss或Expired，则发送Reload任务刷新缓存，不阻塞当前Query。
   * Preload:       本次Query如果在Cache中读取到合法数据，但是数据快过期了（比如已过了过期时间的80%，阈值可配置），则发送一个Reload任务来刷新缓存。
   * ReturnExpired: 本次Query如果在Cache中读到了过期的数据，则把过期的数据也一起返回，供用户自主决定处理方式。
 * 内置线程池可执行Reload任务，从数据源服务获取数据并填充Cache。
