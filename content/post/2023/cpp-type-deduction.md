@@ -813,6 +813,30 @@ struct detect_cfunction<Return (Object::*)(Args..., ...) const> {
   using type = Return (*)(Args..., ...);
 };
 
+#if __cplusplus >= 201703
+
+template <typename Object, typename Return, typename... Args>
+struct detect_cfunction<Return (Object::*)(Args...) noexcept> {
+  using type = Return (*)(Args...) noexcept;
+};
+
+template <typename Object, typename Return, typename... Args>
+struct detect_cfunction<Return (Object::*)(Args...) const noexcept> {
+  using type = Return (*)(Args...) noexcept;
+};
+
+template <typename Object, typename Return, typename... Args>
+struct detect_cfunction<Return (Object::*)(Args..., ...) noexcept> {
+  using type = Return (*)(Args..., ...) noexcept;
+};
+
+template <typename Object, typename Return, typename... Args>
+struct detect_cfunction<Return (Object::*)(Args..., ...) const noexcept> {
+  using type = Return (*)(Args..., ...) noexcept;
+};
+
+#endif
+
 template <typename T>
 using detect_cfunction_t = typename detect_cfunction<T>::type;
 
@@ -822,6 +846,13 @@ template <typename T, typename = void>
 struct detect_callee {
   using type = void;
 };
+
+#if __cplusplus < 201703
+namespace std {
+  template <typename T>
+  using void_t = void;
+}
+#endif
 
 template <typename T>
 struct detect_callee<T, std::void_t<decltype(&T::operator())>> {
