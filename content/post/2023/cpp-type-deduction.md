@@ -912,6 +912,16 @@ int main() {
     auto l8 = [=](int){};
     TEST(decltype(l8));
     
+    auto l9 = [](int) noexcept {};
+    TEST(decltype(l9));
+    auto l10 = [](int, ...) noexcept {};
+    TEST(decltype(l10));
+
+    auto l11 = [](auto) noexcept {};
+    TEST(decltype(l11));
+    auto l12 = [=](int) noexcept {};
+    TEST(decltype(l12));
+
     TEST(A);
     TEST(B);
     TEST(B&);
@@ -948,6 +958,10 @@ std::decay_t<decltype(l5)>: true
 decltype(l6): false
 decltype(l7): false
 decltype(l8): false
+decltype(l9): true
+decltype(l10): true
+decltype(l11): false
+decltype(l12): false
 A: false
 B: false
 B&: false
