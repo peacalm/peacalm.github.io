@@ -1090,6 +1090,7 @@ void*: false
 ```
 
 ### 2. 判断一个类型是否是C语言函数类型或其指针类型
+
 ```C++
 // whether T is C function
 
@@ -1101,6 +1102,16 @@ struct is_cfunction<Return(Args...)> : std::true_type {};
 
 template <typename Return, typename... Args>
 struct is_cfunction<Return(Args..., ...)> : std::true_type {};
+
+#if __cplusplus >= 201703
+
+template <typename Return, typename... Args>
+struct is_cfunction<Return(Args...) noexcept> : std::true_type {};
+
+template <typename Return, typename... Args>
+struct is_cfunction<Return(Args..., ...) noexcept> : std::true_type {};
+
+#endif
 
 // whether T is C function pointer
 template <typename T>
@@ -1317,11 +1328,14 @@ void*: false
 ```
 
 测试decay_is_callable结果如下：
+
 ```C++
 #define TEST(x) std::cout << #x << ": " << decay_is_callable<x>::value << std::endl;
 // 代码同上，这里省略
 ```
+
 输出：
+
 ```txt
 decltype(l1): true
 decltype(l2): true
