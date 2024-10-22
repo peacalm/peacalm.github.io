@@ -1642,9 +1642,9 @@ C++的选择是不这么做，否则的话，还要再提供一种成员引用�
 std::is_reference, std::is_const, std::is_volatile判断出来了，结果永远是false。
 而C语言函数形式的函数类型的引用不属于函数签名的一部分，可以通过std::is_reference判断出来。&lt;/p&gt;
 &lt;h3 id=&#34;小结-1&#34;&gt;小结&lt;/h3&gt;
-&lt;p&gt;由以上可得，对函数类型进行 add c/v/ref 或 remove c/v/ref 操作时，
+&lt;p&gt;由以上可得，对函数类型进行 add/remove const/volatile/reference 等操作时，
 &lt;strong&gt;如果某种属性是属于函数签名的一部分，那么这种属性就是这个基本类型的一部分，它是不会被改变的。&lt;/strong&gt;
-而且，&lt;strong&gt;当某种属性属于函数签名的一部分时，是无法通过 is c/v/ref 判断出是否具有这种属性的。&lt;/strong&gt;&lt;/p&gt;
+而且，&lt;strong&gt;当某种属性属于函数签名的一部分时，是无法通过 is const/volatile/reference 等判断出是否具有这种属性的。&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;可以这样理解：把函数签名整体当成一个黑盒，黑盒内部的函数签名形式上是否具有某种属性是不可见的，
 也不可伸入黑盒内部对函数签名进行修改。&lt;/p&gt;
 &lt;p&gt;函数签名中具有&lt;strong&gt;尾置的const、volatile、引用&lt;/strong&gt;的函数类型是不完整成员函数类型，不能对其添加指针和引用，否则可以。&lt;/p&gt;

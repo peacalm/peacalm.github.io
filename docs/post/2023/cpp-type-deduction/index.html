@@ -71,7 +71,7 @@
 <meta itemprop="name" content="查验C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Result">
 <meta itemprop="description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"><meta itemprop="datePublished" content="2023-05-16T00:25:39+08:00" />
 <meta itemprop="dateModified" content="2023-05-21T00:25:39+08:00" />
-<meta itemprop="wordCount" content="10381">
+<meta itemprop="wordCount" content="10380">
 <meta itemprop="keywords" content="C&#43;&#43;,类型推导,泛型," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="查验C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Result"/>
 <meta name="twitter:description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"/>
@@ -1621,9 +1621,9 @@ C++的选择是不这么做，否则的话，还要再提供一种成员引用�
 std::is_reference, std::is_const, std::is_volatile判断出来了，结果永远是false。
 而C语言函数形式的函数类型的引用不属于函数签名的一部分，可以通过std::is_reference判断出来。</p>
 <h3 id="小结-1">小结</h3>
-<p>由以上可得，对函数类型进行 add c/v/ref 或 remove c/v/ref 操作时，
+<p>由以上可得，对函数类型进行 add/remove const/volatile/reference 等操作时，
 <strong>如果某种属性是属于函数签名的一部分，那么这种属性就是这个基本类型的一部分，它是不会被改变的。</strong>
-而且，<strong>当某种属性属于函数签名的一部分时，是无法通过 is c/v/ref 判断出是否具有这种属性的。</strong></p>
+而且，<strong>当某种属性属于函数签名的一部分时，是无法通过 is const/volatile/reference 等判断出是否具有这种属性的。</strong></p>
 <p>可以这样理解：把函数签名整体当成一个黑盒，黑盒内部的函数签名形式上是否具有某种属性是不可见的，
 也不可伸入黑盒内部对函数签名进行修改。</p>
 <p>函数签名中具有<strong>尾置的const、volatile、引用</strong>的函数类型是不完整成员函数类型，不能对其添加指针和引用，否则可以。</p>
