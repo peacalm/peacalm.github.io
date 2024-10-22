@@ -541,15 +541,17 @@ std::is_function<void(int) &>::value;
 std::is_function<void(int) &&>::value;
 ```
 ## 对函数类型进行add pointer/c/v/r, remove c/v/r等操作是什么结果？
-以上48种函数类型形式其实可分成两类，
+以上48种函数类型形式其实可分成两类。
+
 第一类是**C语言函数形式**的函数类型，上文也提到，C++规定它们不允许有const和volatile属性，
 当然它不是成员函数自然也不能有成员函数引用属性，只能有可变长实参属性和noexcept属性；
-剩下的就是第二类，**非C语言函数形式**的函数类型，凡是具有const属性、volatile属性、
-成员函数引用属性的都属于这类，这一类更像是成员函数，但是不具有母类类型信息，不是完整的成员函数类型，
-姑且叫**成员函数形式**的函数类型吧。
 
-用cppreference的说法，也可以说成第一类是**not cv- or ref- qualified** function type，
-第二类是**cv- or ref- qualified** function type.
+剩下的就是第二类，**非C语言函数形式**的函数类型，凡是具有const属性、volatile属性、
+成员函数引用属性 的都属于这类，这一类更像是成员函数，但是不具有母类类型信息，不是完整的成员函数类型，
+姑且叫**成员函数形式**的函数类型或者**不完整成员函数类型**吧。
+
+用cppreference的说法，也可以说成第一类是"**not cv- or ref- qualified** function type"，
+第二类是"**cv- or ref- qualified** function type".
 不过也许说成C语言函数形式和成员函数形式，理解它们一个是完整的，一个是不完整的，
 可能能更好得理解它们为什么会有以下令人费解令人诧异的不同表现。
 
