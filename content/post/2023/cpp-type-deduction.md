@@ -236,6 +236,9 @@ template<typename T> void rarg(T && t) {
     // }
 }
 ```
+
+#### 小结：
+
 可见，函数模版参数`const T & t`与定义引用`const auto & r = ...`推导结果一致，
 函数模版参数`T && t`与定义引用`auto && r = ...`推导结果一致。
 

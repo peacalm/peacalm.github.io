@@ -815,7 +815,8 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;可见，函数模版参数&lt;code&gt;const T &amp;amp; t&lt;/code&gt;与定义引用&lt;code&gt;const auto &amp;amp; r = ...&lt;/code&gt;推导结果一致，
+&lt;/div&gt;&lt;h4 id=&#34;小结&#34;&gt;小结：&lt;/h4&gt;
+&lt;p&gt;可见，函数模版参数&lt;code&gt;const T &amp;amp; t&lt;/code&gt;与定义引用&lt;code&gt;const auto &amp;amp; r = ...&lt;/code&gt;推导结果一致，
 函数模版参数&lt;code&gt;T &amp;amp;&amp;amp; t&lt;/code&gt;与定义引用&lt;code&gt;auto &amp;amp;&amp;amp; r = ...&lt;/code&gt;推导结果一致。&lt;/p&gt;
 &lt;p&gt;特别的，&lt;strong&gt;std::move 或 std::forward 作用于函数类型时返回的总是 lvalue &lt;code&gt;FunctionType&amp;amp;&lt;/code&gt; 而不是&lt;code&gt;FunctionType&amp;amp;&amp;amp;&lt;/code&gt;&lt;/strong&gt;。
 这是因为 &lt;code&gt;static_cast&amp;lt;FunctionType&amp;amp;&amp;amp;&amp;gt;(func)&lt;/code&gt; 返回的是 &lt;code&gt;FunctionType&amp;amp;&lt;/code&gt; 而不是 &lt;code&gt;FunctionType&amp;amp;&amp;amp;&lt;/code&gt;。&lt;/p&gt;
