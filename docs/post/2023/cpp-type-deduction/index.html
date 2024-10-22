@@ -71,7 +71,7 @@
 <meta itemprop="name" content="查验C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Result">
 <meta itemprop="description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"><meta itemprop="datePublished" content="2023-05-16T00:25:39+08:00" />
 <meta itemprop="dateModified" content="2023-05-21T00:25:39+08:00" />
-<meta itemprop="wordCount" content="9875">
+<meta itemprop="wordCount" content="10141">
 <meta itemprop="keywords" content="C&#43;&#43;,类型推导,泛型," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="查验C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Result"/>
 <meta name="twitter:description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"/>
@@ -340,6 +340,7 @@
         <li><a href="#add-reference-and-remove-reference">add reference and remove reference</a></li>
         <li><a href="#add-pointer-add-constvolatile-remove-constvolatile">add pointer, add const/volatile, remove const/volatile</a></li>
         <li><a href="#is_reference-is_const-is_volatile">is_reference, is_const, is_volatile</a></li>
+        <li><a href="#小结-1">小结</a></li>
       </ul>
     </li>
     <li><a href="#如何判断一个类型是否是-stdfunction">如何判断一个类型是否是 std::function</a>
@@ -1412,7 +1413,8 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">add_rvalue_reference_t</span><span class="o">&lt;</span><span class="kt">void</span> <span class="p">(</span><span class="o">&amp;&amp;</span><span class="p">)(</span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;</span><span class="p">);</span>  <span class="c1">// void (&amp;&amp;)(int)
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>可见这些函数类型都被添加了引用，不过应该注意这个是常规引用，不是成员函数引用，这个引用不影响函数签名。
+</div><p>可见这些函数类型都被添加了引用，不过应该注意这个是常规引用，不是成员函数引用，这个引用
+<strong>不影响函数签名</strong>。
 顺便提一下，对以上输出的带引用的类型施加std::remove_reference_t当然也会回到原输入类型。</p>
 <p>针对成员函数形式的函数类型add和remove引用结果如下：</p>
 <div class="highlight"><div class="chroma">
@@ -1473,14 +1475,17 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 <ul>
 <li>C语言函数形式的函数类型可以添加引用，而成员函数形式的函数类型本身自带的引用属性不会被更改。</li>
 </ul>
-<p>成员函数的引用，在这里由于成为了函数签名的一部分，属于函数类型的一部分，所以这时的引用就与普通常规引用大不相同，
-似乎比普通引用的地位更高一等，是不能通过std::add_lvalue_reference, std::remove_reference等被改变的。</p>
+<p>成员函数的引用，在这里由于<strong>成为了函数签名的一部分，属于函数类型的一部分</strong>，所以这时的引用就与普通常规引用大不相同，
+比普通引用的地位更高一等，是不能通过std::add_lvalue_reference, std::remove_reference等被改变的。</p>
 <p>那么这类引用就太特殊了，凭什么都是函数类型，一些能被添加引用和去除引用，而另一种不能呢？
 是否应该把它定义为另外一类引用，或者另外起一个名字称为另外一类功能？
 然后与常规引用不冲突，再可以添加常规引用呢？那么可能就会出现形如<code>void (&amp;)(int) const &amp;&amp;</code>
 之类的东西了。😂复杂程度又增加了，不过好像又能够和第一类函数类型保持一致了，是好还是不好呢？
 C++的选择是不这么做，否则的话，还要再提供一种成员引用的功能与之匹配。C++现在已经有一种
-成员指针的功能，即Pointer-to-member operator <code>.*</code>和<code>-&gt;*</code>，这已经够用了。</p>
+成员指针的功能，即Pointer-to-member operator <code>.*</code>和<code>-&gt;*</code>，这已经够用了。
+而且，从函数类型完整性上也可以理解，C语言函数形式的函数类型是完整的，可以指向某个具体的函数实体，
+因此对它添加指针或引用时有意义的，而成员函数形式的函数类型是不完整的，缺乏母类信息，不能指向某个
+具体的成员函数，对它添加指针或引用是没有意义的，因此C++选择没有增加不必要的复杂度。</p>
 <h3 id="add-pointer-add-constvolatile-remove-constvolatile">add pointer, add const/volatile, remove const/volatile</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1541,11 +1546,8 @@ C++的选择是不这么做，否则的话，还要再提供一种成员引用�
 因为它不具有包含它的母类的类型信息，所以不难理解它不能被添加指针。</p>
 <p>实际上，如果强制为其添加指针，会导致编译报错，std::add_pointer_t里面规避了这点，
 对于不能添加指针的类型，返回了输入类型本身。</p>
-<p>由此可见，<strong>对于函数类型来讲，如果某种属性是属于函数签名的一部分，那么这种属性就是这个基本类型的一部分，它是不会被改变的。</strong></p>
-<p>而且，<strong>当某种属性属于函数签名的一部分时，是无法通过std::is_xxx判断出是否具有这种属性的。</strong>
-可以这样理解：把这个函数签名整体当成一个黑盒，黑盒内部的函数签名形式上是否具有某种属性是不可见的。</p>
 <h3 id="is_reference-is_const-is_volatile">is_reference, is_const, is_volatile</h3>
-<p>用std::is_const, std::is_references校验一下：</p>
+<p>对函数类型进行 std::is_const, std::is_references 判断：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1587,7 +1589,15 @@ C++的选择是不这么做，否则的话，还要再提供一种成员引用�
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>可见当const、volatile和引用等属性成为函数签名即成为函数类型的一部分的时候，这种属性就不能用
-std::is_reference, std::is_const, std::is_volatile判断出来了，结果永远是false。</p>
+std::is_reference, std::is_const, std::is_volatile判断出来了，结果永远是false。
+而C语言函数形式的函数类型的引用不属于函数签名的一部分，可以通过std::is_reference判断出来。</p>
+<h3 id="小结-1">小结</h3>
+<p>由以上可得，<strong>对于函数类型来讲，如果某种属性是属于函数签名的一部分，那么这种属性就是这个基本类型的一部分，它是不会被改变的。</strong>
+而且，<strong>当某种属性属于函数签名的一部分时，是无法通过std::is_xxx判断出是否具有这种属性的。</strong></p>
+<p>可以这样理解：把函数签名整体当成一个黑盒，黑盒内部的函数签名形式上是否具有某种属性是不可见的，
+也不可伸入黑盒内部对函数签名进行修改。</p>
+<p>函数签名中具有<strong>尾置的const、volatile、引用</strong>的函数类型是不完整成员函数类型，不能对其添加指针和引用，否则可以。</p>
+<p>所有函数类型都不能add或remove const/volatile.</p>
 <h2 id="如何判断一个类型是否是-stdfunction">如何判断一个类型是否是 std::function</h2>
 <p>std::function是对函数的封装，它接受一个模板参数，该模版参数应该是一个函数类型。
 经过以上讨论，我们知道函数类型有48种形式，那么是否每一种std::function都支持呢？

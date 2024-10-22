@@ -574,7 +574,8 @@ CETYPE(std::add_rvalue_reference_t<void (&)(int)>);   // void (&)(int)
 CETYPE(std::add_lvalue_reference_t<void (&&)(int)>);  // void (&)(int)
 CETYPE(std::add_rvalue_reference_t<void (&&)(int)>);  // void (&&)(int)
 ```
-可见这些函数类型都被添加了引用，不过应该注意这个是常规引用，不是成员函数引用，这个引用不影响函数签名。
+可见这些函数类型都被添加了引用，不过应该注意这个是常规引用，不是成员函数引用，这个引用
+**不影响函数签名**。
 顺便提一下，对以上输出的带引用的类型施加std::remove_reference_t当然也会回到原输入类型。
 
 针对成员函数形式的函数类型add和remove引用结果如下：
@@ -608,8 +609,8 @@ CETYPE(std::remove_reference_t<void(int) volatile && noexcept>); // void (int) v
 
 * C语言函数形式的函数类型可以添加引用，而成员函数形式的函数类型本身自带的引用属性不会被更改。
 
-成员函数的引用，在这里由于成为了函数签名的一部分，属于函数类型的一部分，所以这时的引用就与普通常规引用大不相同，
-似乎比普通引用的地位更高一等，是不能通过std::add_lvalue_reference, std::remove_reference等被改变的。
+成员函数的引用，在这里由于**成为了函数签名的一部分，属于函数类型的一部分**，所以这时的引用就与普通常规引用大不相同，
+比普通引用的地位更高一等，是不能通过std::add_lvalue_reference, std::remove_reference等被改变的。
 
 那么这类引用就太特殊了，凭什么都是函数类型，一些能被添加引用和去除引用，而另一种不能呢？
 是否应该把它定义为另外一类引用，或者另外起一个名字称为另外一类功能？
@@ -617,6 +618,9 @@ CETYPE(std::remove_reference_t<void(int) volatile && noexcept>); // void (int) v
 之类的东西了。😂复杂程度又增加了，不过好像又能够和第一类函数类型保持一致了，是好还是不好呢？
 C++的选择是不这么做，否则的话，还要再提供一种成员引用的功能与之匹配。C++现在已经有一种
 成员指针的功能，即Pointer-to-member operator `.*`和`->*`，这已经够用了。
+而且，从函数类型完整性上也可以理解，C语言函数形式的函数类型是完整的，可以指向某个具体的函数实体，
+因此对它添加指针或引用时有意义的，而成员函数形式的函数类型是不完整的，缺乏母类信息，不能指向某个
+具体的成员函数，对它添加指针或引用是没有意义的，因此C++选择没有增加不必要的复杂度。
 
 
 ### add pointer, add const/volatile, remove const/volatile
@@ -655,13 +659,8 @@ C语言函数形式的函数类型是完整的函数类型，但成员函数形�
 实际上，如果强制为其添加指针，会导致编译报错，std::add_pointer_t里面规避了这点，
 对于不能添加指针的类型，返回了输入类型本身。
 
-由此可见，**对于函数类型来讲，如果某种属性是属于函数签名的一部分，那么这种属性就是这个基本类型的一部分，它是不会被改变的。**
-
-而且，**当某种属性属于函数签名的一部分时，是无法通过std::is_xxx判断出是否具有这种属性的。**
-可以这样理解：把这个函数签名整体当成一个黑盒，黑盒内部的函数签名形式上是否具有某种属性是不可见的。
-
 ### is_reference, is_const, is_volatile
-用std::is_const, std::is_references校验一下：
+对函数类型进行 std::is_const, std::is_references 判断：
 
 ```C++
 std::cout << std::boolalpha;
@@ -684,6 +683,19 @@ std::cout << std::is_reference_v<void (&)(int) noexcept> << std::endl;
 ```
 可见当const、volatile和引用等属性成为函数签名即成为函数类型的一部分的时候，这种属性就不能用
 std::is_reference, std::is_const, std::is_volatile判断出来了，结果永远是false。
+而C语言函数形式的函数类型的引用不属于函数签名的一部分，可以通过std::is_reference判断出来。
+
+### 小结
+
+由以上可得，**对于函数类型来讲，如果某种属性是属于函数签名的一部分，那么这种属性就是这个基本类型的一部分，它是不会被改变的。**
+而且，**当某种属性属于函数签名的一部分时，是无法通过std::is_xxx判断出是否具有这种属性的。**
+
+可以这样理解：把函数签名整体当成一个黑盒，黑盒内部的函数签名形式上是否具有某种属性是不可见的，
+也不可伸入黑盒内部对函数签名进行修改。
+
+函数签名中具有**尾置的const、volatile、引用**的函数类型是不完整成员函数类型，不能对其添加指针和引用，否则可以。
+
+所有函数类型都不能add或remove const/volatile.
 
 ## 如何判断一个类型是否是 std::function
 std::function是对函数的封装，它接受一个模板参数，该模版参数应该是一个函数类型。
