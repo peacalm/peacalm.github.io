@@ -71,7 +71,7 @@
 <meta itemprop="name" content="查验C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Result">
 <meta itemprop="description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"><meta itemprop="datePublished" content="2023-05-16T00:25:39+08:00" />
 <meta itemprop="dateModified" content="2023-05-21T00:25:39+08:00" />
-<meta itemprop="wordCount" content="10380">
+<meta itemprop="wordCount" content="10391">
 <meta itemprop="keywords" content="C&#43;&#43;,类型推导,泛型," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="查验C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Result"/>
 <meta name="twitter:description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"/>
@@ -1414,8 +1414,8 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">CETYPE</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">add_rvalue_reference_t</span><span class="o">&lt;</span><span class="kt">void</span> <span class="p">(</span><span class="o">&amp;&amp;</span><span class="p">)(</span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;</span><span class="p">);</span>  <span class="c1">// void (&amp;&amp;)(int)
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>可见这些函数类型都被添加了引用，不过应该注意这个是常规引用，不是成员函数引用，这个引用
-<strong>不影响函数签名</strong>。
+</div><p>可见这些函数类型都被添加了引用，不过应该注意这个是常规引用（某种类型整体的引用），
+不是成员函数引用，这个引用<strong>不影响函数签名</strong>。
 顺便提一下，对以上输出的带引用的类型施加std::remove_reference_t当然也会回到原输入类型。</p>
 <p>针对成员函数形式的函数类型add和remove引用结果如下：</p>
 <div class="highlight"><div class="chroma">
@@ -1485,7 +1485,7 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 C++的选择是不这么做，否则的话，还要再提供一种成员引用的功能与之匹配。C++现在已经有一种
 成员指针的功能，即Pointer-to-member operator <code>.*</code>和<code>-&gt;*</code>，这已经够用了。
 而且，从函数类型完整性上也可以理解，C语言函数形式的函数类型是完整的，可以指向某个具体的函数实体，
-因此对它添加指针或引用时有意义的，而成员函数形式的函数类型是不完整的，缺乏母类信息，不能指向某个
+因此对它添加指针或引用是有意义的，而成员函数形式的函数类型是不完整的，缺乏母类信息，不能指向某个
 具体的成员函数，对它添加指针或引用是没有意义的，因此C++选择没有增加不必要的复杂度。</p>
 <p>如果把尾置的引用当成函数类型的一部分，不把它理解成常规引用（某种类型整体的引用），而add/remove reference针对的是常规引用，那么也可以理解为：</p>
 <ul>
