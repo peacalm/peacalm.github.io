@@ -1564,7 +1564,9 @@ C++的选择是不这么做，否则的话，还要再提供一种成员引用�
 因为它不具有包含它的母类的类型信息，所以不难理解它不能被添加指针。&lt;/p&gt;
 &lt;p&gt;实际上，如果强制为其添加指针，会导致编译报错，std::add_pointer_t里面规避了这点，
 对于不能添加指针的类型，返回了输入类型本身。&lt;/p&gt;
-&lt;p&gt;由此可见，&lt;strong&gt;对于函数类型来讲，如果某种属性是属于函数签名的一部分，那么这种属性就是这个基本类型的一部分，它是不会被改变的，也无法通过std::is_xxx判断出是否具有这种属性。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;由此可见，&lt;strong&gt;对于函数类型来讲，如果某种属性是属于函数签名的一部分，那么这种属性就是这个基本类型的一部分，它是不会被改变的。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;而且，&lt;strong&gt;当某种属性属于函数签名的一部分时，是无法通过std::is_xxx判断出是否具有这种属性的。&lt;/strong&gt;
+可以这样理解：把这个函数签名整体当成一个黑盒，黑盒内部的函数签名形式上是否具有某种属性是不可见的。&lt;/p&gt;
 &lt;h3 id=&#34;is_reference-is_const-is_volatile&#34;&gt;is_reference, is_const, is_volatile&lt;/h3&gt;
 &lt;p&gt;用std::is_const, std::is_references校验一下：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
