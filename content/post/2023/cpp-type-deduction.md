@@ -236,8 +236,7 @@ template<typename T> void rarg(T && t) {
     // }
 }
 ```
-
-#### 小结：
+#### 小结
 
 可见，函数模版参数`const T & t`与定义引用`const auto & r = ...`推导结果一致，
 函数模版参数`T && t`与定义引用`auto && r = ...`推导结果一致。
@@ -619,7 +618,6 @@ CETYPE(std::remove_reference_t<void(int) volatile && noexcept>); // void (int) v
 C++的选择是不这么做，否则的话，还要再提供一种成员引用的功能与之匹配。C++现在已经有一种
 成员指针的功能，即Pointer-to-member operator `.*`和`->*`，这已经够用了。
 
-其实不仅成员函数，数据成员也是不能添加引用的，只能用成员指针（再配合std::mem_fn）。
 
 ### add pointer, add const/volatile, remove const/volatile
 ```C++
@@ -646,19 +644,22 @@ CETYPE(std::remove_cv_t<void(int) const>);             // void (int) const
 CETYPE(std::remove_cv_t<void(int,...) volatile &>);    // void (int, ...) volatile &
 CETYPE(std::remove_cv_t<void(int) const && noexcept>); // void (int) const && noexcept
 ```
+
 可见：
 * C语言函数形式的函数类型可以添加指针，而成员函数形式的函数类型不能添加指针；
 * C语言函数形式的函数类型不能添加cv属性，而成员函数形式的函数类型本身自带的cv属性也不能被更改。
 
 C语言函数形式的函数类型是完整的函数类型，但成员函数形式的函数类型是不完整的，
 因为它不具有包含它的母类的类型信息，所以不难理解它不能被添加指针。
+
 实际上，如果强制为其添加指针，会导致编译报错，std::add_pointer_t里面规避了这点，
 对于不能添加指针的类型，返回了输入类型本身。
 
-由此可见，**对于函数类型来讲，如果某种属性是属于函数签名的一部分，那么这种属性就是这个基本类型的一部分，它是不会被改变的。**
+由此可见，**对于函数类型来讲，如果某种属性是属于函数签名的一部分，那么这种属性就是这个基本类型的一部分，它是不会被改变的，也无法通过std::is_xxx判断出是否具有这种属性。**
 
-用std::is_const, std::is_references校验一下：
 ### is_reference, is_const, is_volatile
+用std::is_const, std::is_references校验一下：
+
 ```C++
 std::cout << std::boolalpha;
 

@@ -71,7 +71,7 @@
 <meta itemprop="name" content="查验C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Result">
 <meta itemprop="description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"><meta itemprop="datePublished" content="2023-05-16T00:25:39+08:00" />
 <meta itemprop="dateModified" content="2023-05-21T00:25:39+08:00" />
-<meta itemprop="wordCount" content="9825">
+<meta itemprop="wordCount" content="9805">
 <meta itemprop="keywords" content="C&#43;&#43;,类型推导,泛型," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="查验C&#43;&#43;类型推导结果 | Check C&#43;&#43; Type Deduction Result"/>
 <meta name="twitter:description" content="如何查看类型 C&#43;&#43;的类型系统是极其复杂的，基本类型与const, volatile, 指针，引用，数组，函数，类，成员变量， 成员函数等特性的组合能生成许多不同的"/>
@@ -792,7 +792,7 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="小结">小结：</h4>
+</div><h4 id="小结">小结</h4>
 <p>可见，函数模版参数<code>const T &amp; t</code>与定义引用<code>const auto &amp; r = ...</code>推导结果一致，
 函数模版参数<code>T &amp;&amp; t</code>与定义引用<code>auto &amp;&amp; r = ...</code>推导结果一致。</p>
 <p>特别的，<strong>std::move 或 std::forward 作用于函数类型时返回的总是 lvalue <code>FunctionType&amp;</code> 而不是<code>FunctionType&amp;&amp;</code></strong>。
@@ -1481,7 +1481,6 @@ C++中可以用std::is_same来判断两个类型是否相同，它没有对输�
 之类的东西了。😂复杂程度又增加了，不过好像又能够和第一类函数类型保持一致了，是好还是不好呢？
 C++的选择是不这么做，否则的话，还要再提供一种成员引用的功能与之匹配。C++现在已经有一种
 成员指针的功能，即Pointer-to-member operator <code>.*</code>和<code>-&gt;*</code>，这已经够用了。</p>
-<p>其实不仅成员函数，数据成员也是不能添加引用的，只能用成员指针（再配合std::mem_fn）。</p>
 <h3 id="add-pointer-add-constvolatile-remove-constvolatile">add pointer, add const/volatile, remove const/volatile</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1539,12 +1538,12 @@ C++的选择是不这么做，否则的话，还要再提供一种成员引用�
 <li>C语言函数形式的函数类型不能添加cv属性，而成员函数形式的函数类型本身自带的cv属性也不能被更改。</li>
 </ul>
 <p>C语言函数形式的函数类型是完整的函数类型，但成员函数形式的函数类型是不完整的，
-因为它不具有包含它的母类的类型信息，所以不难理解它不能被添加指针。
-实际上，如果强制为其添加指针，会导致编译报错，std::add_pointer_t里面规避了这点，
+因为它不具有包含它的母类的类型信息，所以不难理解它不能被添加指针。</p>
+<p>实际上，如果强制为其添加指针，会导致编译报错，std::add_pointer_t里面规避了这点，
 对于不能添加指针的类型，返回了输入类型本身。</p>
-<p>由此可见，<strong>对于函数类型来讲，如果某种属性是属于函数签名的一部分，那么这种属性就是这个基本类型的一部分，它是不会被改变的。</strong></p>
-<p>用std::is_const, std::is_references校验一下：</p>
+<p>由此可见，<strong>对于函数类型来讲，如果某种属性是属于函数签名的一部分，那么这种属性就是这个基本类型的一部分，它是不会被改变的，也无法通过std::is_xxx判断出是否具有这种属性。</strong></p>
 <h3 id="is_reference-is_const-is_volatile">is_reference, is_const, is_volatile</h3>
+<p>用std::is_const, std::is_references校验一下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
