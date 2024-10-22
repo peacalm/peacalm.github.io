@@ -239,7 +239,9 @@ template<typename T> void rarg(T && t) {
 可见，函数模版参数`const T & t`与定义引用`const auto & r = ...`推导结果一致，
 函数模版参数`T && t`与定义引用`auto && r = ...`推导结果一致。
 
-特别的，std::move作用于函数类型时返回的是lvalue `FunctionType&`而不是`FunctionType&&`。
+特别的，**std::move 或 std::forward 作用于函数类型时返回的总是 lvalue `FunctionType&` 而不是`FunctionType&&`**。
+这是因为 `static_cast<FunctionType&&>(func)` 返回的是 `FunctionType&` 而不是 `FunctionType&&`。
+
 
 另外，由于C++规定不是成员函数的函数不能有const、valitale属性，所以
 `const auto & clref = func;`得到clref的类型是`void (&)(int)`，const属性被忽略了。
