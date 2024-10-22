@@ -623,18 +623,38 @@ C++的选择是不这么做，否则的话，还要再提供一种成员引用�
 具体的成员函数，对它添加指针或引用是没有意义的，因此C++选择没有增加不必要的复杂度。
 
 
-### add pointer, add const/volatile, remove const/volatile
+如果把尾置的引用当成函数类型的一部分，不把它理解成常规引用（某种类型整体的引用），而add/remove reference针对的是常规引用，那么也可以理解为：
+* 成员函数形式的函数类型不能添加引用（常规引用）。
+
+### add pointer and remove pointer
 ```C++
 // C语言函数形式，能添加指针
 CETYPE(std::add_pointer_t<void(int)>);              // void (*)(int)
 CETYPE(std::add_pointer_t<void(int,...)>);          // void (*)(int, ...)
 CETYPE(std::add_pointer_t<void(int,...) noexcept>); // void (*)(int, ...) noexcept
 
+// C语言函数指针类型，能去除指针
+CETYPE(std::remove_pointer_t<void (*)(int)>);              // void (int)
+CETYPE(std::remove_pointer_t<void (*)(int,...)>);          // void (int, ...)
+CETYPE(std::remove_pointer_t<void (*)(int,...) noexcept>); // void (int, ...) noexcept
+
 // 成员函数形式，不能添加指针
 CETYPE(std::add_pointer_t<void(int) const>);       // void (int) const
 CETYPE(std::add_pointer_t<void(int,...) &>);       // void (int, ...) &
 CETYPE(std::add_pointer_t<void(int) volatile &&>); // void (int) volatile &&
+```
 
+可见：
+* C语言函数形式的函数类型可以添加指针，而成员函数形式的函数类型不能添加指针；
+
+C语言函数形式的函数类型是完整的函数类型，但成员函数形式的函数类型是不完整的，
+因为它不具有包含它的母类的类型信息，所以不难理解它不能被添加指针。
+
+实际上，如果强制为其添加指针，会导致编译报错，std::add_pointer_t里面规避了这点，
+对于不能添加指针的类型，返回了输入类型本身。
+
+### add const/volatile, remove const/volatile
+```C++
 // C语言函数形式，不能添加cv
 CETYPE(std::add_const_t<void(int)>);           // void (int)
 CETYPE(std::add_volatile_t<void(int,...)>);    // void (int, ...)
@@ -650,14 +670,13 @@ CETYPE(std::remove_cv_t<void(int) const && noexcept>); // void (int) const && no
 ```
 
 可见：
-* C语言函数形式的函数类型可以添加指针，而成员函数形式的函数类型不能添加指针；
 * C语言函数形式的函数类型不能添加cv属性，而成员函数形式的函数类型本身自带的cv属性也不能被更改。
 
-C语言函数形式的函数类型是完整的函数类型，但成员函数形式的函数类型是不完整的，
-因为它不具有包含它的母类的类型信息，所以不难理解它不能被添加指针。
+如果把尾置的cv属性当成函数类型的一部分，而add const/volatile, remove const/volatile
+指的是针对某个类型整体之外添加或去除cv属性，那么也可以理解为：
+* 成员函数形式的函数类型也不能添加cv属性。
 
-实际上，如果强制为其添加指针，会导致编译报错，std::add_pointer_t里面规避了这点，
-对于不能添加指针的类型，返回了输入类型本身。
+也就是，**所有函数类型都不能添加cv属性**。
 
 ### is_reference, is_const, is_volatile
 对函数类型进行 std::is_const, std::is_references 判断：
@@ -695,7 +714,7 @@ std::is_reference, std::is_const, std::is_volatile判断出来了，结果永远
 
 函数签名中具有**尾置的const、volatile、引用**的函数类型是不完整成员函数类型，不能对其添加指针和引用，否则可以。
 
-所有函数类型都不能add或remove const/volatile.
+所有函数类型都不能add const/volatile.
 
 ## 如何判断一个类型是否是 std::function
 std::function是对函数的封装，它接受一个模板参数，该模版参数应该是一个函数类型。
