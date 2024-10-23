@@ -72,7 +72,7 @@ Operations like `lua_isnumber`, `lua_pushinteger`, `lua_isstring` don't mean che
 2. Number is also string.
 3. String is also number if it is convertible to number.
 4. String is always not integer.
-5. `lua_tostring` implicitly convert number to string.
+5. `lua_tostring` will implicitly convert number to string.
 
 #### More to say
 

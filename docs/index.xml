@@ -107,7 +107,7 @@ Here are some explanations for these.
 &lt;li&gt;Number is also string.&lt;/li&gt;
 &lt;li&gt;String is also number if it is convertible to number.&lt;/li&gt;
 &lt;li&gt;String is always not integer.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;lua_tostring&lt;/code&gt; implicitly convert number to string.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;lua_tostring&lt;/code&gt; will implicitly convert number to string.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h4 id=&#34;more-to-say&#34;&gt;More to say&lt;/h4&gt;
 &lt;p&gt;Not like &lt;code&gt;lua_tostring&lt;/code&gt;, &lt;code&gt;luaL_tolstring&lt;/code&gt; won&amp;rsquo;t convert number to string.
