@@ -1408,3 +1408,43 @@ void: false
 int*: false
 void*: false
 ```
+
+## 成员指针类型
+
+### 用子类取基类成员的地址得到什么类型？
+例如：
+```C++
+struct B { 
+  int i = 1;
+};
+struct D: public B {
+};
+int main() {
+  static_assert(std::is_same<decltype(&D::i), int B::*>::value, "Never happen");
+  static_assert(std::is_same<decltype(&D::B::i), int B::*>::value, "Never happen");
+}
+```
+
+可见，用子类取基类成员的地址得到的是基类成员指针类型。如上例中 `&D::i` 就相当于 `&D::B::i`，
+得到的成员指针类型是`int B::*`。
+
+### 成员指针类型书写形式中的类类型，如果是 cv-qualified 会有什么影响？
+例如：
+```C++
+struct B { 
+  int i = 1;
+};
+using ConstB = const B;
+
+int main() {
+  static_assert(std::is_same<int B::*, int ConstB::*>::value, "Never happen");
+  static_assert(std::is_same<int B::*, int std::add_const_t<B>::*>::value, "Never happen");
+  static_assert(std::is_same<int B::*, int std::add_volatile_t<B>::*>::value, "Never happen");
+  static_assert(std::is_same<int B::*, int std::add_cv_t<B>::*>::value, "Never happen");
+}
+```
+
+可见，成员指针类型书写形式中的类类型如果是 cv-qualified，那么C++会自动将其remove_cv，也就是
+视作与相应的 成员指针类型书写形式中类类型是 cv-unqualified 的类型 是同一种类型。
+并不会像给类类型加引用那样编译报错，例如`int std::add_lvalue_reference_t<B>::*`会编译报错 
+"type 'add_lvalue_reference_t\<B\>' (aka 'B &') cannot be used prior to '::' because it has no members"。
