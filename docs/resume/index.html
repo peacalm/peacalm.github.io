@@ -71,7 +71,7 @@
 <meta itemprop="name" content="Resume">
 <meta itemprop="description" content="技能值 Basics: C&#43;&#43;(0.85), Python(0.75), Golang(0.6), Lua(0.6) Data Structures and Algorithms(0.8), Networks(0.6), Operating System(0.6) ML(0.4) Applications: Comment Ranking System(0.9), Recommendation System(0.6) Tools and Frameworks: Git, Redis, Nsq, Kafka, Thrift 工作经历 2017-2022，北京，字节跳动，后端开发工程师。评论排序系统架构和策"><meta itemprop="datePublished" content="2022-06-11T04:30:00+08:00" />
 <meta itemprop="dateModified" content="2022-06-11T04:30:00+08:00" />
-<meta itemprop="wordCount" content="947">
+<meta itemprop="wordCount" content="2825">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Resume"/>
 <meta name="twitter:description" content="技能值 Basics: C&#43;&#43;(0.85), Python(0.75), Golang(0.6), Lua(0.6) Data Structures and Algorithms(0.8), Networks(0.6), Operating System(0.6) ML(0.4) Applications: Comment Ranking System(0.9), Recommendation System(0.6) Tools and Frameworks: Git, Redis, Nsq, Kafka, Thrift 工作经历 2017-2022，北京，字节跳动，后端开发工程师。评论排序系统架构和策"/>
@@ -311,7 +311,19 @@
     <nav id="TableOfContents">
   <ul>
     <li><a href="#技能值">技能值</a></li>
-    <li><a href="#工作经历">工作经历</a></li>
+    <li><a href="#工作经历">工作经历</a>
+      <ul>
+        <li><a href="#字节跳动-2017720226">字节跳动 2017.7~2022.6</a></li>
+      </ul>
+    </li>
+    <li><a href="#个人开源项目">个人开源项目</a>
+      <ul>
+        <li><a href="#cpp-luaw在c项目中使用lua脚本的工具库20232024">cpp-luaw：在C++项目中使用Lua脚本的工具库。——2023~2024</a></li>
+        <li><a href="#cpp-maglev基于maglev一致性哈希算法的动态负载均衡库2022">cpp-maglev：基于Maglev一致性哈希算法的动态负载均衡库。——2022</a></li>
+        <li><a href="#c基础算法代码库学生时期算法学习和c编程学习成果2016">C++基础算法代码库。（学生时期算法学习和C++编程学习成果）——2016</a></li>
+      </ul>
+    </li>
+    <li><a href="#2025专业技能">（2025）专业技能</a></li>
     <li><a href="#教育经历">教育经历</a></li>
     <li><a href="#在校时期专业技能">(在校时期)专业技能</a></li>
     <li><a href="#在校时期获奖情况">(在校时期)获奖情况</a></li>
@@ -364,8 +376,56 @@
 </ul>
 </li>
 </ul>
+<hr>
 <h2 id="工作经历">工作经历</h2>
 <p>2017-2022，北京，字节跳动，后端开发工程师。评论排序系统架构和策略，推荐系统架构和策略。</p>
+<h3 id="字节跳动-2017720226">字节跳动 2017.7~2022.6</h3>
+<h4 id="1-评论排序系统架构和排序功能策略开发负责人">1. 评论排序系统架构和排序功能策略开发负责人</h4>
+<p>全权负责字节跳动评论中台评论排序服务架构开发、优化和排序业务功能以及排序策略开发。</p>
+<p>经历评论浏览峰值从10万QPS到100万QPS量级增长期间的在线服务架构持续优化。稳定性几乎持续保持在三个九以上，数年来保持自己一个人运维无问题。</p>
+<p>经历评论日发表量从千万到几亿量级增长期间离线评论排序索引更新服务的架构持续优化。服务性能、更新可靠性、实时性、对复杂多样业务需求的支持能力持续提高。</p>
+<p>经历从以今日头条App为核心的简单评论排序功能到支持字节跳动全部产品线数十个App的评论排序功能需求开发。业务需求复杂多变，对评论排序功能和策略的多样性、灵活性、实时性等的要求持续提高，数年来自己一人承担开发无问题。</p>
+<ul>
+<li>
+<p>亮点项目：Maglev一致性哈希下的负载均衡，从无状态服务到有状态服务。</p>
+<p>上游Proxy负责请求分发，在保持负载均衡的前提下尽量保持一致性哈希，使得后端服务节点LocalCache命中率大幅度提高，大幅提高服务器内存资源使用效率、降低服务器CPU资源使用量、降低服务响应延时、降低网络带宽占用。同时Proxy实时统计监控每一个下游节点健康状态，能应对热Key问题，支持故障节点自动下线、故障恢复后自动上线。
+（产出博文以及开源代码：https://lishuangquan.cn/post/2022/maglev-consistent-hash）</p>
+</li>
+<li>
+<p>亮点项目：评论排序策略的动态配置化设计，在线服务的参数管理思想。</p>
+<p>大幅提高评论排序策略代码的通用性和可配置性。轻松以一个服务应对上游数十个业务产品线不同的评论排序策略。简单的或已经在其他产品线开发过的功能可通过远程配置快速应用到某个有同样需求的产品线或其中某个具体应用场景，不必修改代码上线。
+（以此为启发，开发了一个可将Lua脚本嵌入到C++项目中的开源项目：https://github.com/peacalm/cpp-luaw）</p>
+</li>
+<li>
+<p>长尾请求排查优化，通过异步RPC请求精准控制RPC延时提高服务可用性。</p>
+</li>
+<li>
+<p>高延时排查优化，通过给LocalCache分桶使评论排序服务延时从120ms降低到30ms。</p>
+</li>
+</ul>
+<h4 id="2-推荐系统架构和策略工作">2. 推荐系统架构和策略工作</h4>
+<p>参与过抖音社交推荐服务架构优化与策略开发，与推荐算法同学对接。参与过TikTok视频推荐评论目标优化工作，有过模型训练经历。对字节跳动推荐系统架构有一定了解。</p>
+<p>除了开发具体琐碎的业务功能外，产出过通用解决方案得到推荐组内多数人使用，包括：ValueTree改进：定义变量默认值，避免未定义错误；用浏览侧实验层开作者侧实验的通用方法等。</p>
+<h2 id="个人开源项目">个人开源项目</h2>
+<h3 id="cpp-luaw在c项目中使用lua脚本的工具库20232024">cpp-luaw：在C++项目中使用Lua脚本的工具库。——2023~2024</h3>
+<p>地址：https://github.com/peacalm/cpp-luaw</p>
+<p>支持在C++中读取Lua中的值、将C++中的值传递给Lua、在C++中调用Lua中的函数、将C++中定义的函数绑定给Lua调用、将C++中定义的类包括其成员变量和成员函数绑定给Lua使用、在C++中对Lua表达式进行求值等。</p>
+<h3 id="cpp-maglev基于maglev一致性哈希算法的动态负载均衡库2022">cpp-maglev：基于Maglev一致性哈希算法的动态负载均衡库。——2022</h3>
+<p>地址：https://github.com/peacalm/cpp-maglev</p>
+<p>（工作经历中已详述，另见博文：https://lishuangquan.cn/post/2022/maglev-consistent-hash）</p>
+<h3 id="c基础算法代码库学生时期算法学习和c编程学习成果2016">C++基础算法代码库。（学生时期算法学习和C++编程学习成果）——2016</h3>
+<p>地址：https://github.com/peacalm/Cplusplus-Algorithms-Library</p>
+<p>包括高精度整数类型，树状数组类，位操作算法库，数论和组合数学算法库，矩阵类，并查集类，回文树类，排序算法库，string类扩展功能库，touchable_heap容器类以及各种容器类型的ostream输出支持和实用调试工具等。</p>
+<hr>
+<h2 id="2025专业技能">（2025）专业技能</h2>
+<ul>
+<li>熟练掌握C++、Python，熟悉Golang、Lua。扎实的数据结构和基础算法能力。</li>
+<li>热爱编程，良好的代码规范和文档习惯。喜欢编写高质量、通用的、可分享复用的代码库。喜欢C++泛型编程，GitHub上有个人开源项目。</li>
+<li>具有高吞吐、高并发、高性能、高可用的微服务开发和优化经验。</li>
+<li>深入理解评论排序服务，有百万QPS级评论排序服务全链路开发优化经验，具备从0到1搭建能力。</li>
+<li>熟悉推荐系统架构。对机器学习和推荐算法等稍有了解。</li>
+<li>知识结构包括数据结构及常用算法、计算机网络、操作系统、数据库以及系统测试等。</li>
+</ul>
 <h2 id="教育经历">教育经历</h2>
 <table>
 <thead>
@@ -683,7 +743,7 @@ touchable_heap容器类以及各种容器类型的ostream输出支持和实用�
     &copy;
     
       2022 -
-    2024<span class="author">
+    2025<span class="author">
         李双全
         
       </span></span>
