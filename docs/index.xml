@@ -163,7 +163,7 @@ All light userdata share the same metatable, which by default is not set (nil).&
     </item>
     
     <item>
-      <title>&#34;nullptr&#34;是指针类型吗？如何用C&#43;&#43;的方式把&#34;T*&#34;转换成&#34;void*&#34; | Is &#34;nullptr&#34; a Pointer Type? How to Convert &#34;T*&#34; to &#34;void*&#34; by C&#43;&#43; Way</title>
+      <title>&#34;nullptr&#34;是指针类型的吗？如何用C&#43;&#43;的方式把&#34;T*&#34;转换成&#34;void*&#34; | Is &#34;nullptr&#34; a Pointer Type? How to Convert &#34;T*&#34; to &#34;void*&#34; by C&#43;&#43; Way</title>
       <link>https://peacalm.github.io/post/2023/nullptr/</link>
       <pubDate>Thu, 15 Jun 2023 19:58:20 +0800</pubDate>
       
@@ -4480,7 +4480,7 @@ Musical.ly MAU6000万，美国MAU2000万，49%的用户都在美国。&lt;/p&gt;
 &lt;p&gt;2021年8月，收购VR创业公司Pico，50亿元？15亿美元(97亿人民币)？正式组建字节XR业务线，并积极拓展全球市场。&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;2021年9月，TikTok MAU 10亿，DAU 6亿。&lt;/p&gt;
+&lt;p&gt;2021年9月(10月？)，TikTok 全球MAU突破10亿，DAU 6亿。&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;2021年11月，梁汝波宣布组织调整，成立6个业务板块：抖音（包括头条、西瓜、搜索、百科等国内信息和服务业务）、大力教育、飞书、
